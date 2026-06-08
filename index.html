@@ -7,386 +7,311 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
+        /* --- نظام الثيمات المتغير --- */
         :root {
-            --bg-deep: #051329;       /* أزرق ملكي عميق جداً */
-            --bg-card: #0b1e36;       /* أزرق داكن للبطاقات */
-            --gold: #D4AF37;          /* ذهبي رسمي */
-            --gold-glow: rgba(212, 175, 55, 0.3);
-            --text-light: #E0E6ED;    /* نصوص فاتحة ومريحة */
-            --border-color: rgba(212, 175, 55, 0.2);
+            /* افتراضي (أزرق - الممر الشرفي) */
+            --bg-color: #051329;
+            --globe-base: #0d2b45;
+            --accent-color: #3b82f6;
+            --glow-color: rgba(59, 130, 246, 0.5);
+            --text-main: #ffffff;
+            --card-bg: rgba(11, 30, 54, 0.8);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
+        body[data-theme="gorosei"] {
+            --bg-color: #121212;
+            --globe-base: #e2e8f0;
+            --accent-color: #ffffff;
+            --glow-color: rgba(255, 255, 255, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.05);
         }
+
+        body[data-theme="yonko"] {
+            --bg-color: #050505;
+            --globe-base: #111111;
+            --accent-color: #ff3333;
+            --glow-color: rgba(255, 0, 0, 0.6);
+            --card-bg: rgba(20, 0, 0, 0.6);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-light);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر الرئيسي --- */
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
-            border-bottom: 1px solid var(--border-color);
-        }
+        /* --- الهيدر والكرة الأرضية --- */
+        header { text-align: center; padding: 40px 20px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        header h1 { color: var(--accent-color); font-size: 3rem; font-weight: 900; text-shadow: 0 0 15px var(--glow-color); transition: color 0.8s; margin-bottom: 5px; }
+        header .subtitle { font-size: 1.2rem; color: #ccc; }
+        header .founder strong { color: var(--accent-color); transition: color 0.8s; }
 
-        header h1 {
-            color: var(--gold);
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            margin-bottom: 5px;
-        }
-
-        header .subtitle {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-        }
-
-        header .founder {
-            font-size: 1rem;
-            color: #a0aec0;
-        }
-
-        header .founder strong {
-            color: var(--gold);
-        }
-
-        /* --- مجسم الكرة الأرضية الذاتي (بدون صور خارجية) --- */
-        .globe-wrapper {
-            display: flex;
-            justify-content: center;
-            margin: 20px auto;
-            width: 160px;
-            height: 160px;
-            position: relative;
-        }
-
+        .globe-wrapper { display: flex; justify-content: center; margin: 20px auto; width: 140px; height: 140px; position: relative; }
+        
         .pure-css-globe {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: #0d2b45;
-            position: relative;
-            overflow: hidden;
-            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.8), 
-                        0 0 30px rgba(212, 175, 55, 0.2);
-            border: 2px solid var(--border-color);
+            width: 100%; height: 100%; border-radius: 50%;
+            background: var(--globe-base);
+            box-shadow: inset -15px -15px 40px rgba(0,0,0,0.8), 0 0 40px var(--glow-color);
+            position: relative; overflow: hidden;
+            transition: all 0.8s ease;
         }
-
-        /* خطوط الخريطة المتحركة بالداخل لتأثير الدوران */
         .pure-css-globe::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 100%;
-            background: repeating-linear-gradient(90s, transparent, transparent 20px, rgba(214, 175, 55, 0.15) 21px, rgba(214, 175, 55, 0.15) 40px),
-                        repeating-linear-gradient(0s, transparent, transparent 20px, rgba(214, 175, 55, 0.15) 21px, rgba(214, 175, 55, 0.15) 40px);
-            animation: spinGlobe 12s linear infinite;
+            content: ''; position: absolute; width: 200%; height: 100%;
+            background: repeating-linear-gradient(90s, transparent, transparent 20px, rgba(255,255,255,0.1) 21px, rgba(255,255,255,0.1) 40px);
+            animation: spinGlobe 15s linear infinite;
         }
+        @keyframes spinGlobe { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* قارات مبسطة مدمجة داخل الكود */
-        .pure-css-globe::after {
-            content: '';
-            position: absolute;
-            width: 300%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='100' viewBox='0 0 300 100'%3E%3Cpath d='M20,30 Q40,10 60,30 T100,20 T140,40 T180,20 T220,50 T260,20 T300,40 L300,70 Q260,80 220,60 T140,80 T60,60 Z' fill='%23d4af37' opacity='0.25'/%3E%3C/svg%3E");
-            background-size: cover;
-            animation: spinGlobe 20s linear infinite;
-        }
-
-        @keyframes spinGlobe {
-            0% { background-position-x: 0px; }
-            100% { background-position-x: -300px; }
-        }
-
-        /* ظلال إضافية لإعطاء عمق كروي 3D */
-        .globe-shadow {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, transparent 40%, rgba(0,0,0,0.7) 100%);
-            pointer-events: none;
-        }
-
-        /* --- أزرار التحكم والتنقل (قائمة الأقسام) --- */
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 30px auto;
-            max-width: 800px;
-            padding: 0 20px;
-            flex-wrap: wrap;
-        }
-
+        /* --- الأزرار --- */
+        .nav-container { display: flex; justify-content: center; gap: 15px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; }
         .nav-btn {
-            background-color: rgba(11, 30, 54, 0.6);
-            border: 1px solid var(--border-color);
-            color: var(--gold);
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            flex: 1;
-            min-width: 160px;
-            text-align: center;
+            background-color: transparent; border: 1px solid var(--accent-color); color: var(--accent-color);
+            padding: 12px 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+        .nav-btn:hover, .nav-btn.active {
+            background-color: var(--accent-color); color: #000; box-shadow: 0 0 20px var(--glow-color);
         }
 
-        .nav-btn:hover {
-            background-color: var(--gold);
-            color: #000;
-            box-shadow: 0 0 15px var(--gold-glow);
-        }
+        /* --- المحتوى والبطاقات (Posters) --- */
+        .main-content { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 20px; }
+        .section-panel { display: none; }
+        .section-panel.active { display: block; animation: fadeInUp 0.6s ease-out forwards; }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .nav-btn.active {
-            background-color: var(--gold);
-            color: #000;
-            border-color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
-        }
-
-        /* --- محتوى القاعات والأقسام --- */
-        .main-content {
-            flex: 1;
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section-panel {
-            display: none; /* مخفي افتراضياً ويتحكم به الـ JS */
-        }
-
-        .section-panel.active {
-            display: block;
-            animation: fadeInPage 0.4s ease-in-out;
-        }
-
-        @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-title {
-            text-align: center;
-            color: #fff;
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 2px;
-            background-color: var(--gold);
-        }
-
-        /* --- تصميم البطاقات (Grid Layout) --- */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            padding-top: 20px;
         }
 
-        .info-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+        .character-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s ease;
+            height: 380px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .info-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--gold);
+        .character-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--glow-color);
         }
 
-        .info-card h3 {
-            color: var(--gold);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 8px;
+        .card-img-wrapper {
+            height: 65%; width: 100%; overflow: hidden; position: relative;
+        }
+        
+        .card-img-wrapper img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;
         }
 
-        .info-card p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: var(--text-light);
+        .character-card:hover .card-img-wrapper img { transform: scale(1.1); }
+
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .character-card:hover .card-overlay { opacity: 1; }
+        .card-overlay span { background: var(--accent-color); color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; }
+
+        .card-info { padding: 20px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .card-info h3 { color: var(--accent-color); font-size: 1.3rem; margin-bottom: 5px; }
+        .card-info p { color: #aaa; font-size: 0.9rem; }
+
+        /* --- النافذة المنبثقة (الملف الشخصي) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-content {
+            background: var(--bg-color); border: 2px solid var(--accent-color);
+            box-shadow: 0 0 50px var(--glow-color); border-radius: 15px;
+            width: 90%; max-width: 800px; display: flex; flex-wrap: wrap; overflow: hidden;
+            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+
+        .modal-img { flex: 1; min-width: 300px; height: 500px; }
+        .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); }
+
+        .modal-details { flex: 1; min-width: 300px; padding: 40px 30px; display: flex; flex-direction: column; }
+        .modal-details h2 { color: var(--accent-color); font-size: 2.2rem; margin-bottom: 10px; }
+        .modal-details .role-badge { display: inline-block; background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 25px; align-self: flex-start; }
+        .modal-details p { color: #ddd; line-height: 1.8; font-size: 1.1rem; overflow-y: auto; flex: 1; margin-bottom: 20px;}
+        
+        .close-btn {
+            position: absolute; top: 15px; right: 15px;
+            background: red; color: white; border: none; width: 35px; height: 35px;
+            border-radius: 50%; font-size: 1.2rem; cursor: pointer; font-weight: bold; z-index: 10;
         }
 
-        .info-card .meta-info {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #fff;
-            background: rgba(214, 175, 55, 0.1);
-            padding: 6px 12px;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        /* --- الفوتر وحقوق النشر --- */
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid var(--border-color);
-            background-color: rgba(0,0,0,0.3);
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: #a0aec0;
-        }
-
-        footer .designer {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* مناسب للهواتف */
-        @media (max-width: 650px) {
-            header h1 { font-size: 2.2rem; }
-            .nav-container { flex-direction: column; gap: 10px; }
-            .nav-btn { width: 100%; }
+        @media (max-width: 700px) {
+            .modal-img { height: 250px; }
+            .modal-details { padding: 20px; }
+            .modal-details h2 { font-size: 1.6rem; }
         }
     </style>
 </head>
-<body>
+<body data-theme="gorosei">
 
     <header>
         <div class="globe-wrapper">
             <div class="pure-css-globe"></div>
-            <div class="globe-shadow"></div>
         </div>
         <h1>Hall of Fame</h1>
         <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
-        <div class="founder">مؤسس الصحيفة: <strong>اشورا</strong></div>
+        <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
     </header>
 
     <div class="nav-container">
-        <button class="nav-btn active" onclick="switchSection('gorosei', event)">قاعة الحكماء</button>
-        <button class="nav-btn" onclick="switchSection('yonko', event)">قاعة الأباطرة</button>
-        <button class="nav-btn" onclick="switchSection('admins', event)">السجل الشرفي</button>
+        <button class="nav-btn active" onclick="switchSection('gorosei', 'gorosei', event)">قاعة الحكماء</button>
+        <button class="nav-btn" onclick="switchSection('yonko', 'yonko', event)">قاعة الأباطرة</button>
+        <button class="nav-btn" onclick="switchSection('admins', 'admins', event)">الممر الشرفي</button>
     </div>
 
     <div class="main-content">
-        
-        <div id="gorosei" class="section-panel active">
-            <h2 class="section-title">قاعة الحكماء (Gorosei)</h2>
-            <div class="cards-grid" id="gorosei-box"></div>
-        </div>
-
-        <div id="yonko" class="section-panel">
-            <h2 class="section-title">قاعة الأباطرة (Yonko)</h2>
-            <div class="cards-grid" id="yonko-box"></div>
-        </div>
-
-        <div id="admins" class="section-panel">
-            <h2 class="section-title">السجل الشرفي (Supernova Admins)</h2>
-            <div class="cards-grid" id="admins-box"></div>
-        </div>
-
+        <div id="gorosei" class="section-panel active"><div class="cards-grid" id="gorosei-box"></div></div>
+        <div id="yonko" class="section-panel"><div class="cards-grid" id="yonko-box"></div></div>
+        <div id="admins" class="section-panel"><div class="cards-grid" id="admins-box"></div></div>
     </div>
 
-    <footer>
-        <p>© 2026 صحيفة الريفيري. جميع الحقوق محفوظة.</p>
-        <p>تصميم وتطوير الموقع بواسطة المبدع: <span class="designer">لابوبو</span></p>
-    </footer>
+    <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal(event)">X</button>
+            <div class="modal-img">
+                <img id="m-img" src="" alt="صورة الشخصية">
+            </div>
+            <div class="modal-details">
+                <h2 id="m-name">الاسم</h2>
+                <div class="role-badge" id="m-role">الرتبة</div>
+                <p id="m-desc">الوصف والقصة الكاملة...</p>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // البيانات الثابتة مكتوبة بدقة وبدون أخطاء املائية
+        // --- قاعدة البيانات (يمكنك تغيير الروابط بصور الشخصيات الحقيقية) ---
+        // ملاحظة: وضعت صور مؤقتة فخمة (Placeholder) لتعمل فوراً. استبدل الرابط داخل "img" برابط صورتك.
         const database = {
             gorosei: [
-                { name: "سانت إيثانبارون في. نوسجورو", desc: "مسؤول الشؤون المالية للحكومة الفنية. يتميز بالحكمة الاقتصادية البالغة والقدرة العالية على إدارة وتوجيه الموارد." },
-                { name: "سانت ماركوس مارس", desc: "المسؤول الأول عن الشؤون البيئية والنشر الداخلي بالصحيفة. يمتلك حكمة إدارية واسعة وتاريخ حافل." },
-                { name: "سانت توبمان فاركيري", desc: "رئيس الشؤون القانونية والقضائية. يمثل القوة التشريعية والعدالة الصارمة في ميثاق الصحيفة والمجتمع." },
-                { name: "سانت شيبرد جو بيتر", desc: "المسؤول التكتيكي والاستراتيجي عن التنظيم والدفاع. يمتلك نظرة إدارية بعيدة المدى." },
-                { name: "سانت جايجارسيا ساتورن", desc: "رئيس الدفاع التكنولوجي والتطوير العلمي بالمنصة الفنية. يشرف على ابتكار وتطوير الهياكل البرمجية." }
+                { 
+                    name: "سانت نوسجورو", 
+                    role: "محارب العدالة المالية", 
+                    short: "المدير المالي للحكومة",
+                    fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى. قليل الكلام لكن أفعاله تهز الأسواق.",
+                    img: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80" 
+                },
+                { 
+                    name: "سانت ماركوس مارس", 
+                    role: "محارب العدالة البيئية", 
+                    short: "مسؤول النشر والبيئة",
+                    fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب، محلقاً كطائر أسطوري يحمي سماء المنصة.",
+                    img: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&fit=crop&w=600&q=80" 
+                }
             ],
             yonko: [
-                { name: "شانكس 'ذو الشعر الأحمر'", terms: 3 }, 
-                { name: "مارشال دي تيتش 'اللحية السوداء'", terms: 2 },
-                { name: "مونكي دي لوفي 'قبعة القش'", terms: 1 },
-                { name: "بوجي 'المهرج العبقري'", terms: 1 }
+                { 
+                    name: "شانكس 'ذو الشعر الأحمر'", 
+                    role: "إمبراطور البحر 👑👑👑", 
+                    short: "صاحب الهاكي الملكي",
+                    fullInfo: "أحد أقوى الأباطرة في العالم الجديد وصاحب حضور مرعب. لا يحتاج لفاكهة شيطان لإثبات قوته. حافظ على لقبه الإداري والفني لـ 3 فترات متتالية، مما يجعله أسطورة حية في أروقة قاعة الشهرة.",
+                    img: "https://images.unsplash.com/photo-1509909756405-be0199881695?auto=format&fit=crop&w=600&q=80" 
+                },
+                { 
+                    name: "مارشال دي تيتش", 
+                    role: "إمبراطور الظلام 👑👑", 
+                    short: "متحكم بفاكهتين",
+                    fullInfo: "شخصية ماكرة وقوية، استطاع التربع على عرش الأباطرة لـ فترتين متتاليتين. يمثل الجانب المظلم والمرعب من السلطة، ولا يتوانى عن سحق أي عقبة تقف في طريق طموحه اللا متناهي.",
+                    img: "https://images.unsplash.com/photo-1505567745926-ba89000d255a?auto=format&fit=crop&w=600&q=80" 
+                }
             ],
             admins: [
-                { name: "إداري أول السوبر نوفا", role: "رئيس السوبر نوفا", info: "المسؤول التنفيذي عن متابعة وتنظيم شؤون الأعضاء والحرص على تطبيق ميثاق الشرف والمهنية." },
-                { name: "المحرر الشرفي", role: "محرر أول الصحيفة", info: "صاحب العطاء المستمر في صياغة وتوثيق الإنجازات والأحداث التاريخية الهامة للصحيفة." }
+                { 
+                    name: "إداري أول السوبر نوفا", 
+                    role: "رئيس الجيل الأسوأ", 
+                    short: "المسؤول التنفيذي",
+                    fullInfo: "قائد محنك من الجيل الجديد، يشرف على متابعة وتنظيم شؤون الأعضاء بدقة. يعتبر الدينامو المحرك لعمليات صحيفة الريفيري ويضمن تطبيق القوانين بروح الشباب المتوقدة.",
+                    img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" 
+                }
             ]
         };
 
-        // دالة عرض البيانات وبنائها فور فتح الموقع تلقائياً
-        function initWebsite() {
-            // 1. بناء الحكماء
-            document.getElementById('gorosei-box').innerHTML = database.gorosei.map(item => `
-                <div class="info-card">
-                    <h3>${item.name}</h3>
-                    <p>${item.desc}</p>
-                </div>
-            `).join('');
-
-            // 2. بناء الأباطرة (مع شرط إضافة التاج 👑 إذا أكمل فترتين أو أكثر تلقائياً)
-            document.getElementById('yonko-box').innerHTML = database.yonko.map(item => `
-                <div class="info-card">
-                    <h3>${item.name} ${item.terms >= 2 ? '👑' : ''}</h3>
-                    <p>أحد أباطرة البحر الحاليين المتربعين على قمة الهيبة الإدارية والقوة الفنية لفترات متتالية.</p>
-                    <div class="meta-info">عدد الفترات المتتالية: ${item.terms}</div>
-                </div>
-            `).join('');
-
-            // 3. بناء الإداريين السوبر نوفا
-            document.getElementById('admins-box').innerHTML = database.admins.map(item => `
-                <div class="info-card">
-                    <h3>${item.name}</h3>
-                    <p><strong>الرتبة:</strong> ${item.role}</p>
-                    <p style="margin-top: 10px;">${item.info}</p>
+        // دالة إنشاء البطاقات (Posters)
+        function renderCards(category, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = database[category].map((item, index) => `
+                <div class="character-card" onclick="openProfile('${category}', ${index})">
+                    <div class="card-img-wrapper">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="card-overlay"><span>استعراض الملف</span></div>
+                    </div>
+                    <div class="card-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.short}</p>
+                    </div>
                 </div>
             `).join('');
         }
 
-        // دالة التنقل بين الأقسام (تم كتابتها من الصفر لتعمل بشكل فوري وبدون تعليق)
-        function switchSection(sectionId, event) {
-            // إخفاء كافة الأقسام
-            document.querySelectorAll('.section-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
+        // بناء الموقع في البداية
+        function initWebsite() {
+            renderCards('gorosei', 'gorosei-box');
+            renderCards('yonko', 'yonko-box');
+            renderCards('admins', 'admins-box');
+        }
 
-            // إلغاء تفعيل كافة الأزرار
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
+        // دالة تغيير القسم والثيم
+        function switchSection(sectionId, themeName, event) {
+            // تغيير ثيم الموقع (يغير ألوان الكرة الأرضية، الخلفية، والوهج)
+            document.body.setAttribute('data-theme', themeName);
 
-            // إظهار القسم الذي تم اختياره وتفعيل الزر الخاص به
+            document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
             document.getElementById(sectionId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
-        // تشغيل البناء البرمجي فور تحميل الصفحة
+        // فتح الملف الشخصي
+        function openProfile(category, index) {
+            const data = database[category][index];
+            document.getElementById('m-img').src = data.img;
+            document.getElementById('m-name').innerText = data.name;
+            document.getElementById('m-role').innerText = data.role;
+            document.getElementById('m-desc').innerText = data.fullInfo;
+            
+            document.getElementById('profile-modal').classList.add('active');
+        }
+
+        // إغلاق الملف الشخصي
+        function closeModal(event) {
+            // التأكد من أن الضغط كان على الخلفية أو زر الإغلاق وليس داخل المربع
+            if (event.target === document.getElementById('profile-modal') || event.target.classList.contains('close-btn')) {
+                document.getElementById('profile-modal').classList.remove('active');
+            }
+        }
+
         window.onload = initWebsite;
     </script>
 </body>
