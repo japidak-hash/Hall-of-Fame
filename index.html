@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall of Fame | صحيفة الريفيري</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+
+        :root {
+            --bg-deep: #051329;       /* أزرق ملكي عميق جداً */
+            --bg-card: #0b1e36;       /* أزرق داكن للبطاقات */
+            --gold: #D4AF37;          /* ذهبي رسمي */
+            --gold-glow: rgba(212, 175, 55, 0.3);
+            --text-light: #E0E6ED;    /* نصوص فاتحة ومريحة */
+            --border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- الهيدر الرئيسي --- */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+
+        header .subtitle {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        header .founder {
+            font-size: 1rem;
+            color: #a0aec0;
+        }
+
+        header .founder strong {
+            color: var(--gold);
+        }
+
+        /* --- مجسم الكرة الأرضية الذاتي (بدون صور خارجية) --- */
+        .globe-wrapper {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+            width: 160px;
+            height: 160px;
+            position: relative;
+        }
+
+        .pure-css-globe {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: #0d2b45;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.8), 
+                        0 0 30px rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--border-color);
+        }
+
+        /* خطوط الخريطة المتحركة بالداخل لتأثير الدوران */
+        .pure-css-globe::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(90s, transparent, transparent 20px, rgba(214, 175, 55, 0.15) 21px, rgba(214, 175, 55, 0.15) 40px),
+                        repeating-linear-gradient(0s, transparent, transparent 20px, rgba(214, 175, 55, 0.15) 21px, rgba(214, 175, 55, 0.15) 40px);
+            animation: spinGlobe 12s linear infinite;
+        }
+
+        /* قارات مبسطة مدمجة داخل الكود */
+        .pure-css-globe::after {
+            content: '';
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='100' viewBox='0 0 300 100'%3E%3Cpath d='M20,30 Q40,10 60,30 T100,20 T140,40 T180,20 T220,50 T260,20 T300,40 L300,70 Q260,80 220,60 T140,80 T60,60 Z' fill='%23d4af37' opacity='0.25'/%3E%3C/svg%3E");
+            background-size: cover;
+            animation: spinGlobe 20s linear infinite;
+        }
+
+        @keyframes spinGlobe {
+            0% { background-position-x: 0px; }
+            100% { background-position-x: -300px; }
+        }
+
+        /* ظلال إضافية لإعطاء عمق كروي 3D */
+        .globe-shadow {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, transparent 40%, rgba(0,0,0,0.7) 100%);
+            pointer-events: none;
+        }
+
+        /* --- أزرار التحكم والتنقل (قائمة الأقسام) --- */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 800px;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background-color: rgba(11, 30, 54, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--gold);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 160px;
+            text-align: center;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .nav-btn.active {
+            background-color: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        /* --- محتوى القاعات والأقسام --- */
+        .main-content {
+            flex: 1;
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-panel {
+            display: none; /* مخفي افتراضياً ويتحكم به الـ JS */
+        }
+
+        .section-panel.active {
+            display: block;
+            animation: fadeInPage 0.4s ease-in-out;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            text-align: center;
+            color: #fff;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background-color: var(--gold);
+        }
+
+        /* --- تصميم البطاقات (Grid Layout) --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .info-card h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 8px;
+        }
+
+        .info-card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .info-card .meta-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #fff;
+            background: rgba(214, 175, 55, 0.1);
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        /* --- الفوتر وحقوق النشر --- */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border-color);
+            background-color: rgba(0,0,0,0.3);
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+
+        footer .designer {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* مناسب للهواتف */
+        @media (max-width: 650px) {
+            header h1 { font-size: 2.2rem; }
+            .nav-container { flex-direction: column; gap: 10px; }
+            .nav-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="globe-wrapper">
+            <div class="pure-css-globe"></div>
+            <div class="globe-shadow"></div>
+        </div>
+        <h1>Hall of Fame</h1>
+        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
+        <div class="founder">مؤسس الصحيفة: <strong>اشورا</strong></div>
+    </header>
+
+    <div class="nav-container">
+        <button class="nav-btn active" onclick="switchSection('gorosei', event)">قاعة الحكماء</button>
+        <button class="nav-btn" onclick="switchSection('yonko', event)">قاعة الأباطرة</button>
+        <button class="nav-btn" onclick="switchSection('admins', event)">السجل الشرفي</button>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="gorosei" class="section-panel active">
+            <h2 class="section-title">قاعة الحكماء (Gorosei)</h2>
+            <div class="cards-grid" id="gorosei-box"></div>
+        </div>
+
+        <div id="yonko" class="section-panel">
+            <h2 class="section-title">قاعة الأباطرة (Yonko)</h2>
+            <div class="cards-grid" id="yonko-box"></div>
+        </div>
+
+        <div id="admins" class="section-panel">
+            <h2 class="section-title">السجل الشرفي (Supernova Admins)</h2>
+            <div class="cards-grid" id="admins-box"></div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 صحيفة الريفيري. جميع الحقوق محفوظة.</p>
+        <p>تصميم وتطوير الموقع بواسطة المبدع: <span class="designer">لابوبو</span></p>
+    </footer>
+
+    <script>
+        // البيانات الثابتة مكتوبة بدقة وبدون أخطاء املائية
+        const database = {
+            gorosei: [
+                { name: "سانت إيثانبارون في. نوسجورو", desc: "مسؤول الشؤون المالية للحكومة الفنية. يتميز بالحكمة الاقتصادية البالغة والقدرة العالية على إدارة وتوجيه الموارد." },
+                { name: "سانت ماركوس مارس", desc: "المسؤول الأول عن الشؤون البيئية والنشر الداخلي بالصحيفة. يمتلك حكمة إدارية واسعة وتاريخ حافل." },
+                { name: "سانت توبمان فاركيري", desc: "رئيس الشؤون القانونية والقضائية. يمثل القوة التشريعية والعدالة الصارمة في ميثاق الصحيفة والمجتمع." },
+                { name: "سانت شيبرد جو بيتر", desc: "المسؤول التكتيكي والاستراتيجي عن التنظيم والدفاع. يمتلك نظرة إدارية بعيدة المدى." },
+                { name: "سانت جايجارسيا ساتورن", desc: "رئيس الدفاع التكنولوجي والتطوير العلمي بالمنصة الفنية. يشرف على ابتكار وتطوير الهياكل البرمجية." }
+            ],
+            yonko: [
+                { name: "شانكس 'ذو الشعر الأحمر'", terms: 3 }, 
+                { name: "مارشال دي تيتش 'اللحية السوداء'", terms: 2 },
+                { name: "مونكي دي لوفي 'قبعة القش'", terms: 1 },
+                { name: "بوجي 'المهرج العبقري'", terms: 1 }
+            ],
+            admins: [
+                { name: "إداري أول السوبر نوفا", role: "رئيس السوبر نوفا", info: "المسؤول التنفيذي عن متابعة وتنظيم شؤون الأعضاء والحرص على تطبيق ميثاق الشرف والمهنية." },
+                { name: "المحرر الشرفي", role: "محرر أول الصحيفة", info: "صاحب العطاء المستمر في صياغة وتوثيق الإنجازات والأحداث التاريخية الهامة للصحيفة." }
+            ]
+        };
+
+        // دالة عرض البيانات وبنائها فور فتح الموقع تلقائياً
+        function initWebsite() {
+            // 1. بناء الحكماء
+            document.getElementById('gorosei-box').innerHTML = database.gorosei.map(item => `
+                <div class="info-card">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+            `).join('');
+
+            // 2. بناء الأباطرة (مع شرط إضافة التاج 👑 إذا أكمل فترتين أو أكثر تلقائياً)
+            document.getElementById('yonko-box').innerHTML = database.yonko.map(item => `
+                <div class="info-card">
+                    <h3>${item.name} ${item.terms >= 2 ? '👑' : ''}</h3>
+                    <p>أحد أباطرة البحر الحاليين المتربعين على قمة الهيبة الإدارية والقوة الفنية لفترات متتالية.</p>
+                    <div class="meta-info">عدد الفترات المتتالية: ${item.terms}</div>
+                </div>
+            `).join('');
+
+            // 3. بناء الإداريين السوبر نوفا
+            document.getElementById('admins-box').innerHTML = database.admins.map(item => `
+                <div class="info-card">
+                    <h3>${item.name}</h3>
+                    <p><strong>الرتبة:</strong> ${item.role}</p>
+                    <p style="margin-top: 10px;">${item.info}</p>
+                </div>
+            `).join('');
+        }
+
+        // دالة التنقل بين الأقسام (تم كتابتها من الصفر لتعمل بشكل فوري وبدون تعليق)
+        function switchSection(sectionId, event) {
+            // إخفاء كافة الأقسام
+            document.querySelectorAll('.section-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            // إلغاء تفعيل كافة الأزرار
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // إظهار القسم الذي تم اختياره وتفعيل الزر الخاص به
+            document.getElementById(sectionId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // تشغيل البناء البرمجي فور تحميل الصفحة
+        window.onload = initWebsite;
+    </script>
+</body>
+</html>
