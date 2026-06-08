@@ -50,6 +50,7 @@
         header { text-align: center; padding: 40px 20px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.1); }
         header h1 { color: var(--accent-color); font-size: 3rem; font-weight: 900; text-shadow: 0 0 15px var(--glow-color); transition: color 0.8s; margin-bottom: 5px; }
         header .subtitle { font-size: 1.2rem; color: #ccc; }
+        header .founder { margin-top: 10px; font-size: 0.9rem; color: #aaa; }
         header .founder strong { color: var(--accent-color); transition: color 0.8s; }
 
         .globe-wrapper { display: flex; justify-content: center; margin: 20px auto; width: 140px; height: 140px; position: relative; }
@@ -79,7 +80,35 @@
             background-color: var(--accent-color); color: #000; box-shadow: 0 0 20px var(--glow-color);
         }
 
-        /* --- المحتوى والبطاقات (Posters) --- */
+        /* --- عناوين وشروحات الأقسام الجديدة --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--glow-color);
+            margin-bottom: 8px;
+            transition: color 0.8s ease;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #ddd;
+            font-weight: 500;
+            letter-spacing: 1px;
+            display: inline-block;
+            padding: 5px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- المحتوى والبطاقات --- */
         .main-content { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 20px; }
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.6s ease-out forwards; }
@@ -90,7 +119,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
-            padding-top: 20px;
         }
 
         .character-card {
@@ -170,6 +198,7 @@
             .modal-img { height: 250px; }
             .modal-details { padding: 20px; }
             .modal-details h2 { font-size: 1.6rem; }
+            .section-header h2 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -191,9 +220,29 @@
     </div>
 
     <div class="main-content">
-        <div id="gorosei" class="section-panel active"><div class="cards-grid" id="gorosei-box"></div></div>
-        <div id="yonko" class="section-panel"><div class="cards-grid" id="yonko-box"></div></div>
-        <div id="admins" class="section-panel"><div class="cards-grid" id="admins-box"></div></div>
+        <div id="gorosei" class="section-panel active">
+            <div class="section-header">
+                <h2>قاعة الحكماء</h2>
+                <p>— للغوروسي —</p>
+            </div>
+            <div class="cards-grid" id="gorosei-box"></div>
+        </div>
+
+        <div id="yonko" class="section-panel">
+            <div class="section-header">
+                <h2>قاعة الأباطرة</h2>
+                <p>— لليونكو —</p>
+            </div>
+            <div class="cards-grid" id="yonko-box"></div>
+        </div>
+
+        <div id="admins" class="section-panel">
+            <div class="section-header">
+                <h2>الممر الشرفي</h2>
+                <p>— للسوبر نوفا —</p>
+            </div>
+            <div class="cards-grid" id="admins-box"></div>
+        </div>
     </div>
 
     <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
@@ -211,8 +260,7 @@
     </div>
 
     <script>
-        // --- قاعدة البيانات (يمكنك تغيير الروابط بصور الشخصيات الحقيقية) ---
-        // ملاحظة: وضعت صور مؤقتة فخمة (Placeholder) لتعمل فوراً. استبدل الرابط داخل "img" برابط صورتك.
+        // --- قاعدة البيانات (ضع روابط صور شخصياتك هنا) ---
         const database = {
             gorosei: [
                 { 
@@ -257,7 +305,6 @@
             ]
         };
 
-        // دالة إنشاء البطاقات (Posters)
         function renderCards(category, containerId) {
             const container = document.getElementById(containerId);
             container.innerHTML = database[category].map((item, index) => `
@@ -274,16 +321,13 @@
             `).join('');
         }
 
-        // بناء الموقع في البداية
         function initWebsite() {
             renderCards('gorosei', 'gorosei-box');
             renderCards('yonko', 'yonko-box');
             renderCards('admins', 'admins-box');
         }
 
-        // دالة تغيير القسم والثيم
         function switchSection(sectionId, themeName, event) {
-            // تغيير ثيم الموقع (يغير ألوان الكرة الأرضية، الخلفية، والوهج)
             document.body.setAttribute('data-theme', themeName);
 
             document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
@@ -293,7 +337,6 @@
             event.currentTarget.classList.add('active');
         }
 
-        // فتح الملف الشخصي
         function openProfile(category, index) {
             const data = database[category][index];
             document.getElementById('m-img').src = data.img;
@@ -304,9 +347,7 @@
             document.getElementById('profile-modal').classList.add('active');
         }
 
-        // إغلاق الملف الشخصي
         function closeModal(event) {
-            // التأكد من أن الضغط كان على الخلفية أو زر الإغلاق وليس داخل المربع
             if (event.target === document.getElementById('profile-modal') || event.target.classList.contains('close-btn')) {
                 document.getElementById('profile-modal').classList.remove('active');
             }
