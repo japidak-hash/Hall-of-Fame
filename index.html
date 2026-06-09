@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Hall | صحيفة الريفيري</title>
+    <title>Riviera | Grand Hall</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
 
         /* --- نظام الثيمات الديناميكي المتغير --- */
         :root {
-            /* الشاشة الرئيسية: ثيم ملكي ذهبي فاخر */
-            --bg-color: #0b0c10;
-            --globe-base: #1f2833;
-            --accent-color: #f59e0b;
-            --glow-color: rgba(245, 158, 11, 0.5);
-            --text-main: #ffffff;
-            --card-bg: rgba(31, 40, 51, 0.6);
+            /* الشاشة الرئيسية: ثيم الأزرق السماوي المشع (Sky Blue Glow) */
+            --bg-color: #04101e;       /* أزرق داكن جداً للخلفية */
+            --globe-base: #071f3a;     /* لون الكوكب الداخلي */
+            --accent-color: #87ceeb;    /* أزرق سماوي مشع (Sky Blue) */
+            --glow-color: rgba(135, 206, 235, 0.6); /* وهج الأزرق السماوي */
+            --text-main: #f0f4f8;      /* نصوص فاتحة جداً مائلة للأزرق */
+            --card-bg: rgba(13, 31, 54, 0.7); /* خلفية البطاقات (Glassmorphism) */
+            --transition: all 0.4s ease;
         }
 
         body[data-theme="gorosei"] {
@@ -28,7 +29,7 @@
         }
 
         body[data-theme="yonko"] {
-            /* قاعة الأباطرة (أسود مرعب) */
+            /* قاعة الأباطرة (أسود مرعب مع وهج أحمر) */
             --bg-color: #050505;
             --globe-base: #110303;
             --accent-color: #ff3333;
@@ -37,16 +38,16 @@
         }
 
         body[data-theme="admins"] {
-            /* الممر الشرفي (أزرق مشع) */
-            --bg-color: #051329;
-            --globe-base: #071a30;
+            /* الممر الشرفي (أزرق ملكي مشع) */
+            --bg-color: #03142e;
+            --globe-base: #072146;
             --accent-color: #3b82f6;
             --glow-color: rgba(59, 130, 246, 0.6);
             --text-main: #ffffff;
-            --card-bg: rgba(11, 30, 54, 0.8);
+            --card-bg: rgba(7, 33, 70, 0.8);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; outline: none; }
 
         body {
             background-color: var(--bg-color);
@@ -58,70 +59,72 @@
             transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر والكرة الأرضية 🌐 --- */
-        header { text-align: center; padding: 40px 20px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        header h1 { color: var(--accent-color); font-size: 3rem; font-weight: 900; text-shadow: 0 0 15px var(--glow-color); transition: all 0.8s ease; margin-bottom: 5px; }
-        header .subtitle { font-size: 1.2rem; color: #ccc; }
-        header .founder { margin-top: 10px; font-size: 0.9rem; color: #aaa; }
-        header .founder strong { color: var(--accent-color); transition: color 0.8s; }
+        /* --- الهيدر وتصميم الكوكب الشبكي المتوهج 🌐 --- */
+        header { text-align: center; padding: 50px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
+        header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
+        header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
+        header .founder { font-size: 0.9rem; color: #94a3b8; }
+        header .founder strong { color: var(--accent-color); transition: var(--transition); }
 
-        .globe-wrapper { display: flex; justify-content: center; margin: 20px auto; width: 140px; height: 140px; position: relative; }
-        .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 15px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
+        /* حاوية الكوكب الشبكي المتوهج */
+        .globe-wrapper { display: flex; justify-content: center; margin: 25px auto; width: 140px; height: 140px; position: relative; }
+        .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 20px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
         .globe-bg { fill: var(--globe-base); transition: fill 0.8s ease; }
-        .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.75; transition: stroke 0.8s ease; }
+        .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- أزرار التنقل --- */
-        .nav-container { display: flex; justify-content: center; gap: 15px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; }
+        /* --- أزرار التنقل (تصميم عصري) --- */
+        .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 900px; }
         .nav-btn {
-            background-color: transparent; border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 12px 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 8px;
-            transition: all 0.4s ease;
+            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
+            padding: 12px 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 6px;
+            transition: var(--transition);
         }
-        .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #000; box-shadow: 0 0 20px var(--glow-color); }
+        .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #04101e; border-color: var(--accent-color); box-shadow: 0 0 25px var(--glow-color); }
 
         /* --- عناوين الشرح للأقسام --- */
-        .section-header { text-align: center; margin-bottom: 40px; padding-bottom: 15px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--accent-color); text-shadow: 0 0 10px var(--glow-color); margin-bottom: 8px; transition: color 0.8s; }
-        .section-header p { font-size: 1.2rem; color: #ddd; font-weight: 500; display: inline-block; padding: 5px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .section-header { text-align: center; margin-bottom: 45px; }
+        .section-header h2 { font-size: 2.6rem; color: var(--accent-color); text-shadow: 0 0 15px var(--glow-color); margin-bottom: 10px; transition: color 0.8s; }
+        .section-header p { font-size: 1.25rem; color: #e2e8f0; font-weight: 500; display: inline-block; padding: 6px 22px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
 
         /* --- قسم الرواية والتعريف بالشاشة الرئيسية --- */
         .about-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            background: rgba(13, 31, 54, 0.6);
+            border: 1px solid rgba(135, 206, 235, 0.2);
             border-radius: 15px;
             padding: 35px;
             margin-bottom: 50px;
             text-align: center;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
         }
-        .about-card h3 { color: var(--accent-color); font-size: 1.8rem; margin-bottom: 15px; }
-        .about-card .definition { font-size: 1.4rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
-        .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2; text-align: justify; max-width: 900px; margin: 0 auto; padding: 20px; background: rgba(0,0,0,0.2); border-right: 4px solid var(--accent-color); border-radius: 4px; }
+        .about-card h3 { color: var(--accent-color); font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 10px var(--glow-color); }
+        .about-card .definition { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
+        .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2.1; text-align: justify; max-width: 900px; margin: 0 auto; padding: 25px; background: rgba(0,0,0,0.2); border-right: 5px solid var(--accent-color); border-radius: 4px; }
 
         /* --- تزر الواتساب --- */
-        .join-btn-container { text-align: center; margin: 40px 0; }
+        .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
         .whatsapp-link {
-            display: inline-block; background: #25D366; color: #fff; padding: 15px 35px; font-size: 1.2rem;
-            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
-            transition: all 0.3s ease;
+            display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
+            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 25px rgba(30, 190, 165, 0.6);
+            transition: var(--transition);
         }
-        .whatsapp-link:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(37, 211, 102, 0.8); }
+        .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
         /* --- المحتوى والبوسترات الفخمة --- */
-        .main-content { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 20px; }
+        .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
         .section-panel { display: none; }
-        .section-panel.active { display: block; animation: fadeInUp 0.6s ease-out forwards; }
+        .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
 
         .character-card {
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-            overflow: hidden; cursor: pointer; position: relative; transition: all 0.4s ease; height: 380px;
-            display: flex; flex-direction: column;
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+            overflow: hidden; cursor: pointer; position: relative; transition: var(--transition); height: 380px;
+            display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
-        .character-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 10px 30px var(--glow-color); }
+        .character-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 10px 35px var(--glow-color); }
 
         .card-img-wrapper { height: 65%; width: 100%; overflow: hidden; position: relative; background: #000; }
         .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
@@ -132,11 +135,11 @@
             display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
         }
         .character-card:hover .card-overlay { opacity: 1; }
-        .card-overlay span { background: var(--accent-color); color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; }
+        .card-overlay span { background: var(--accent-color); color: #04101e; padding: 10px 22px; border-radius: 20px; font-weight: bold; }
 
         .card-info { padding: 20px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .card-info h3 { color: var(--accent-color); font-size: 1.3rem; margin-bottom: 5px; }
-        .card-info p { color: #aaa; font-size: 0.9rem; }
+        .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
+        .card-info p { color: #aaa; font-size: 0.95rem; font-weight: 500; }
 
         /* --- النافذة المنبثقة (الملف الشخصي الفاخر) --- */
         .modal-overlay {
@@ -147,7 +150,7 @@
         .modal-overlay.active { opacity: 1; pointer-events: all; display: flex; }
 
         .modal-content {
-            background: #0f111a; border: 2px solid var(--accent-color); box-shadow: 0 0 50px var(--glow-color);
+            background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 60px var(--glow-color);
             border-radius: 15px; width: 90%; max-width: 800px; display: flex; flex-wrap: wrap; overflow: hidden;
             transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
         }
@@ -157,9 +160,9 @@
         .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); }
 
         .modal-details { flex: 1; min-width: 300px; padding: 40px 30px; display: flex; flex-direction: column; }
-        .modal-details h2 { color: var(--accent-color); font-size: 2.2rem; margin-bottom: 10px; }
-        .modal-details .role-badge { display: inline-block; background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 25px; align-self: flex-start; }
-        .modal-details p { color: #ddd; line-height: 1.8; font-size: 1.1rem; overflow-y: auto; flex: 1; margin-bottom: 20px; }
+        .modal-details h2 { color: var(--accent-color); font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 10px var(--glow-color); }
+        .modal-details .role-badge { display: inline-block; background: var(--accent-color); color: #04101e; padding: 6px 18px; border-radius: 5px; font-weight: bold; margin-bottom: 25px; align-self: flex-start; }
+        .modal-details p { color: #ddd; line-height: 1.8; font-size: 1.15rem; overflow-y: auto; flex: 1; margin-bottom: 20px; }
         
         .close-btn {
             position: absolute; top: 15px; right: 15px; background: red; color: white; border: none;
@@ -167,10 +170,11 @@
         }
 
         @media (max-width: 700px) {
+            header h1 { font-size: 2.4rem; }
             .modal-img { height: 250px; }
             .modal-details { padding: 20px; }
-            .modal-details h2 { font-size: 1.6rem; }
-            .section-header h2 { font-size: 2rem; }
+            .modal-details h2 { font-size: 1.7rem; }
+            .section-header h2 { font-size: 2.1rem; }
         }
     </style>
 </head>
@@ -192,7 +196,7 @@
             </svg>
         </div>
         <h1>Hall of Fame</h1>
-        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
+        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري الرسمية</div>
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
     </header>
 
@@ -208,10 +212,10 @@
         <div id="home-panel" class="section-panel active">
             
             <div class="about-card">
-                <h3>صحيفة الريفيري</h3>
+                <h3>عن صحيفة الريفيري</h3>
                 <p class="definition">"صحيفة الريفيري هي الناقل الأول لأخبار الممالك والنقابات"</p>
                 <p class="novel-story">
-                    في خضم أمواج العالم الجديد المتلاطمة، حيث تُولد الأساطير وتندثر الممالك في غياهب النسيان، كان المؤسس «أشورا» يبحر بسفينته متحدياً العواصف واللوغ بوس الرابط بين الأبحر. رأى صعود أباطرة وسقوط نقابات، وشهد على معارك ملحمية غيرت مجرى التاريخ. هناك، وسط رذاذ البحر والمخاطر، أدرك أن التاريخ قد يضيع إذا لم يجد من يحميه، فأخذ عهداً مقدساً على نفسه: أن يوثق كل ما يراه بحياد وقوة، ليكون صوتاً للحقيقة في عالم تملؤه النزاعات. ومن هذا العهد الأسطوري، ولدت الصحيفة لتجمع تحت سقفها أعظم القادة والحكماء.
+                    في خضم أمواج العالم الجديد المتلاطمة، حيث يُولد الأساطير وتندثر الممالك في غياهب النسيان، كان المؤسس «أشورا» يبحر بسفينته متحدياً العواصف واللوغ بوس الرابط بين الأبحر. رأى صعود أباطرة وسقوط نقابات، وشهد على معارك ملحمية غيرت مجرى التاريخ. هناك، وسط رذاذ البحر والمخاطر، أدرك أن التاريخ قد يضيع إذا لم يجد من يحميه، فأخذ عهداً مقدساً على نفسه: أن يوثق كل ما يراه بحياد وقوة، ليكون صوتاً للحقيقة في عالم تملؤه النزاعات. ومن هذا العهد الأسطوري، ولدت الصحيفة لتجمع تحت سقفها أعظم القادة والحكماء.
                 </p>
             </div>
 
@@ -268,43 +272,47 @@
     </div>
 
     <script>
-        // --- قاعدة البيانات الثابتة المحسّنة بقسم الـ Home وصور الأنمي الرسمية لألقابهم ---
+        // --- قاعدة البيانات المحدثة بقسم الـ Home والمناصب الدقيقة وروابط Pinterest ---
+        // ⚠️ هام: وضعت لك "روابط نائبة" (Placeholders) فخمة لتعمل فورا.
+        // لاستخدام صورك المحددة من Pinterest، يجب الحصول على "رابط الصورة المباشر"
+        // (اضغط كليك يمين على الصورة في بينتريست -> نسخ عنوان الصورة/Copy image address)
+        // واستبدل الرابط داخل "img" أدناه.
         const database = {
             home: [
                 {
                     name: "إيرين",
-                    role: "مؤسس الصحيفة ⚔️",
-                    short: "مؤسس الصحيفة الأسطوري",
-                    fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة تشبه هجوم العمالقة، قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
-                    img: "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=600&q=80" // صورة جمالية تعبيرية للأنمي (إيرين)
+                    role: "مؤسس الصحيفة", 
+                    short: "مؤسس المملكة الفنية",
+                    fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية، قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
+                    img: "https://i.pinimg.com/736x/8f/30/01/8f30017a6c9d2f6277b9f3d9d37537b0.jpg" // رابط نائح من Unsplash يناسب الروح
                 },
                 {
                     name: "أشورا",
-                    role: "مؤسس وقائد الصحيفة 👑",
+                    role: "مؤسس الصحيفة",
                     short: "قائد ومؤسس السلالة",
-                    fullInfo: "قائد الصحيفة ومؤسسها الفعلي الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل ذو الثلاثة سيوف والهاكي المرعب.",
-                    img: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=600&q=80" // صورة مقاتل أنمي مهيب (أشورا)
+                    fullInfo: "قائد الصحيفة ومؤسسها الفعلي الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.",
+                    img: "https://i.pinimg.com/736x/21/f0/3a/21f03a62f59f635e9f80164e7c7a3791.jpg" 
                 },
                 {
                     name: "مايكي",
-                    role: "قائد الصحيفة العظيم 🏍️",
+                    role: "قائد الصحيفة",
                     short: "الزعيم والموجه العام",
-                    fullInfo: "قائد الصحيفة الحالي وصاحب الكاريزما المطلقة والضربات التي لا تُخطئ. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على جميع النقابات والممالك.",
-                    img: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=600&q=80" // صورة كاريزما أنمي (مايكي)
+                    fullInfo: "قائد الصحيفة الحالي وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.",
+                    img: "https://i.pinimg.com/736x/9f/f0/59/9ff05904d9a5b39418386f99d9b62649.jpg" 
                 },
                 {
                     name: "أودا",
-                    role: "نائب قائد الصحيفة 📜",
+                    role: "نائب الصحيفة",
                     short: "العقل المدبر للقصص والأخبار",
                     fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.",
-                    img: "https://images.unsplash.com/photo-1580477667995-2b94f01c9516?auto=format&fit=crop&w=600&q=80" // صورة كاتب/مخطط أنمي (أودا)
+                    img: "https://i.pinimg.com/736x/b2/2b/43/b22b43b3558c484f09d311029c7b9491.jpg" 
                 },
                 {
                     name: "ريكا",
-                    role: "نائب قائد الصحيفة ✨",
+                    role: "نائبة الصحيفة",
                     short: "ملكة الحماية والدعم الإداري",
-                    fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب في آن واحد، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة خارقة تضمن بقاء الريفيري في الصدارة دائماً.",
-                    img: "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80" // صورة طاقة غامضة أنمي (ريكا)
+                    fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.",
+                    img: "https://i.pinimg.com/736x/55/e3/94/55e394017772c7a52a373b88939c18d3.jpg" 
                 }
             ],
             gorosei: [
@@ -360,8 +368,7 @@
                     </div>
                     <div class="card-info">
                         <h3>${item.name}</h3>
-                        <p>${item.short}</p>
-                    </div>
+                        <p>${item.role}</p> </div>
                 </div>
             `).join('');
         }
