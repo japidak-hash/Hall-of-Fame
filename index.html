@@ -12,10 +12,10 @@
             /* الشاشة الرئيسية: ثيم الأزرق السماوي المشع (Sky Blue Glow) */
             --bg-color: #04101e;       /* أزرق داكن جداً للخلفية */
             --globe-base: #071f3a;     /* لون الكوكب الداخلي */
-            --accent-color: #87ceeb;    /* أزرق سماوي مشع (Sky Blue) */
+            --accent-color: #87ceeb;    /* أزرق سماوي مشع */
             --glow-color: rgba(135, 206, 235, 0.6); /* وهج الأزرق السماوي */
             --text-main: #f0f4f8;      /* نصوص فاتحة جداً مائلة للأزرق */
-            --card-bg: rgba(13, 31, 54, 0.7); /* خلفية البطاقات (Glassmorphism) */
+            --card-bg: rgba(13, 31, 54, 0.7); /* خلفية البطاقات */
             --transition: all 0.4s ease;
         }
 
@@ -73,7 +73,7 @@
         .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- أزرار التنقل (تصميم عصري) --- */
+        /* --- أزرار التنقل --- */
         .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 900px; }
         .nav-btn {
             background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
@@ -102,7 +102,7 @@
         .about-card .definition { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
         .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2.1; text-align: justify; max-width: 900px; margin: 0 auto; padding: 25px; background: rgba(0,0,0,0.2); border-right: 5px solid var(--accent-color); border-radius: 4px; }
 
-        /* --- تزر الواتساب --- */
+        /* --- زر الواتساب --- */
         .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
         .whatsapp-link {
             display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
@@ -111,7 +111,7 @@
         }
         .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
-        /* --- المحتوى والبوسترات الفخمة --- */
+        /* --- المحتوى والبوسترات --- */
         .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
@@ -141,7 +141,7 @@
         .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
         .card-info p { color: #aaa; font-size: 0.95rem; font-weight: 500; }
 
-        /* --- النافذة المنبثقة (الملف الشخصي الفاخر) --- */
+        /* --- النافذة المنبثقة --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
             backdrop-filter: blur(10px); display: fixed; align-items: center; justify-content: center;
@@ -196,7 +196,7 @@
             </svg>
         </div>
         <h1>Hall of Fame</h1>
-        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري الرسمية</div>
+        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
     </header>
 
@@ -272,11 +272,7 @@
     </div>
 
     <script>
-        // --- قاعدة البيانات المحدثة بقسم الـ Home والمناصب الدقيقة وروابط Pinterest ---
-        // ⚠️ هام: وضعت لك "روابط نائبة" (Placeholders) فخمة لتعمل فورا.
-        // لاستخدام صورك المحددة من Pinterest، يجب الحصول على "رابط الصورة المباشر"
-        // (اضغط كليك يمين على الصورة في بينتريست -> نسخ عنوان الصورة/Copy image address)
-        // واستبدل الرابط داخل "img" أدناه.
+        // --- قاعدة البيانات بأسماء ملفات الصور المحلية والمناصب الدقيقة ---
         const database = {
             home: [
                 {
@@ -284,35 +280,35 @@
                     role: "مؤسس الصحيفة", 
                     short: "مؤسس المملكة الفنية",
                     fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية، قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
-                    img: "https://i.pinimg.com/736x/8f/30/01/8f30017a6c9d2f6277b9f3d9d37537b0.jpg" // رابط نائح من Unsplash يناسب الروح
+                    img: "eren.jpg" 
                 },
                 {
                     name: "أشورا",
                     role: "مؤسس الصحيفة",
                     short: "قائد ومؤسس السلالة",
                     fullInfo: "قائد الصحيفة ومؤسسها الفعلي الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.",
-                    img: "https://i.pinimg.com/736x/21/f0/3a/21f03a62f59f635e9f80164e7c7a3791.jpg" 
+                    img: "ashura.jpg" 
                 },
                 {
                     name: "مايكي",
                     role: "قائد الصحيفة",
                     short: "الزعيم والموجه العام",
                     fullInfo: "قائد الصحيفة الحالي وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.",
-                    img: "https://i.pinimg.com/736x/9f/f0/59/9ff05904d9a5b39418386f99d9b62649.jpg" 
+                    img: "maiki.jpg" 
                 },
                 {
                     name: "أودا",
                     role: "نائب الصحيفة",
                     short: "العقل المدبر للقصص والأخبار",
                     fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.",
-                    img: "https://i.pinimg.com/736x/b2/2b/43/b22b43b3558c484f09d311029c7b9491.jpg" 
+                    img: "oda.jpg" 
                 },
                 {
                     name: "ريكا",
                     role: "نائبة الصحيفة",
                     short: "ملكة الحماية والدعم الإداري",
                     fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.",
-                    img: "https://i.pinimg.com/736x/55/e3/94/55e394017772c7a52a373b88939c18d3.jpg" 
+                    img: "rika.jpg" 
                 }
             ],
             gorosei: [
@@ -320,14 +316,14 @@
                     name: "سانت نوسجورو", 
                     role: "محارب العدالة المالية", 
                     short: "المدير المالي للحكومة",
-                    fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى. قليل الكلام لكن أفعاله تهز الأسواق.",
+                    fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى.",
                     img: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80" 
                 },
                 { 
                     name: "سانت ماركوس مارس", 
                     role: "محارب العدالة البيئية", 
                     short: "مسؤول النشر والبيئة",
-                    fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب، محلقاً كطائر أسطوري يحمي سماء المنصة.",
+                    fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب.",
                     img: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&fit=crop&w=600&q=80" 
                 }
             ],
@@ -336,14 +332,14 @@
                     name: "شانكس 'ذو الشعر الأحمر'", 
                     role: "إمبراطور البحر 👑👑👑", 
                     short: "صاحب الهاكي الملكي",
-                    fullInfo: "أحد أقوى الأباطرة في العالم الجديد وصاحب حضور مرعب. لا يحتاج لفاكهة شيطان لإثبات قوته. حافظ على لقبه الإداري والفني لـ 3 فترات متتالية، مما يجعله أسطورة حية في أروقة قاعة الشهرة.",
+                    fullInfo: "أحد أقوى الأباطرة في العالم الجديد وصاحب حضور مرعب. حافظ على لقبه الإداري والفني لـ 3 فترات متتالية، مما يجعله أسطورة حية.",
                     img: "https://images.unsplash.com/photo-1509909756405-be0199881695?auto=format&fit=crop&w=600&q=80" 
                 },
                 { 
                     name: "مارشال دي تيتش", 
                     role: "إمبراطور الظلام 👑👑", 
                     short: "متحكم بفاكهتين",
-                    fullInfo: "شخصية ماكرة وقوية، استطاع التربع على عرش الأباطرة لـ فترتين متتاليتين. يمثل الجانب المظلم والمرعب من السلطة، ولا يتوانى عن سحق أي عقبة تقف في طريق طموحه اللا متناهي.",
+                    fullInfo: "شخصية ماكرة وقوية، استطاع التربع على عرش الأباطرة لـ فترتين متتاليتين. يمثل الجانب المظلم من السلطة ولا يتوانى عن سحق أي عقبة.",
                     img: "https://images.unsplash.com/photo-1505567745926-ba89000d255a?auto=format&fit=crop&w=600&q=80" 
                 }
             ],
@@ -352,7 +348,7 @@
                     name: "إداري أول السوبر نوفا", 
                     role: "رئيس الجيل الأسوأ", 
                     short: "المسؤول التنفيذي",
-                    fullInfo: "قائد محنك من الجيل الجديد، يشرف على متابعة وتنظيم شؤون الأعضاء بدقة. يعتبر الدينامو المحرك لعمليات صحيفة الريفيري ويضمن تطبيق القوانين بروح الشباب المتوقدة.",
+                    fullInfo: "قائد محنك من الجيل الجديد، يشرف على متابعة وتنظيم شؤون الأعضاء بدقة. يعتبر الدينامو المحرك لعمليات صحيفة الريفيري.",
                     img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" 
                 }
             ]
@@ -368,7 +364,8 @@
                     </div>
                     <div class="card-info">
                         <h3>${item.name}</h3>
-                        <p>${item.role}</p> </div>
+                        <p>${item.role}</p>
+                    </div>
                 </div>
             `).join('');
         }
