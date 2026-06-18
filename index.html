@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>قاعة الشهرة | صحيفة الريفيرا</title>
+    <title>قاعة الشهرة | صحيفة الريفيرا الكبرى</title>
     <style>
-        /* التنسيقات العامة للموقع */
+        /* ثيم الألوان الملكية والهيبة */
         :root {
-            --bg-dark: #090d16;
-            --panel-bg: #111827;
+            --bg-dark: #030712;
+            --panel-bg: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
             --text-light: #f3f4f6;
-            --gold: #fbbf24;
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.3);
+            --yonko-red: #ef4444;
+            --admin-green: #10b981;
+            --nova-purple: #8b5cf6;
         }
 
         body {
@@ -22,31 +27,31 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(31, 41, 55, 0.3) 0%, transparent 75%),
+                radial-gradient(circle at 0% 100%, rgba(17, 24, 39, 0.5) 0%, transparent 50%);
         }
 
-/* شريط الملاحة العلوي واللوغو المتحرك */
-        .navbar {
-            background-color: var(--panel-bg);
-            border-bottom: 2px solid #1f2937;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky; /* التعديل هنا */
-            top: 0;           /* التعديل هنا */
-            z-index: 100;
+        /* الهيدر الرئيسي والشعار الدوار */
+        .header-banner {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
         }
 
         .logo-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
         }
 
         .rotating-globe {
-            font-size: 2rem;
+            font-size: 3.5rem;
             display: inline-block;
-            animation: spin 6s linear infinite;
+            animation: spin 8s linear infinite;
+            filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
         }
 
         @keyframes spin {
@@ -55,24 +60,42 @@
         }
 
         .logo-text {
-            font-size: 1.4rem;
-            font-weight: bold;
+            font-size: 2.5rem;
+            font-weight: 900;
             color: var(--gold);
-            text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px var(--gold-glow);
+            margin: 0;
         }
 
-        /* أزرار التنقل بين الأقسام */
+        /* شريط التنقل المتمركز في نصف الشاشة تماماً */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
         .nav-tabs {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            background: rgba(17, 24, 39, 0.85);
+            padding: 6px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
         .tab-btn {
-            background-color: #1f2937;
-            color: var(--text-light);
-            border: 1px solid #374151;
-            padding: 10px 20px;
-            border-radius: 6px;
+            background-color: transparent;
+            color: #9ca3af;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
             font-size: 0.95rem;
@@ -80,20 +103,19 @@
         }
 
         .tab-btn:hover {
-            border-color: var(--gold);
+            color: var(--text-light);
         }
 
         .tab-btn.active {
-            background-color: var(--gold);
+            background: linear-gradient(135deg, var(--gold), #d97706);
             color: #000;
-            border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
         }
 
-        /* حاويات المحتوى */
+        /* حاوية المحتوى الرئيسي */
         .main-container {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 0 auto 40px auto;
             padding: 0 20px;
             flex: 1;
             width: 100%;
@@ -102,7 +124,7 @@
 
         .page-section {
             display: none;
-            animation: fadeIn 0.5s ease forwards;
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .page-section.active {
@@ -110,42 +132,73 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10deg); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* تأثير الزجاج لبطاقات العرض */
+        .glass-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            backdrop-filter: blur(8px);
+        }
+
         /* ------------------------------------------------ */
-        /* 1. ثيم الشاشة الرئيسية (صحيفة الريفيرا) - أزرق ملكي وفضي */
+        /* 1. الشاشة الرئيسية: صحيفة الريفيرا الكبرى */
         /* ------------------------------------------------ */
         .home-card {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border: 2px solid #3b82f6;
-            border-radius: 15px;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+            border-top: 4px solid #3b82f6;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.1);
         }
 
         .home-card h2 {
             color: #3b82f6;
             font-size: 2.2rem;
             margin-top: 0;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .newspaper-link-box {
+            margin: 25px auto;
+            display: inline-block;
+        }
+
+        .newspaper-link-box a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid var(--gold);
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .newspaper-link-box a:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         .home-meta {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            border-top: 1px solid #334155;
-            padding-top: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 35px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
         }
 
         .meta-item {
-            background: rgba(0,0,0,0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 1px solid #334155;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
         }
 
         .meta-item span {
@@ -154,94 +207,91 @@
         }
 
         /* ------------------------------------------------ */
-        /* 2. ثيم قسم اليونكو - أحمر قرمزي داكن وناري */
+        /* 2. ثيم قسم اليونكو - هيبة اللون الأحمر */
         /* ------------------------------------------------ */
         .theme-yonko .section-title {
-            color: #dc2626;
+            color: var(--yonko-red);
             text-align: center;
             font-size: 2.2rem;
-            text-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
-            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+            margin-bottom: 35px;
         }
 
         .yonko-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .yonko-card {
-            background: rgba(127, 29, 29, 0.15);
-            border: 2px solid #991b1b;
-            border-radius: 12px;
-            padding: 25px;
+            padding: 30px 20px;
             text-align: center;
+            border-top: 4px solid var(--yonko-red);
             transition: all 0.3s ease;
         }
 
         .yonko-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(153, 27, 27, 0.4);
-            border-color: #ef4444;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.15);
+            border-top-color: #f87171;
         }
 
         /* ------------------------------------------------ */
-        /* 3. ثيم قسم أعلى الإداريين - أخضر زمردي وذهبي ملكي */
+        /* 3. ثيم قسم أعلى الإداريين - هيبة اللون الأخضر الزمردي */
         /* ------------------------------------------------ */
         .theme-admins .section-title {
-            color: #10b981;
+            color: var(--admin-green);
             text-align: center;
             font-size: 2.2rem;
             text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .admin-list {
-            background: rgba(6, 78, 59, 0.1);
-            border: 2px solid #065f46;
-            border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
+            border-top: 4px solid var(--admin-green);
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.05);
         }
 
         .list-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #115e59;
-            margin-bottom: 8px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin-bottom: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            transition: 0.3s;
         }
 
         .list-item:last-child { margin-bottom: 0; border-bottom: none; }
         
-        .theme-admins .list-item:hover {
-            background: rgba(16, 185, 129, 0.1);
+        .list-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: scale(1.01);
         }
 
         /* ------------------------------------------------ */
-        /* 4. ثيم قسم السوبر نوفا - بنفسجي ميثيكال ونيون الكتروني */
+        /* 4. ثيم قسم السوبر نوفا - هيبة اللون البنفسجي الميثيكال */
         /* ------------------------------------------------ */
         .theme-supernova .section-title {
-            color: #a855f7;
+            color: var(--nova-purple);
             text-align: center;
             font-size: 2.2rem;
             text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .supernova-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .supernova-card {
-            background: rgba(76, 29, 149, 0.15);
-            border: 1px solid #6d28d9;
-            border-radius: 10px;
-            padding: 15px;
+            padding: 20px;
+            border-top: 3px solid var(--nova-purple);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -249,120 +299,124 @@
         }
 
         .supernova-card:hover {
-            border-color: #a855f7;
-            background: rgba(76, 29, 149, 0.3);
-            transform: scale(1.02);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.15);
+            background: rgba(168, 85, 247, 0.05);
         }
 
-        /* عناصر التصميم المشتركة للمكافآت والصور */
-        .avatar-slot {
-            width: 80px;
-            height: 80px;
+        /* مساحات وهياكل الصور الدائرية المحمية */
+        .avatar-zone-large {
+            width: 100px;
+            height: 100px;
             background-color: #1f2937;
             border-radius: 50%;
-            margin: 0 auto 15px auto;
-            border: 2px solid dashed;
+            margin: 0 auto 20px auto;
+            border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
+        .avatar-zone-large img { width: 100%; height: 100%; object-fit: cover; }
 
-        .avatar-slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-small {
-            width: 40px;
-            height: 40px;
+        .avatar-zone-medium {
+            width: 50px;
+            height: 50px;
             background-color: #1f2937;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            margin-left: 15px;
+            margin-left: 20px;
+            border: 1px solid var(--border-color);
         }
-
-        .avatar-small img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-zone-medium img { width: 100%; height: 100%; object-fit: cover; }
 
         .bounty-amount {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: var(--gold);
-            margin-top: 8px;
+            margin-top: 5px;
             font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
         }
 
         /* أسفل الموقع والحقوق */
         .footer {
-            background-color: var(--panel-bg);
-            border-top: 2px solid #1f2937;
-            padding: 20px;
+            background-color: #0b0f19;
+            border-top: 1px solid var(--border-color);
+            padding: 25px;
             text-align: center;
-            font-size: 0.9rem;
-            color: #9ca3af;
+            font-size: 0.95rem;
+            color: #6b7280;
             margin-top: auto;
         }
 
         .footer span {
             color: var(--gold);
             font-weight: bold;
+            text-shadow: 0 0 10px var(--gold-glow);
         }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
+    <div class="header-banner">
         <div class="logo-container">
             <span class="rotating-globe">🌍</span>
-            <span class="logo-text">قاعة الشهرة</span>
+            <h1 class="logo-text">قاعة الشهرة الرسمية</h1>
         </div>
+    </div>
+
+    <div class="nav-container">
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="openSection(event, 'sec-home')">📰 الرئيسية</button>
-            <button class="tab-btn" onclick="openSection(event, 'sec-yonko')">👑 اليونكو</button>
-            <button class="tab-btn" onclick="openSection(event, 'sec-admins')">⚜️ الإداريين</button>
-            <button class="tab-btn" onclick="openSection(event, 'sec-supernova')">⚡ السوبر نوفا</button>
+            <button class="tab-btn active" onclick="openSection(event, 'sec-home')">📰 صحيفة الريفيرا</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-yonko')">👑 رتبة اليونكو</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-admins')">⚜️ تصنيف الإداريين</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-supernova')">⚡ الجيل الأسوأ</button>
         </div>
     </div>
 
     <div class="main-container">
 
         <div id="sec-home" class="page-section active">
-            <div class="home-card">
+            <div class="glass-card home-card">
                 <h2>📰 صحيفة الريفيرا الرسمية 📰</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8; color: #d1d5db; max-width: 800px; margin: 20px auto;">
-                    مرحباً بكم في المنصة الإخبارية الكبرى لـ "مملكة الليل". صحيفة الريفيرا هي الجهة السيادية الرسمية المسؤولة عن رصد، توثيق، ونشر جميع أخبار ومعلومات ومستجدات الممالك والنقابات الرقمية. هنا تُخلّد الأسماء وتُسجّل المكافآت العليا للقادة والأعضاء الأكثر تأثيراً في الساحة.
+                <p style="font-size: 1.25rem; line-height: 1.9; color: #d1d5db; max-width: 900px; margin: 20px auto;">
+                    مرحباً بكم في المنصة السيادية والتوثيقية الكبرى لصحيفة الريفيرا. نعلن أننا الجهة الرسمية الأولى المسؤولة عن رصد، تدوين، ونشر كافة أحداث ومعلومات وإنجازات ومكافآت **جميع ممالك ونقابات منصة الواتساب**. هنا نخلد الأساطير ونبث هيبة الأرقام ليكونوا عبرة ومثالاً يحتذى به في الميادين الرقمية.
                 </p>
+                <div class="newspaper-link-box">
+                    <a href="#" target="_blank">🌐 تصفح أعداد صحيفة الريفيرا الرسمية</a>
+                </div>
                 <div class="home-meta">
-                    <div class="meta-item">مؤسس الصحيفة: <span>أشورا</span></div>
-                    <div class="meta-item">المبرمج المطوّر: <span>لابوبو</span></div>
+                    <div class="meta-item">مؤسس الصحيفة العيا: <span>أشورا</span></div>
+                    <div class="meta-item">المبرمج والمطور الرئيسي: <span>لابوبو</span></div>
                 </div>
             </div>
         </div>
 
         <div id="sec-yonko" class="page-section theme-yonko">
-            <h2 class="section-title">🏴‍☠️ أباطرة البحر الأربعة (اليونكو) 🏴‍☠️</h2>
+            <h2 class="section-title">🏴‍☠️ أباطرة البحار الأربعة (اليونكو) 🏴‍☠️</h2>
             <div class="yonko-grid">
-                <div class="yonko-card" style="border-color: var(--gold);">
-                    <div class="avatar-slot"><img src="images/yonko-ashura.png" alt="أشورا" onerror="this.style.display='none'">♠️</div>
+                <div class="glass-card yonko-card" style="border-top-color: var(--gold);">
+                    <div class="avatar-zone-large"><img src="images/yonko-ashura.png" alt="أشورا" onerror="this.style.display='none'">♠️</div>
                     <h3 style="margin:0; font-size: 1.5rem;">أشورا ♠️</h3>
                     <div class="bounty-amount">🪙 4,611,000,000</div>
                 </div>
-                <div class="yonko-card">
-                    <div class="avatar-slot"><img src="images/yonko-oda.png" alt="أودا" onerror="this.style.display='none'">♣️</div>
+                <div class="glass-card yonko-card">
+                    <div class="avatar-zone-large"><img src="images/yonko-oda.png" alt="أودا" onerror="this.style.display='none'">♣️</div>
                     <h3 style="margin:0; font-size: 1.5rem;">أودا ♣️</h3>
                     <div class="bounty-amount">🪙 4,233,000,000</div>
                 </div>
-                <div class="yonko-card">
-                    <div class="avatar-slot"><img src="images/yonko-maikey.png" alt="مايكي" onerror="this.style.display='none'">♣️</div>
+                <div class="glass-card yonko-card">
+                    <div class="avatar-zone-large"><img src="images/yonko-maikey.png" alt="مايكي" onerror="this.style.display='none'">♣️</div>
                     <h3 style="margin:0; font-size: 1.5rem;">مايكي ♣️</h3>
                     <div class="bounty-amount">🪙 4,000,000,000</div>
                 </div>
-                <div class="yonko-card">
-                    <div class="avatar-slot"><img src="images/yonko-itachi.png" alt="إيتاشي" onerror="this.style.display='none'">💠</div>
+                <div class="glass-card yonko-card">
+                    <div class="avatar-zone-large"><img src="images/yonko-itachi.png" alt="إيتاشي" onerror="this.style.display='none'">💠</div>
                     <h3 style="margin:0; font-size: 1.5rem;">إيتاشي 💠♣️</h3>
                     <div class="bounty-amount">🪙 4,000,000,000</div>
                 </div>
@@ -370,12 +424,12 @@
         </div>
 
         <div id="sec-admins" class="page-section theme-admins">
-            <h2 class="section-title">⚜️ تصنيف القيادة العامة العليا ⚜️</h2>
-            <div class="admin-list">
+            <h2 class="section-title">⚜️ تصنيف القيادة الإدارية العليا ⚜️</h2>
+            <div class="glass-card admin-list">
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥇</span>
-                        <div class="avatar-small"><img src="images/admin-marco.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-marco.png" onerror="this.style.display='none'">🛡️</div>
                         <strong style="font-size:1.1rem;">ماركو (هيتاشي) 🛡️</strong>
                     </div>
                     <div class="bounty-amount">🪙 2,500,000,000</div>
@@ -383,7 +437,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥈</span>
-                        <div class="avatar-small"><img src="images/admin-ranpo.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-ranpo.png" onerror="this.style.display='none'">🛡️</div>
                         <strong style="font-size:1.1rem;">رانبو 🛡️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,486,000,000</div>
@@ -391,7 +445,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥉</span>
-                        <div class="avatar-small"><img src="images/admin-eren.png" onerror="this.style.display='none'">♣️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-eren.png" onerror="this.style.display='none'">♣️</div>
                         <strong style="font-size:1.1rem;">ايرين ♣️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,327,000,000</div>
@@ -399,7 +453,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">4️⃣</span>
-                        <div class="avatar-small"><img src="images/admin-lelouch.png" onerror="this.style.display='none'">🧭</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-lelouch.png" onerror="this.style.display='none'">🧭</div>
                         <strong style="font-size:1.1rem;">لولوش ♣️🧭</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,246,000,000</div>
@@ -407,7 +461,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">5️⃣</span>
-                        <div class="avatar-small"><img src="images/admin-aizen.png" onerror="this.style.display='none'">⚜️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-aizen.png" onerror="this.style.display='none'">⚜️</div>
                         <strong style="font-size:1.1rem;">ايزن ⚜️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,179,000,000</div>
@@ -415,7 +469,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">6️⃣</span>
-                        <div class="avatar-small"><img src="images/admin-kaguya.png" onerror="this.style.display='none'">⛲</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-kaguya.png" onerror="this.style.display='none'"> Fountain</div>
                         <strong style="font-size:1.1rem;">كاغويا ⛲️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,086,000,000</div>
@@ -423,7 +477,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">7️⃣</span>
-                        <div class="avatar-small"><img src="images/admin-shisui.png" onerror="this.style.display='none'">🔱</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-shisui.png" onerror="this.style.display='none'">🔱</div>
                         <strong style="font-size:1.1rem;">شيسوي 🔱</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,000,000,000</div>
@@ -434,75 +488,75 @@
         <div id="sec-supernova" class="page-section theme-supernova">
             <h2 class="section-title">⚡ الجيل الأسوأ (السوبر نوفا) ⚡</h2>
             <div class="supernova-grid">
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🛡️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rika.png" onerror="this.style.display='none'">♣️</div>
                         <strong>ريكا 🛡️♣️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">990M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 990,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">⛲</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rem.png" onerror="this.style.display='none'"> Fountain</div>
                         <strong>ريم ⛲️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">930M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 930,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🛡️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rizi.png" onerror="this.style.display='none'">🛡️</div>
                         <strong>ريزي 🛡️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">890M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 890,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">♣️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-tokito.png" onerror="this.style.display='none'">♣️</div>
                         <strong>توكيتو ♣️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">850M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 850,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🛕</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-ron.png" onerror="this.style.display='none'">🛕</div>
                         <strong>رون 🛕</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">790M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 790,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">♣️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-aizen.png" onerror="this.style.display='none'">♣️</div>
                         <strong>ايزن ♣️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">730M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 730,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🔱</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-sharlock.png" onerror="this.style.display='none'">🔱</div>
                         <strong>شارلوك 🔱</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">680M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 680,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">♠️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-misaki.png" onerror="this.style.display='none'">♠️</div>
                         <strong>ميساكي ♠️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">610M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 610,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🛡️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-serena.png" onerror="this.style.display='none'">🛡️</div>
                         <strong>سيرينا 🛡️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">580M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 580,000,000</span>
                 </div>
-                <div class="supernova-card">
+                <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <span style="margin-left:8px;">🛡️</span>
+                        <div class="avatar-zone-medium"><img src="images/supernova-maomao.png" onerror="this.style.display='none'">🛡️</div>
                         <strong>ماو ماو 🛡️</strong>
                     </div>
-                    <span class="bounty-amount" style="font-size:1.1rem;">530M</span>
+                    <span class="bounty-amount" style="font-size:1.1rem;">🪙 530,000,000</span>
                 </div>
             </div>
         </div>
@@ -510,11 +564,10 @@
     </div>
 
     <div class="footer">
-        جميع الحقوق محفوظة © صحيفة الريفيرا | تم التطوير والبرمجة بواسطة <span>Mohammad</span>
+        جميع الحقوق محفوظة © صحيفة الريفيرا الكبرى | تم التطوير والبرمجة بالكامل بواسطة <span>لابوبو</span>
     </div>
 
     <script>
-        // دالة التنقل والتبديل بين الصفحات بسلاسة
         function openSection(evt, sectionId) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
