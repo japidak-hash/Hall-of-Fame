@@ -302,6 +302,7 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(168, 85, 247, 0.15);
             background: rgba(168, 85, 247, 0.05);
+            transform: scale(1.02);
         }
 
         /* مساحات وهياكل الصور الدائرية المحمية */
@@ -317,8 +318,10 @@
             justify-content: center;
             overflow: hidden;
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
         }
-        .avatar-zone-large img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-zone-large img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+        .avatar-zone-large img:hover { transform: scale(1.08); }
 
         .avatar-zone-medium {
             width: 50px;
@@ -331,8 +334,10 @@
             overflow: hidden;
             margin-left: 20px;
             border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
         }
-        .avatar-zone-medium img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar-zone-medium img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; }
+        .avatar-zone-medium img:hover { transform: scale(1.1); }
 
         .bounty-amount {
             font-size: 1.4rem;
@@ -341,6 +346,64 @@
             margin-top: 5px;
             font-family: 'Courier New', Courier, monospace;
             text-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+        }
+
+        /* نافذة تكبير الصور (Lightbox Modal) */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 500;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(3, 7, 18, 0.9);
+            backdrop-filter: blur(12px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.25s ease-out;
+        }
+        
+        @keyframes fadeInModal {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-wrapper {
+            position: relative;
+            max-width: 85%;
+            max-height: 85%;
+            text-align: center;
+        }
+
+        .expanded-image {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 16px;
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.4);
+            transform: scale(0.9);
+            animation: zoomInImg 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes zoomInImg {
+            to { transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--yonko-red);
         }
 
         /* أسفل الموقع والحقوق */
@@ -388,10 +451,10 @@
                     مرحباً بكم في المنصة السيادية والتوثيقية الكبرى لصحيفة الريفيرا. نعلن أننا الجهة الرسمية الأولى المسؤولة عن رصد، تدوين، ونشر كافة أحداث ومعلومات وإنجازات ومكافآت **جميع ممالك ونقابات منصة الواتساب**. هنا نخلد الأساطير ونبث هيبة الأرقام ليكونوا عبرة ومثالاً يحتذى به في الميادين الرقمية.
                 </p>
                 <div class="newspaper-link-box">
-                    <a href="#" target="_blank">🌐 تصفح أعداد صحيفة الريفيرا الرسمية</a>
+                    <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank">🌐 تصفح أعداد صحيفة الريفيرا الرسمية</a>
                 </div>
                 <div class="home-meta">
-                    <div class="meta-item">مؤسس الصحيفة العيا: <span>أشورا</span></div>
+                    <div class="meta-item">مؤسس الصحيفة العليا: <span>أشورا</span></div>
                     <div class="meta-item">المبرمج والمطور الرئيسي: <span>لابوبو</span></div>
                 </div>
             </div>
@@ -401,22 +464,22 @@
             <h2 class="section-title">🏴‍☠️ أباطرة البحار الأربعة (اليونكو) 🏴‍☠️</h2>
             <div class="yonko-grid">
                 <div class="glass-card yonko-card" style="border-top-color: var(--gold);">
-                    <div class="avatar-zone-large"><img src="images/yonko-ashura.png" alt="أشورا" onerror="this.style.display='none'">♠️</div>
+                    <div class="avatar-zone-large"><img src="images/yonko-ashura.png" alt="أشورا ♠️" onclick="enlargeImage(this)"></div>
                     <h3 style="margin:0; font-size: 1.5rem;">أشورا ♠️</h3>
                     <div class="bounty-amount">🪙 4,611,000,000</div>
                 </div>
                 <div class="glass-card yonko-card">
-                    <div class="avatar-zone-large"><img src="images/yonko-oda.png" alt="أودا" onerror="this.style.display='none'">♣️</div>
+                    <div class="avatar-zone-large"><img src="images/yonko-oda.png" alt="أودا ♣️" onclick="enlargeImage(this)"></div>
                     <h3 style="margin:0; font-size: 1.5rem;">أودا ♣️</h3>
                     <div class="bounty-amount">🪙 4,233,000,000</div>
                 </div>
                 <div class="glass-card yonko-card">
-                    <div class="avatar-zone-large"><img src="images/yonko-maikey.png" alt="مايكي" onerror="this.style.display='none'">♣️</div>
+                    <div class="avatar-zone-large"><img src="images/yonko-maikey.png" alt="مايكي ♣️" onclick="enlargeImage(this)"></div>
                     <h3 style="margin:0; font-size: 1.5rem;">مايكي ♣️</h3>
                     <div class="bounty-amount">🪙 4,000,000,000</div>
                 </div>
                 <div class="glass-card yonko-card">
-                    <div class="avatar-zone-large"><img src="images/yonko-itachi.png" alt="إيتاشي" onerror="this.style.display='none'">💠</div>
+                    <div class="avatar-zone-large"><img src="images/yonko-itachi.png" alt="إيتاشي 💠♣️" onclick="enlargeImage(this)"></div>
                     <h3 style="margin:0; font-size: 1.5rem;">إيتاشي 💠♣️</h3>
                     <div class="bounty-amount">🪙 4,000,000,000</div>
                 </div>
@@ -429,7 +492,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥇</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-marco.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-marco.png" alt="ماركو (هيتاشي) 🛡️" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">ماركو (هيتاشي) 🛡️</strong>
                     </div>
                     <div class="bounty-amount">🪙 2,500,000,000</div>
@@ -437,7 +500,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥈</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-ranpo.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-ranpo.png" alt="رانبو 🛡️" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">رانبو 🛡️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,486,000,000</div>
@@ -445,7 +508,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">🥉</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-eren.png" onerror="this.style.display='none'">♣️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-eren.png" alt="ايرين ♣️" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">ايرين ♣️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,327,000,000</div>
@@ -453,7 +516,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">4️⃣</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-lelouch.png" onerror="this.style.display='none'">🧭</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-lelouch.png" alt="لولوش ♣️🧭" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">لولوش ♣️🧭</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,246,000,000</div>
@@ -461,7 +524,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">5️⃣</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-aizen.png" onerror="this.style.display='none'">⚜️</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-aizen.png" alt="ايزن ⚜️" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">ايزن ⚜️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,179,000,000</div>
@@ -469,7 +532,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">6️⃣</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-kaguya.png" onerror="this.style.display='none'"> Fountain</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-kaguya.png" alt="كاغويا ⛲️" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">كاغويا ⛲️</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,086,000,000</div>
@@ -477,7 +540,7 @@
                 <div class="list-item">
                     <div style="display:flex; align-items:center;">
                         <span style="font-size:1.3rem; width:30px;">7️⃣</span>
-                        <div class="avatar-zone-medium"><img src="images/admin-shisui.png" onerror="this.style.display='none'">🔱</div>
+                        <div class="avatar-zone-medium"><img src="images/admin-shisui.png" alt="شيسوي 🔱" onclick="enlargeImage(this)"></div>
                         <strong style="font-size:1.1rem;">شيسوي 🔱</strong>
                     </div>
                     <div class="bounty-amount">🪙 1,000,000,000</div>
@@ -490,70 +553,70 @@
             <div class="supernova-grid">
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-rika.png" onerror="this.style.display='none'">♣️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rika.png" alt="ريكا 🛡️♣️" onclick="enlargeImage(this)"></div>
                         <strong>ريكا 🛡️♣️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 990,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-rem.png" onerror="this.style.display='none'"> Fountain</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rem.png" alt="ريم ⛲️" onclick="enlargeImage(this)"></div>
                         <strong>ريم ⛲️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 930,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-rizi.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-rizi.png" alt="ريزي 🛡️" onclick="enlargeImage(this)"></div>
                         <strong>ريزي 🛡️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 890,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-tokito.png" onerror="this.style.display='none'">♣️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-tokito.png" alt="توكيتو ♣️" onclick="enlargeImage(this)"></div>
                         <strong>توكيتو ♣️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 850,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-ron.png" onerror="this.style.display='none'">🛕</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-ron.png" alt="رون 🛕" onclick="enlargeImage(this)"></div>
                         <strong>رون 🛕</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 790,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-aizen.png" onerror="this.style.display='none'">♣️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-aizen.png" alt="ايزن ♣️" onclick="enlargeImage(this)"></div>
                         <strong>ايزن ♣️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 730,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-sharlock.png" onerror="this.style.display='none'">🔱</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-sharlock.png" alt="شارلوك 🔱" onclick="enlargeImage(this)"></div>
                         <strong>شارلوك 🔱</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 680,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-misaki.png" onerror="this.style.display='none'">♠️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-misaki.png" alt="ميساكي ♠️" onclick="enlargeImage(this)"></div>
                         <strong>ميساكي ♠️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 610,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-serena.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-serena.png" alt="سيرينا 🛡️" onclick="enlargeImage(this)"></div>
                         <strong>سيرينا 🛡️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 580,000,000</span>
                 </div>
                 <div class="glass-card supernova-card">
                     <div style="display:flex; align-items:center;">
-                        <div class="avatar-zone-medium"><img src="images/supernova-maomao.png" onerror="this.style.display='none'">🛡️</div>
+                        <div class="avatar-zone-medium"><img src="images/supernova-maomao.png" alt="ماو ماو 🛡️" onclick="enlargeImage(this)"></div>
                         <strong>ماو ماو 🛡️</strong>
                     </div>
                     <span class="bounty-amount" style="font-size:1.1rem;">🪙 530,000,000</span>
@@ -563,11 +626,19 @@
 
     </div>
 
+    <div id="imagePopup" class="image-modal" onclick="closeImage()">
+        <div class="modal-wrapper" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeImage()">&times;</span>
+            <img id="popupTargetImg" class="expanded-image" src="" alt="صورة مكبرة">
+        </div>
+    </div>
+
     <div class="footer">
         جميع الحقوق محفوظة © صحيفة الريفيرا الكبرى | تم التطوير والبرمجة بالكامل بواسطة <span>لابوبو</span>
     </div>
 
     <script>
+        // دالة التنقل والتبديل بين الصفحات بسلاسة
         function openSection(evt, sectionId) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -575,6 +646,28 @@
             document.getElementById(sectionId).classList.add('active');
             evt.currentTarget.classList.add('active');
         }
+
+        // دالة تكبير الصور (Lightbox)
+        function enlargeImage(imgElement) {
+            const modal = document.getElementById('imagePopup');
+            const modalImg = document.getElementById('popupTargetImg');
+            
+            modal.style.display = "flex";
+            modalImg.src = imgElement.src;
+            modalImg.alt = imgElement.alt;
+        }
+
+        // دالة إغلاق نافذة تكبير الصور
+        function closeImage() {
+            document.getElementById('imagePopup').style.display = "none";
+        }
+
+        // إغلاق النافذة عند الضغط على زر Escape في الكيبورد
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeImage();
+            }
+        });
     </script>
 </body>
 </html>
