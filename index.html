@@ -3,407 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riviera | Grand Hall</title>
+    <title>قاعة الشهرة | صحيفة الريفيرا</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
-
-        /* --- نظام الثيمات الديناميكي المتغير --- */
+        /* التنسيقات العامة للموقع */
         :root {
-            /* الشاشة الرئيسية: ثيم الأزرق السماوي المشع (Sky Blue Glow) */
-            --bg-color: #04101e;       /* أزرق داكن جداً للخلفية */
-            --globe-base: #071f3a;     /* لون الكوكب الداخلي */
-            --accent-color: #87ceeb;    /* أزرق سماوي مشع */
-            --glow-color: rgba(135, 206, 235, 0.6); /* وهج الأزرق السماوي */
-            --text-main: #f0f4f8;      /* نصوص فاتحة جداً مائلة للأزرق */
-            --card-bg: rgba(13, 31, 54, 0.7); /* خلفية البطاقات */
-            --transition: all 0.4s ease;
+            --bg-dark: #090d16;
+            --panel-bg: #111827;
+            --text-light: #f3f4f6;
+            --gold: #fbbf24;
         }
-
-        body[data-theme="gorosei"] {
-            /* قاعة الحكماء (أبيض يلمع) */
-            --bg-color: #121212;
-            --globe-base: #1a1a1a;
-            --accent-color: #ffffff;
-            --glow-color: rgba(255, 255, 255, 0.7);
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        body[data-theme="yonko"] {
-            /* قاعة الأباطرة (أسود مرعب مع وهج أحمر) */
-            --bg-color: #050505;
-            --globe-base: #110303;
-            --accent-color: #ff3333;
-            --glow-color: rgba(255, 0, 0, 0.6);
-            --card-bg: rgba(20, 0, 0, 0.6);
-        }
-
-        body[data-theme="admins"] {
-            /* الممر الشرفي (أزرق ملكي مشع) */
-            --bg-color: #03142e;
-            --globe-base: #072146;
-            --accent-color: #3b82f6;
-            --glow-color: rgba(59, 130, 246, 0.6);
-            --text-main: #ffffff;
-            --card-bg: rgba(7, 33, 70, 0.8);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; outline: none; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
-            transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر وتصميم الكوكب الشبكي المتوهج 🌐 --- */
-        header { text-align: center; padding: 50px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
-        header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
-        header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
-        header .founder { font-size: 0.9rem; color: #94a3b8; }
-        header .founder strong { color: var(--accent-color); transition: var(--transition); }
-
-        /* حاوية الكوكب الشبكي المتوهج */
-        .globe-wrapper { display: flex; justify-content: center; margin: 25px auto; width: 140px; height: 140px; position: relative; }
-        .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 20px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
-        .globe-bg { fill: var(--globe-base); transition: fill 0.8s ease; }
-        .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
-        @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* --- أزرار التنقل --- */
-        .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 900px; }
-        .nav-btn {
-            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 12px 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 6px;
-            transition: var(--transition);
+/* شريط الملاحة العلوي واللوغو المتحرك */
+        .navbar {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid #1f2937;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky; /* التعديل هنا */
+            top: 0;           /* التعديل هنا */
+            z-index: 100;
         }
-        .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #04101e; border-color: var(--accent-color); box-shadow: 0 0 25px var(--glow-color); }
 
-        /* --- عناوين الشرح للأقسام --- */
-        .section-header { text-align: center; margin-bottom: 45px; }
-        .section-header h2 { font-size: 2.6rem; color: var(--accent-color); text-shadow: 0 0 15px var(--glow-color); margin-bottom: 10px; transition: color 0.8s; }
-        .section-header p { font-size: 1.25rem; color: #e2e8f0; font-weight: 500; display: inline-block; padding: 6px 22px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-        /* --- قسم الرواية والتعريف بالشاشة الرئيسية --- */
-        .about-card {
-            background: rgba(13, 31, 54, 0.6);
-            border: 1px solid rgba(135, 206, 235, 0.2);
+        .rotating-globe {
+            font-size: 2rem;
+            display: inline-block;
+            animation: spin 6s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+        }
+
+        /* أزرار التنقل بين الأقسام */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background-color: #1f2937;
+            color: var(--text-light);
+            border: 1px solid #374151;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--gold);
+        }
+
+        .tab-btn.active {
+            background-color: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        /* حاويات المحتوى */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10deg); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ------------------------------------------------ */
+        /* 1. ثيم الشاشة الرئيسية (صحيفة الريفيرا) - أزرق ملكي وفضي */
+        /* ------------------------------------------------ */
+        .home-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px solid #3b82f6;
             border-radius: 15px;
-            padding: 35px;
-            margin-bottom: 50px;
+            padding: 40px;
             text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
         }
-        .about-card h3 { color: var(--accent-color); font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 10px var(--glow-color); }
-        .about-card .definition { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
-        .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2.1; text-align: justify; max-width: 900px; margin: 0 auto; padding: 25px; background: rgba(0,0,0,0.2); border-right: 5px solid var(--accent-color); border-radius: 4px; }
 
-        /* --- زر الواتساب --- */
-        .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
-        .whatsapp-link {
-            display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
-            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 25px rgba(30, 190, 165, 0.6);
-            transition: var(--transition);
+        .home-card h2 {
+            color: #3b82f6;
+            font-size: 2.2rem;
+            margin-top: 0;
         }
-        .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
-        /* --- المحتوى والبوسترات --- */
-        .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
-        .section-panel { display: none; }
-        .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
-
-        .character-card {
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
-            overflow: hidden; cursor: pointer; position: relative; transition: var(--transition); height: 380px;
-            display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        .home-meta {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+            padding-top: 20px;
         }
-        .character-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 10px 35px var(--glow-color); }
 
-        .card-img-wrapper { height: 65%; width: 100%; overflow: hidden; position: relative; background: #000; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .character-card:hover .card-img-wrapper img { transform: scale(1.1); }
-
-        .card-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
+        .meta-item {
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 1px solid #334155;
         }
-        .character-card:hover .card-overlay { opacity: 1; }
-        .card-overlay span { background: var(--accent-color); color: #04101e; padding: 10px 22px; border-radius: 20px; font-weight: bold; }
 
-        .card-info { padding: 20px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
-        .card-info p { color: #aaa; font-size: 0.95rem; font-weight: 500; }
-
-        /* --- النافذة المنبثقة --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px); display: fixed; align-items: center; justify-content: center;
-            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        .meta-item span {
+            color: var(--gold);
+            font-weight: bold;
         }
-        .modal-overlay.active { opacity: 1; pointer-events: all; display: flex; }
 
-        .modal-content {
-            background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 60px var(--glow-color);
-            border-radius: 15px; width: 90%; max-width: 800px; display: flex; flex-wrap: wrap; overflow: hidden;
-            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+        /* ------------------------------------------------ */
+        /* 2. ثيم قسم اليونكو - أحمر قرمزي داكن وناري */
+        /* ------------------------------------------------ */
+        .theme-yonko .section-title {
+            color: #dc2626;
+            text-align: center;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
+            margin-bottom: 30px;
         }
-        .modal-overlay.active .modal-content { transform: scale(1); }
 
-        .modal-img { flex: 1; min-width: 300px; height: 500px; background: #000; }
-        .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); }
+        .yonko-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
 
-        .modal-details { flex: 1; min-width: 300px; padding: 40px 30px; display: flex; flex-direction: column; }
-        .modal-details h2 { color: var(--accent-color); font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 10px var(--glow-color); }
-        .modal-details .role-badge { display: inline-block; background: var(--accent-color); color: #04101e; padding: 6px 18px; border-radius: 5px; font-weight: bold; margin-bottom: 25px; align-self: flex-start; }
-        .modal-details p { color: #ddd; line-height: 1.8; font-size: 1.15rem; overflow-y: auto; flex: 1; margin-bottom: 20px; }
+        .yonko-card {
+            background: rgba(127, 29, 29, 0.15);
+            border: 2px solid #991b1b;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .yonko-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px rgba(153, 27, 27, 0.4);
+            border-color: #ef4444;
+        }
+
+        /* ------------------------------------------------ */
+        /* 3. ثيم قسم أعلى الإداريين - أخضر زمردي وذهبي ملكي */
+        /* ------------------------------------------------ */
+        .theme-admins .section-title {
+            color: #10b981;
+            text-align: center;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .admin-list {
+            background: rgba(6, 78, 59, 0.1);
+            border: 2px solid #065f46;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #115e59;
+            margin-bottom: 8px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+
+        .list-item:last-child { margin-bottom: 0; border-bottom: none; }
         
-        .close-btn {
-            position: absolute; top: 15px; right: 15px; background: red; color: white; border: none;
-            width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; font-weight: bold; z-index: 10;
+        .theme-admins .list-item:hover {
+            background: rgba(16, 185, 129, 0.1);
         }
 
-        @media (max-width: 700px) {
-            header h1 { font-size: 2.4rem; }
-            .modal-img { height: 250px; }
-            .modal-details { padding: 20px; }
-            .modal-details h2 { font-size: 1.7rem; }
-            .section-header h2 { font-size: 2.1rem; }
+        /* ------------------------------------------------ */
+        /* 4. ثيم قسم السوبر نوفا - بنفسجي ميثيكال ونيون الكتروني */
+        /* ------------------------------------------------ */
+        .theme-supernova .section-title {
+            color: #a855f7;
+            text-align: center;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+            margin-bottom: 30px;
+        }
+
+        .supernova-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .supernova-card {
+            background: rgba(76, 29, 149, 0.15);
+            border: 1px solid #6d28d9;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .supernova-card:hover {
+            border-color: #a855f7;
+            background: rgba(76, 29, 149, 0.3);
+            transform: scale(1.02);
+        }
+
+        /* عناصر التصميم المشتركة للمكافآت والصور */
+        .avatar-slot {
+            width: 80px;
+            height: 80px;
+            background-color: #1f2937;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+            border: 2px solid dashed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .avatar-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-small {
+            width: 40px;
+            height: 40px;
+            background-color: #1f2937;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-left: 15px;
+        }
+
+        .avatar-small img { width: 100%; height: 100%; object-fit: cover; }
+
+        .bounty-amount {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--gold);
+            margin-top: 8px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* أسفل الموقع والحقوق */
+        .footer {
+            background-color: var(--panel-bg);
+            border-top: 2px solid #1f2937;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-top: auto;
+        }
+
+        .footer span {
+            color: var(--gold);
+            font-weight: bold;
         }
     </style>
 </head>
-<body data-theme="home">
+<body>
 
-    <header>
-        <div class="globe-wrapper">
-            <svg class="network-globe" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" class="globe-bg"/>
-                <circle cx="50" cy="50" r="46" class="globe-line"/>
-                <line x1="4" y1="50" x2="96" y2="50" class="globe-line"/>
-                <line x1="15" y1="25" x2="85" y2="25" class="globe-line"/>
-                <line x1="15" y1="75" x2="85" y2="75" class="globe-line"/>
-                <line x1="50" y1="4" x2="50" y2="96" class="globe-line"/>
-                <path d="M50,4 Q23,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q77,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q3,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q97,50 50,96" class="globe-line"/>
-            </svg>
+    <div class="navbar">
+        <div class="logo-container">
+            <span class="rotating-globe">🌍</span>
+            <span class="logo-text">قاعة الشهرة</span>
         </div>
-        <h1>Hall of Fame</h1>
-        <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
-        <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
-    </header>
-
-    <div class="nav-container">
-        <button class="nav-btn active" onclick="switchSection('home-panel', 'home', event)">الشاشة الرئيسية</button>
-        <button class="nav-btn" onclick="switchSection('gorosei', 'gorosei', event)">قاعة الحكماء</button>
-        <button class="nav-btn" onclick="switchSection('yonko', 'yonko', event)">قاعة الأباطرة</button>
-        <button class="nav-btn" onclick="switchSection('admins', 'admins', event)">الممر الشرفي</button>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="openSection(event, 'sec-home')">📰 الرئيسية</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-yonko')">👑 اليونكو</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-admins')">⚜️ الإداريين</button>
+            <button class="tab-btn" onclick="openSection(event, 'sec-supernova')">⚡ السوبر نوفا</button>
+        </div>
     </div>
 
-    <div class="main-content">
-        
-        <div id="home-panel" class="section-panel active">
-            
-            <div class="about-card">
-                <h3>عن صحيفة الريفيري</h3>
-                <p class="definition">"صحيفة الريفيري هي الناقل الأول لأخبار الممالك والنقابات"</p>
-                <p class="novel-story">
-                    في خضم أمواج العالم الجديد المتلاطمة، حيث يُولد الأساطير وتندثر الممالك في غياهب النسيان، كان المؤسس «أشورا» يبحر بسفينته متحدياً العواصف واللوغ بوس الرابط بين الأبحر. رأى صعود أباطرة وسقوط نقابات، وشهد على معارك ملحمية غيرت مجرى التاريخ. هناك، وسط رذاذ البحر والمخاطر، أدرك أن التاريخ قد يضيع إذا لم يجد من يحميه، فأخذ عهداً مقدساً على نفسه: أن يوثق كل ما يراه بحياد وقوة، ليكون صوتاً للحقيقة في عالم تملؤه النزاعات. ومن هذا العهد الأسطوري، ولدت الصحيفة لتجمع تحت سقفها أعظم القادة والحكماء.
+    <div class="main-container">
+
+        <div id="sec-home" class="page-section active">
+            <div class="home-card">
+                <h2>📰 صحيفة الريفيرا الرسمية 📰</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #d1d5db; max-width: 800px; margin: 20px auto;">
+                    مرحباً بكم في المنصة الإخبارية الكبرى لـ "مملكة الليل". صحيفة الريفيرا هي الجهة السيادية الرسمية المسؤولة عن رصد، توثيق، ونشر جميع أخبار ومعلومات ومستجدات الممالك والنقابات الرقمية. هنا تُخلّد الأسماء وتُسجّل المكافآت العليا للقادة والأعضاء الأكثر تأثيراً في الساحة.
                 </p>
-            </div>
-
-            <div class="section-header">
-                <h2>الهيكل القيادي للصحيفة</h2>
-                <p>— المؤسسون والقادة العِظام —</p>
-            </div>
-            <div class="cards-grid" id="home-box"></div>
-
-            <div class="join-btn-container">
-                <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank" class="whatsapp-link">
-                    🔗 انضم الآن إلى مجتمع الصحيفة على WhatsApp
-                </a>
+                <div class="home-meta">
+                    <div class="meta-item">مؤسس الصحيفة: <span>أشورا</span></div>
+                    <div class="meta-item">المبرمج المطوّر: <span>لابوبو</span></div>
+                </div>
             </div>
         </div>
 
-        <div id="gorosei" class="section-panel">
-            <div class="section-header">
-                <h2>قاعة الحكماء</h2>
-                <p>— للغوروسي —</p>
+        <div id="sec-yonko" class="page-section theme-yonko">
+            <h2 class="section-title">🏴‍☠️ أباطرة البحر الأربعة (اليونكو) 🏴‍☠️</h2>
+            <div class="yonko-grid">
+                <div class="yonko-card" style="border-color: var(--gold);">
+                    <div class="avatar-slot"><img src="images/yonko-ashura.png" alt="أشورا" onerror="this.style.display='none'">♠️</div>
+                    <h3 style="margin:0; font-size: 1.5rem;">أشورا ♠️</h3>
+                    <div class="bounty-amount">🪙 4,611,000,000</div>
+                </div>
+                <div class="yonko-card">
+                    <div class="avatar-slot"><img src="images/yonko-oda.png" alt="أودا" onerror="this.style.display='none'">♣️</div>
+                    <h3 style="margin:0; font-size: 1.5rem;">أودا ♣️</h3>
+                    <div class="bounty-amount">🪙 4,233,000,000</div>
+                </div>
+                <div class="yonko-card">
+                    <div class="avatar-slot"><img src="images/yonko-maikey.png" alt="مايكي" onerror="this.style.display='none'">♣️</div>
+                    <h3 style="margin:0; font-size: 1.5rem;">مايكي ♣️</h3>
+                    <div class="bounty-amount">🪙 4,000,000,000</div>
+                </div>
+                <div class="yonko-card">
+                    <div class="avatar-slot"><img src="images/yonko-itachi.png" alt="إيتاشي" onerror="this.style.display='none'">💠</div>
+                    <h3 style="margin:0; font-size: 1.5rem;">إيتاشي 💠♣️</h3>
+                    <div class="bounty-amount">🪙 4,000,000,000</div>
+                </div>
             </div>
-            <div class="cards-grid" id="gorosei-box"></div>
         </div>
 
-        <div id="yonko" class="section-panel">
-            <div class="section-header">
-                <h2>قاعة الأباطرة</h2>
-                <p>— لليونكو —</p>
+        <div id="sec-admins" class="page-section theme-admins">
+            <h2 class="section-title">⚜️ تصنيف القيادة العامة العليا ⚜️</h2>
+            <div class="admin-list">
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">🥇</span>
+                        <div class="avatar-small"><img src="images/admin-marco.png" onerror="this.style.display='none'">🛡️</div>
+                        <strong style="font-size:1.1rem;">ماركو (هيتاشي) 🛡️</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 2,500,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">🥈</span>
+                        <div class="avatar-small"><img src="images/admin-ranpo.png" onerror="this.style.display='none'">🛡️</div>
+                        <strong style="font-size:1.1rem;">رانبو 🛡️</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,486,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">🥉</span>
+                        <div class="avatar-small"><img src="images/admin-eren.png" onerror="this.style.display='none'">♣️</div>
+                        <strong style="font-size:1.1rem;">ايرين ♣️</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,327,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">4️⃣</span>
+                        <div class="avatar-small"><img src="images/admin-lelouch.png" onerror="this.style.display='none'">🧭</div>
+                        <strong style="font-size:1.1rem;">لولوش ♣️🧭</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,246,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">5️⃣</span>
+                        <div class="avatar-small"><img src="images/admin-aizen.png" onerror="this.style.display='none'">⚜️</div>
+                        <strong style="font-size:1.1rem;">ايزن ⚜️</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,179,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">6️⃣</span>
+                        <div class="avatar-small"><img src="images/admin-kaguya.png" onerror="this.style.display='none'">⛲</div>
+                        <strong style="font-size:1.1rem;">كاغويا ⛲️</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,086,000,000</div>
+                </div>
+                <div class="list-item">
+                    <div style="display:flex; align-items:center;">
+                        <span style="font-size:1.3rem; width:30px;">7️⃣</span>
+                        <div class="avatar-small"><img src="images/admin-shisui.png" onerror="this.style.display='none'">🔱</div>
+                        <strong style="font-size:1.1rem;">شيسوي 🔱</strong>
+                    </div>
+                    <div class="bounty-amount">🪙 1,000,000,000</div>
+                </div>
             </div>
-            <div class="cards-grid" id="yonko-box"></div>
         </div>
 
-        <div id="admins" class="section-panel">
-            <div class="section-header">
-                <h2>الممر الشرفي</h2>
-                <p>— للسوبر نوفا —</p>
+        <div id="sec-supernova" class="page-section theme-supernova">
+            <h2 class="section-title">⚡ الجيل الأسوأ (السوبر نوفا) ⚡</h2>
+            <div class="supernova-grid">
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🛡️</span>
+                        <strong>ريكا 🛡️♣️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">990M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">⛲</span>
+                        <strong>ريم ⛲️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">930M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🛡️</span>
+                        <strong>ريزي 🛡️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">890M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">♣️</span>
+                        <strong>توكيتو ♣️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">850M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🛕</span>
+                        <strong>رون 🛕</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">790M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">♣️</span>
+                        <strong>ايزن ♣️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">730M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🔱</span>
+                        <strong>شارلوك 🔱</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">680M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">♠️</span>
+                        <strong>ميساكي ♠️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">610M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🛡️</span>
+                        <strong>سيرينا 🛡️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">580M</span>
+                </div>
+                <div class="supernova-card">
+                    <div style="display:flex; align-items:center;">
+                        <span style="margin-left:8px;">🛡️</span>
+                        <strong>ماو ماو 🛡️</strong>
+                    </div>
+                    <span class="bounty-amount" style="font-size:1.1rem;">530M</span>
+                </div>
             </div>
-            <div class="cards-grid" id="admins-box"></div>
         </div>
+
     </div>
 
-    <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close-btn" onclick="closeModal(event)">X</button>
-            <div class="modal-img">
-                <img id="m-img" src="" alt="صورة الشخصية">
-            </div>
-            <div class="modal-details">
-                <h2 id="m-name">الاسم</h2>
-                <div class="role-badge" id="m-role">الرتبة</div>
-                <p id="m-desc">الوصف والقصة الكاملة...</p>
-            </div>
-        </div>
+    <div class="footer">
+        جميع الحقوق محفوظة © صحيفة الريفيرا | تم التطوير والبرمجة بواسطة <span>Mohammad</span>
     </div>
 
     <script>
-        // --- قاعدة البيانات بأسماء ملفات الصور المحلية والمناصب الدقيقة ---
-        const database = {
-            home: [
-                {
-                    name: "إيرين",
-                    role: "مؤسس الصحيفة", 
-                    short: "مؤسس المملكة الفنية",
-                    fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية، قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
-                    img: "eren.jpg" 
-                },
-                {
-                    name: "أشورا",
-                    role: "مؤسس الصحيفة",
-                    short: "قائد ومؤسس السلالة",
-                    fullInfo: "قائد الصحيفة ومؤسسها الفعلي الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.",
-                    img: "ashura.jpg" 
-                },
-                {
-                    name: "مايكي",
-                    role: "قائد الصحيفة",
-                    short: "الزعيم والموجه العام",
-                    fullInfo: "قائد الصحيفة الحالي وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.",
-                    img: "maiki.jpg" 
-                },
-                {
-                    name: "أودا",
-                    role: "نائب الصحيفة",
-                    short: "العقل المدبر للقصص والأخبار",
-                    fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.",
-                    img: "oda.jpg" 
-                },
-                {
-                    name: "ريكا",
-                    role: "نائبة الصحيفة",
-                    short: "ملكة الحماية والدعم الإداري",
-                    fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.",
-                    img: "rika.jpg" 
-                }
-            ],
-            gorosei: [
-                { 
-                    name: "سانت نوسجورو", 
-                    role: "محارب العدالة المالية", 
-                    short: "المدير المالي للحكومة",
-                    fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى.",
-                    img: "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80" 
-                },
-                { 
-                    name: "سانت ماركوس مارس", 
-                    role: "محارب العدالة البيئية", 
-                    short: "مسؤول النشر والبيئة",
-                    fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب.",
-                    img: "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?auto=format&fit=crop&w=600&q=80" 
-                }
-            ],
-            yonko: [
-                { 
-                    name: "شانكس 'ذو الشعر الأحمر'", 
-                    role: "إمبراطور البحر 👑👑👑", 
-                    short: "صاحب الهاكي الملكي",
-                    fullInfo: "أحد أقوى الأباطرة في العالم الجديد وصاحب حضور مرعب. حافظ على لقبه الإداري والفني لـ 3 فترات متتالية، مما يجعله أسطورة حية.",
-                    img: "https://images.unsplash.com/photo-1509909756405-be0199881695?auto=format&fit=crop&w=600&q=80" 
-                },
-                { 
-                    name: "مارشال دي تيتش", 
-                    role: "إمبراطور الظلام 👑👑", 
-                    short: "متحكم بفاكهتين",
-                    fullInfo: "شخصية ماكرة وقوية، استطاع التربع على عرش الأباطرة لـ فترتين متتاليتين. يمثل الجانب المظلم من السلطة ولا يتوانى عن سحق أي عقبة.",
-                    img: "https://images.unsplash.com/photo-1505567745926-ba89000d255a?auto=format&fit=crop&w=600&q=80" 
-                }
-            ],
-            admins: [
-                { 
-                    name: "إداري أول السوبر نوفا", 
-                    role: "رئيس الجيل الأسوأ", 
-                    short: "المسؤول التنفيذي",
-                    fullInfo: "قائد محنك من الجيل الجديد، يشرف على متابعة وتنظيم شؤون الأعضاء بدقة. يعتبر الدينامو المحرك لعمليات صحيفة الريفيري.",
-                    img: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=600&q=80" 
-                }
-            ]
-        };
-
-        function renderCards(category, containerId) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = database[category].map((item, index) => `
-                <div class="character-card" onclick="openProfile('${category}', ${index})">
-                    <div class="card-img-wrapper">
-                        <img src="${item.img}" alt="${item.name}">
-                        <div class="card-overlay"><span>استعراض الملف</span></div>
-                    </div>
-                    <div class="card-info">
-                        <h3>${item.name}</h3>
-                        <p>${item.role}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function initWebsite() {
-            renderCards('home', 'home-box');
-            renderCards('gorosei', 'gorosei-box');
-            renderCards('yonko', 'yonko-box');
-            renderCards('admins', 'admins-box');
-        }
-
-        function switchSection(sectionId, themeName, event) {
-            document.body.setAttribute('data-theme', themeName);
-
-            document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
-            document.getElementById(sectionId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        function openProfile(category, index) {
-            const data = database[category][index];
-            document.getElementById('m-img').src = data.img;
-            document.getElementById('m-name').innerText = data.name;
-            document.getElementById('m-role').innerText = data.role;
-            document.getElementById('m-desc').innerText = data.fullInfo;
+        // دالة التنقل والتبديل بين الصفحات بسلاسة
+        function openSection(evt, sectionId) {
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             
-            document.getElementById('profile-modal').classList.add('active');
+            document.getElementById(sectionId).classList.add('active');
+            evt.currentTarget.classList.add('active');
         }
-
-        function closeModal(event) {
-            if (event.target === document.getElementById('profile-modal') || event.target.classList.contains('close-btn')) {
-                document.getElementById('profile-modal').classList.remove('active');
-            }
-        }
-
-        window.onload = initWebsite;
     </script>
 </body>
 </html>
