@@ -9,7 +9,6 @@
 
         /* --- نظام الثيمات الديناميكي المتغير --- */
         :root {
-            /* الشاشة الرئيسية: ثيم الأزرق السماوي المشع */
             --bg-color: #04101e;
             --globe-base: #071f3a;
             --accent-color: #87ceeb;
@@ -20,7 +19,6 @@
         }
 
         body[data-theme="gorosei"] {
-            /* قاعة الحكماء (أبيض يلمع) */
             --bg-color: #121212;
             --globe-base: #1a1a1a;
             --accent-color: #ffffff;
@@ -29,7 +27,6 @@
         }
 
         body[data-theme="yonko"] {
-            /* قاعة الأباطرة (أسود مرعب مع وهج أحمر) */
             --bg-color: #050505;
             --globe-base: #110303;
             --accent-color: #ff3333;
@@ -38,7 +35,6 @@
         }
 
         body[data-theme="admins"] {
-            /* أعلى الإداريين (أزرق ملكي مشع) */
             --bg-color: #03142e;
             --globe-base: #072146;
             --accent-color: #3b82f6;
@@ -48,7 +44,6 @@
         }
 
         body[data-theme="supernova"] {
-            /* السوبر نوفا (بنفسجي نيون غامض) */
             --bg-color: #0b0213;
             --globe-base: #1c053a;
             --accent-color: #a855f7;
@@ -69,14 +64,13 @@
             transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر وتصميم الكوكب الشبكي المتوهج 🌐 --- */
+        /* --- الهيدر وتصميم الكوكب الشبكي المتوهج --- */
         header { text-align: center; padding: 50px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
         header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
         header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
         header .founder { font-size: 0.9rem; color: #94a3b8; }
         header .founder strong { color: var(--accent-color); transition: var(--transition); }
 
-        /* حاوية الكوكب الشبكي */
         .globe-wrapper { display: flex; justify-content: center; margin: 25px auto; width: 140px; height: 140px; position: relative; }
         .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 20px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
         .globe-bg { fill: var(--globe-base); transition: fill 0.8s ease; }
@@ -115,7 +109,7 @@
         }
         .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
-        /* --- المحتوى والبطاقات الفخمة --- */
+        /* --- المحتوى والبطاقات --- */
         .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
@@ -267,6 +261,7 @@
         </div>
     </div>
 
+    <!-- نافذة العرض المنبثقة -->
     <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close-btn" onclick="closeModal(event)">X</button>
@@ -281,6 +276,7 @@
         </div>
     </div>
 
+    <!-- كود حماية الموقع -->
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
@@ -291,10 +287,9 @@
     </script>
 
     <script>
-        // دالة لعرض صورة بديلة فخمة في حال عدم وجود الصورة المحلية
         const fallbackImg = "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80";
 
-        // قاعدة البيانات الشاملة
+        // تم حذف كلمة images/ لكي تقرأ من المستودع مباشرة
         const database = {
             home: [
                 {
@@ -327,40 +322,40 @@
                 { 
                     name: "سانت نوسجورو", role: "محارب العدالة المالية", 
                     fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى. قليل الكلام لكن أفعاله تهز الأسواق.",
-                    img: "images/gorosei-1.png" 
+                    img: "gorosei-1.png" 
                 },
                 { 
                     name: "سانت ماركوس مارس", role: "محارب العدالة البيئية", 
                     fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب، محلقاً كطائر أسطوري يحمي سماء المنصة.",
-                    img: "images/gorosei-2.png" 
+                    img: "gorosei-2.png" 
                 }
             ],
             yonko: [
-                { name: "أشورا ♠️", role: "🪙 4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك قوة مدمرة ونفوذاً لا حدود له في النقابات. (يمكنك تعديل تقريره لاحقاً)", img: "images/yonko-ashura.png" },
-                { name: "أودا ♣️", role: "🪙 4,233,000,000", fullInfo: "إمبراطور البحر والمدبر الأعظم، يتميز بتخطيطه الاستراتيجي وقدرته على قلب الموازين في أي حرب. (يمكنك تعديل تقريره لاحقاً)", img: "images/yonko-oda.png" },
-                { name: "مايكي ♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر صاحب الكاريزما القيادية، قاد أقوى الجيوش وأسس لتحالفات تركت بصمة في التاريخ. (يمكنك تعديل تقريره لاحقاً)", img: "images/yonko-maikey.png" },
-                { name: "إيتاشي 💠♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر والعبقري الذي فضل حماية المملكة من الظل، يمتلك هاكي مرعب وقوة تكتيكية لا تقهر. (يمكنك تعديل تقريره لاحقاً)", img: "images/yonko-itachi.png" }
+                { name: "أشورا ♠️", role: "🪙 4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك قوة مدمرة ونفوذاً لا حدود له في النقابات. (يمكنك تعديل تقريره لاحقاً)", img: "yonko-ashura.png" },
+                { name: "أودا ♣️", role: "🪙 4,233,000,000", fullInfo: "إمبراطور البحر والمدبر الأعظم، يتميز بتخطيطه الاستراتيجي وقدرته على قلب الموازين في أي حرب. (يمكنك تعديل تقريره لاحقاً)", img: "yonko-oda.png" },
+                { name: "مايكي ♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر صاحب الكاريزما القيادية، قاد أقوى الجيوش وأسس لتحالفات تركت بصمة في التاريخ. (يمكنك تعديل تقريره لاحقاً)", img: "yonko-maikey.png" },
+                { name: "إيتاشي 💠♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر والعبقري الذي فضل حماية المملكة من الظل، يمتلك هاكي مرعب وقوة تكتيكية لا تقهر. (يمكنك تعديل تقريره لاحقاً)", img: "yonko-itachi.png" }
             ],
             admins: [
-                { name: "ماركو (هيتاشي) 🛡️", role: "🪙 2,500,000,000", fullInfo: "إداري رفيع المستوى، يتولى الدفاع وصد الهجمات ببراعة منقطعة النظير. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-marco.png" },
-                { name: "رانبو 🛡️", role: "🪙 1,486,000,000", fullInfo: "المحقق الإداري الذي لا تفوته شاردة ولا واردة، يحفظ النظام بعبقريته. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-ranpo.png" },
-                { name: "ايرين ♣️", role: "🪙 1,327,000,000", fullInfo: "إداري هجومي يتميز بسرعة اتخاذ القرارات الحاسمة في أوقات الأزمات. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-eren.png" },
-                { name: "لولوش ♣️🧭", role: "🪙 1,246,000,000", fullInfo: "المخطط الإداري الذي يرى ما لا يراه الآخرون، يوجه النقابة بحكمة. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-lelouch.png" },
-                { name: "ايزن ⚜️", role: "🪙 1,179,000,000", fullInfo: "إداري مرعب يمتاز بالبرود والتخطيط بعيد المدى لحماية أهداف النقابة. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-aizen.png" },
-                { name: "كاغويا ⛲️", role: "🪙 1,086,000,000", fullInfo: "إدارية تفرض سيطرتها بقوة وتملك نفوذاً واسعاً داخل أروقة الممالك. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-kaguya.png" },
-                { name: "شيسوي 🔱", role: "🪙 1,000,000,000", fullInfo: "إداري وفيّ يضحي من أجل استقرار المملكة ويعمل كدرع واقٍ لها. (تقرير الإداري الكامل يكتب هنا)", img: "images/admin-shisui.png" }
+                { name: "ماركو (هيتاشي) 🛡️", role: "🪙 2,500,000,000", fullInfo: "إداري رفيع المستوى، يتولى الدفاع وصد الهجمات ببراعة منقطعة النظير. (تقرير الإداري الكامل يكتب هنا)", img: "admin-marco.png" },
+                { name: "رانبو 🛡️", role: "🪙 1,486,000,000", fullInfo: "المحقق الإداري الذي لا تفوته شاردة ولا واردة، يحفظ النظام بعبقريته. (تقرير الإداري الكامل يكتب هنا)", img: "admin-ranpo.png" },
+                { name: "ايرين ♣️", role: "🪙 1,327,000,000", fullInfo: "إداري هجومي يتميز بسرعة اتخاذ القرارات الحاسمة في أوقات الأزمات. (تقرير الإداري الكامل يكتب هنا)", img: "admin-eren.png" },
+                { name: "لولوش ♣️🧭", role: "🪙 1,246,000,000", fullInfo: "المخطط الإداري الذي يرى ما لا يراه الآخرون، يوجه النقابة بحكمة. (تقرير الإداري الكامل يكتب هنا)", img: "admin-lelouch.png" },
+                { name: "ايزن ⚜️", role: "🪙 1,179,000,000", fullInfo: "إداري مرعب يمتاز بالبرود والتخطيط بعيد المدى لحماية أهداف النقابة. (تقرير الإداري الكامل يكتب هنا)", img: "admin-aizen.png" },
+                { name: "كاغويا ⛲️", role: "🪙 1,086,000,000", fullInfo: "إدارية تفرض سيطرتها بقوة وتملك نفوذاً واسعاً داخل أروقة الممالك. (تقرير الإداري الكامل يكتب هنا)", img: "admin-kaguya.png" },
+                { name: "شيسوي 🔱", role: "🪙 1,000,000,000", fullInfo: "إداري وفيّ يضحي من أجل استقرار المملكة ويعمل كدرع واقٍ لها. (تقرير الإداري الكامل يكتب هنا)", img: "admin-shisui.png" }
             ],
             supernova: [
-                { name: "ريكا 🛡️♣️", role: "🪙 990,000,000", fullInfo: "المركز الأول في السوبر نوفا، موهبة فذة صعدت بسرعة الصاروخ في سلم القيادة.", img: "images/supernova-rika.png" },
-                { name: "ريم ⛲️", role: "🪙 930,000,000", fullInfo: "المركز الثاني، تتسم بالمرونة العالية والقدرة على التكيف مع كافة المتغيرات.", img: "images/supernova-rem.png" },
-                { name: "ريزي 🛡️", role: "🪙 890,000,000", fullInfo: "المركز الثالث، قوة دفاعية هائلة تحمي الخطوط الأمامية للجيل الأسوأ.", img: "images/supernova-rizi.png" },
-                { name: "توكيتو ♣️", role: "🪙 850,000,000", fullInfo: "المركز الرابع، هادئ الطباع ولكنه مميت في الأوقات الحرجة.", img: "images/supernova-tokito.png" },
-                { name: "رون 🛕", role: "🪙 790,000,000", fullInfo: "المركز الخامس، مهندس التكتيكات الصاعد بقوة في النقابة.", img: "images/supernova-ron.png" },
-                { name: "ايزن ♣️", role: "🪙 730,000,000", fullInfo: "المركز السابع، يمتاز بقدرة غريبة على قراءة تحركات الخصوم.", img: "images/supernova-aizen.png" },
-                { name: "شارلوك 🔱", role: "🪙 680,000,000", fullInfo: "المركز الثامن، يمتلك دهاءً يمكنه من حل أعقد النزاعات.", img: "images/supernova-sharlock.png" },
-                { name: "ميساكي ♠️", role: "🪙 610,000,000", fullInfo: "المركز التاسع، صائدة الفرص التي لا تخطئ هدفها أبداً.", img: "images/supernova-misaki.png" },
-                { name: "سيرينا 🛡️", role: "🪙 580,000,000", fullInfo: "المركز العاشر، درع متين يعتمد عليه الجيل الجديد.", img: "images/supernova-serena.png" },
-                { name: "ماو ماو 🛡️", role: "🪙 530,000,000", fullInfo: "المركز الحادي عشر، خبيرة السموم والتحليلات الدقيقة.", img: "images/supernova-maomao.png" }
+                { name: "ريكا 🛡️♣️", role: "🪙 990,000,000", fullInfo: "المركز الأول في السوبر نوفا، موهبة فذة صعدت بسرعة الصاروخ في سلم القيادة.", img: "supernova-rika.png" },
+                { name: "ريم ⛲️", role: "🪙 930,000,000", fullInfo: "المركز الثاني، تتسم بالمرونة العالية والقدرة على التكيف مع كافة المتغيرات.", img: "supernova-rem.png" },
+                { name: "ريزي 🛡️", role: "🪙 890,000,000", fullInfo: "المركز الثالث، قوة دفاعية هائلة تحمي الخطوط الأمامية للجيل الأسوأ.", img: "supernova-rizi.png" },
+                { name: "توكيتو ♣️", role: "🪙 850,000,000", fullInfo: "المركز الرابع، هادئ الطباع ولكنه مميت في الأوقات الحرجة.", img: "supernova-tokito.png" },
+                { name: "رون 🛕", role: "🪙 790,000,000", fullInfo: "المركز الخامس، مهندس التكتيكات الصاعد بقوة في النقابة.", img: "supernova-ron.png" },
+                { name: "ايزن ♣️", role: "🪙 730,000,000", fullInfo: "المركز السابع، يمتاز بقدرة غريبة على قراءة تحركات الخصوم.", img: "supernova-aizen.png" },
+                { name: "شارلوك 🔱", role: "🪙 680,000,000", fullInfo: "المركز الثامن، يمتلك دهاءً يمكنه من حل أعقد النزاعات.", img: "supernova-sharlock.png" },
+                { name: "ميساكي ♠️", role: "🪙 610,000,000", fullInfo: "المركز التاسع، صائدة الفرص التي لا تخطئ هدفها أبداً.", img: "supernova-misaki.png" },
+                { name: "سيرينا 🛡️", role: "🪙 580,000,000", fullInfo: "المركز العاشر، درع متين يعتمد عليه الجيل الجديد.", img: "supernova-serena.png" },
+                { name: "ماو ماو 🛡️", role: "🪙 530,000,000", fullInfo: "المركز الحادي عشر، خبيرة السموم والتحليلات الدقيقة.", img: "supernova-maomao.png" }
             ]
         };
 
@@ -418,7 +413,6 @@
             }
         }
 
-        // إغلاق النافذة بزر Esc
         document.addEventListener('keydown', function(event) {
             if (event.key === "Escape") {
                 document.getElementById('profile-modal').classList.remove('active');
