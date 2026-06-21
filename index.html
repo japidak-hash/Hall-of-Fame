@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Riviera | Grand Hall</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
@@ -45,235 +45,183 @@
             display: flex; flex-direction: column; overflow-x: hidden; transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر وتصميم الكوكب الشبكي --- */
         header { text-align: center; padding: 40px 20px 30px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
         header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
         header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
         header .founder { font-size: 0.9rem; color: #94a3b8; }
         header .founder strong { color: var(--accent-color); transition: var(--transition); }
 
-        .globe-wrapper { display: flex; justify-content: center; margin: 15px auto; width: 130px; height: 130px; position: relative; }
+        .globe-wrapper { display: flex; justify-content: center; margin: 15px auto; width: 120px; height: 120px; position: relative; }
         .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 20px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
         .globe-bg { fill: var(--globe-base); transition: fill 0.8s ease; }
         .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- شريط أعلى 5 أعضاء باونتي (تم حل مشكلة القص هنا) --- */
-        .marquee-wrapper {
-            position: relative; width: 100%; max-width: 900px; margin: 40px auto 10px auto;
-        }
-
+        /* --- شريط أعلى 5 أعضاء باونتي --- */
+        .marquee-wrapper { position: relative; width: 100%; max-width: 900px; margin: 40px auto 10px auto; z-index: 10; }
         .marquee-container {
             width: 100%; overflow: hidden; position: relative;
             background: rgba(0, 0, 0, 0.3); border: 1px solid var(--accent-color); border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5); padding: 12px 0; transition: border-color 0.8s ease;
         }
-        
-        .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; transition: background 0.8s ease; }
+        .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; }
         .marquee-container::before { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
         .marquee-container::after { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
 
         .marquee-title {
             position: absolute; top: -16px; right: 50%; transform: translateX(50%);
-            background: var(--bg-color); color: gold; padding: 2px 20px; font-weight: bold; font-size: 1.1rem;
-            border: 1px solid var(--accent-color); border-radius: 20px; z-index: 5; transition: all 0.8s ease;
-            white-space: nowrap; box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            background: var(--bg-color); color: gold; padding: 2px 20px; font-weight: bold; font-size: 1rem;
+            border: 1px solid var(--accent-color); border-radius: 20px; z-index: 5; white-space: nowrap;
         }
 
-        .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollTicker 20s linear infinite; }
-        .marquee-track:hover { animation-play-state: paused; }
+        .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollTicker 25s linear infinite; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
 
         .m-item {
-            display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05);
-            padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: transform 0.3s; cursor: pointer;
+            display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(255, 215, 0, 0.2);
         }
-        .m-item:hover { transform: scale(1.05); background: rgba(255, 215, 0, 0.1); border-color: gold; }
-        .m-item img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid gold; object-fit: cover; background: #000; }
-        .m-info { display: flex; flex-direction: column; text-align: right; line-height: 1.2; }
-        .m-name { color: #fff; font-weight: bold; font-size: 0.95rem; }
-        .m-bounty { color: gold; font-family: monospace; font-size: 0.9rem; font-weight: bold; }
+        .m-item img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid gold; object-fit: cover; }
+        .m-name { color: #fff; font-weight: bold; font-size: 0.85rem; }
+        .m-bounty { color: gold; font-family: monospace; font-size: 0.85rem; }
 
         /* --- أزرار التنقل --- */
-        .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 1000px; }
+        .nav-container { display: flex; justify-content: center; gap: 10px; margin: 20px auto; flex-wrap: wrap; padding: 0 10px; }
         .nav-btn {
-            background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 12px 25px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 6px; transition: var(--transition);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
+            padding: 10px 20px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: var(--transition);
         }
-        .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #04101e; border-color: var(--accent-color); box-shadow: 0 0 25px var(--glow-color); }
-
-        /* --- عناوين الشرح للأقسام --- */
-        .section-header { text-align: center; margin-bottom: 45px; }
-        .section-header h2 { font-size: 2.6rem; color: var(--accent-color); text-shadow: 0 0 15px var(--glow-color); margin-bottom: 10px; transition: color 0.8s; }
-        .section-header p { font-size: 1.25rem; color: #e2e8f0; font-weight: 500; display: inline-block; padding: 6px 22px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
-
-        .about-card {
-            background: rgba(13, 31, 54, 0.6); border: 1px solid rgba(135, 206, 235, 0.2); border-radius: 15px;
-            padding: 35px; margin-bottom: 50px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
-        }
-        .about-card h3 { color: var(--accent-color); font-size: 2rem; margin-bottom: 15px; text-shadow: 0 0 10px var(--glow-color); }
-        .about-card .definition { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
-        .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2.1; text-align: justify; max-width: 900px; margin: 0 auto; padding: 25px; background: rgba(0,0,0,0.2); border-right: 5px solid var(--accent-color); border-radius: 4px; }
-
-        .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
-        .whatsapp-link {
-            display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
-            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 25px rgba(30, 190, 165, 0.6); transition: var(--transition);
-        }
-        .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
+        .nav-btn.active { background: var(--accent-color); color: #04101e; box-shadow: 0 0 20px var(--glow-color); }
 
         /* --- المحتوى والبطاقات --- */
-        .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
+        .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px; }
         .section-panel { display: none; }
-        .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .section-panel.active { display: block; animation: fadeInUp 0.6s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 30px; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 
         .character-card {
             background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
-            overflow: hidden; cursor: pointer; position: relative; transition: var(--transition); height: 380px;
-            display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            overflow: hidden; cursor: pointer; transition: var(--transition); height: 350px;
+            display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .character-card:hover { transform: translateY(-10px); border-color: var(--accent-color); box-shadow: 0 10px 35px var(--glow-color); }
+        .character-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
 
-        .card-img-wrapper { height: 65%; width: 100%; overflow: hidden; position: relative; background: #000; }
-        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .character-card:hover .card-img-wrapper img { transform: scale(1.1); }
+        .card-img-wrapper { height: 60%; width: 100%; overflow: hidden; background: #000; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
-        }
-        .character-card:hover .card-overlay { opacity: 1; }
-        .card-overlay span { background: var(--accent-color); color: #04101e; padding: 10px 22px; border-radius: 20px; font-weight: bold; }
+        .card-info { padding: 15px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .card-info h3 { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 5px; }
+        .card-info p { color: #aaa; font-size: 0.9rem; font-weight: bold; }
 
-        .card-info { padding: 20px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
-        .card-info p { color: #aaa; font-size: 1rem; font-weight: bold; font-family: monospace; }
-
-        /* --- النافذة المنبثقة وتأثير DEAD OR ALIVE --- */
+        /* --- النافذة المنبثقة المطورة (حل مشكلة الجوال) --- */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px); display: fixed; align-items: center; justify-content: center;
-            z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; transition: opacity 0.4s ease; padding: 10px;
         }
-        .modal-overlay.active { opacity: 1; pointer-events: all; display: flex; }
+        .modal-overlay.active { opacity: 1; display: flex; }
 
         .modal-content {
-            background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 60px var(--glow-color);
-            border-radius: 15px; width: 90%; max-width: 800px; display: flex; flex-wrap: wrap; overflow: hidden;
-            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+            background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 40px var(--glow-color);
+            border-radius: 15px; width: 100%; max-width: 750px; max-height: 90vh;
+            display: flex; flex-direction: row; overflow-y: auto; transform: scale(0.9);
+            transition: transform 0.4s ease; position: relative;
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
-        .modal-img { flex: 1; min-width: 300px; height: 500px; background: #000; position: relative; overflow: hidden;}
-        .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); transition: filter 0.5s ease; }
-        .modal-overlay.active .modal-img img { filter: sepia(0.6) contrast(1.2) brightness(0.9); }
+        .modal-img { 
+            flex: 1.2; background: #000; position: relative; 
+            display: flex; align-items: center; justify-content: center;
+            min-height: 400px;
+        }
+        .modal-img img { 
+            width: 100%; height: 100%; object-fit: contain; /* لعرض الصورة كاملة دون قص */
+            transition: filter 0.5s ease;
+        }
+        .modal-overlay.active .modal-img img { filter: sepia(0.3) contrast(1.1); }
 
         .wanted-stamp {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%) scale(3) rotate(-10deg);
-            color: #d32f2f; border: 4px solid #d32f2f; padding: 5px 15px; font-size: 2.8rem;
-            font-family: Impact, Haettenschweiler, sans-serif; font-weight: bold; letter-spacing: 3px;
-            opacity: 0; pointer-events: none; text-shadow: 0 0 5px rgba(255,0,0,0.5);
-            box-shadow: inset 0 0 10px rgba(211, 47, 47, 0.3), 0 0 10px rgba(211, 47, 47, 0.3); white-space: nowrap;
-        }
-        .modal-overlay.active .wanted-stamp { animation: stampSmash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: 0.1s; }
-        @keyframes stampSmash {
-            0% { transform: translateX(-50%) scale(3) rotate(-10deg); opacity: 0; }
-            50% { transform: translateX(-50%) scale(0.9) rotate(-10deg); opacity: 1; }
-            100% { transform: translateX(-50%) scale(1) rotate(-10deg); opacity: 0.85; }
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) rotate(-10deg);
+            color: #ff3333; border: 4px solid #ff3333; padding: 5px 15px; font-size: 2rem;
+            font-family: Impact, sans-serif; font-weight: bold; letter-spacing: 2px;
+            opacity: 0.8; pointer-events: none; white-space: nowrap; background: rgba(0,0,0,0.2);
         }
 
-        .modal-details { flex: 1; min-width: 300px; padding: 40px 30px; display: flex; flex-direction: column; }
-        .modal-details h2 { color: var(--accent-color); font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 10px var(--glow-color); }
-        .modal-details .role-badge { display: inline-block; background: var(--accent-color); color: #04101e; padding: 6px 18px; border-radius: 5px; font-weight: bold; margin-bottom: 25px; align-self: flex-start; font-family: monospace; font-size: 1.1rem; }
-        .modal-details p { color: #ddd; line-height: 1.8; font-size: 1.15rem; overflow-y: auto; flex: 1; margin-bottom: 20px; }
-        
+        .modal-details { flex: 1; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
+        .modal-details h2 { color: var(--accent-color); font-size: 2rem; margin-bottom: 10px; }
+        .role-badge { display: inline-block; background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 20px; align-self: flex-start; }
+        .modal-details p { color: #ddd; line-height: 1.7; font-size: 1.05rem; }
+
         .close-btn {
-            position: absolute; top: 15px; right: 15px; background: red; color: white; border: none;
-            width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; font-weight: bold; z-index: 10;
+            position: absolute; top: 15px; left: 15px; background: #ff3333; color: white; border: none;
+            width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 100;
         }
 
-        /* --- زر التحكم بالموسيقى العائم --- */
-        .music-toggle-btn {
-            position: fixed; bottom: 30px; left: 30px; background: rgba(13, 31, 54, 0.8);
-            border: 2px solid var(--accent-color); color: var(--text-main); padding: 12px 20px;
-            border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; z-index: 1000;
-            backdrop-filter: blur(10px); box-shadow: 0 0 20px var(--glow-color); transition: all 0.3s ease;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .music-toggle-btn:hover { background: var(--accent-color); color: #000; transform: scale(1.05); }
-
-        @media (max-width: 700px) {
-            header h1 { font-size: 2.4rem; }
-            .modal-img { height: 250px; }
+        /* --- تحسينات الجوال القصوى --- */
+        @media (max-width: 768px) {
+            .modal-content { flex-direction: column; } /* تحويل النافذة لطولية */
+            .modal-img { min-height: 300px; max-height: 45vh; }
             .modal-details { padding: 20px; }
-            .modal-details h2 { font-size: 1.7rem; }
-            .section-header h2 { font-size: 2.1rem; }
-            .marquee-wrapper { width: 95%; } /* تصحيح للشاشات الصغيرة */
-            .wanted-stamp { font-size: 2rem; bottom: 15px; border-width: 3px; }
-            .music-toggle-btn { bottom: 20px; left: 20px; padding: 10px 15px; font-size: 1rem; }
+            .modal-details h2 { font-size: 1.6rem; }
+            header h1 { font-size: 2.2rem; }
+            .wanted-stamp { font-size: 1.5rem; bottom: 10px; }
+            .marquee-title { font-size: 0.85rem; top: -12px; }
+            .music-toggle-btn { bottom: 15px; left: 15px; padding: 8px 12px; font-size: 0.9rem; }
+        }
+
+        /* زر الموسيقى */
+        .music-toggle-btn {
+            position: fixed; bottom: 25px; left: 25px; background: rgba(13, 31, 54, 0.9);
+            border: 2px solid var(--accent-color); color: #fff; padding: 10px 18px;
+            border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 1500;
+            box-shadow: 0 0 15px var(--glow-color);
         }
     </style>
 </head>
 <body data-theme="home">
 
-    <!-- مشغل الموسيقى المخفي -->
     <audio id="bg-music" src="theme.mp3" loop></audio>
     <audio id="wanted-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
-    <!-- زر التحكم بالموسيقى -->
-    <button id="music-btn" class="music-toggle-btn" onclick="toggleMusic()">
-        🔇 تشغيل موسيقى المملكة
-    </button>
+    <button id="music-btn" class="music-toggle-btn" onclick="toggleMusic()">🔇 موسيقى المملكة</button>
 
     <header>
         <div class="globe-wrapper">
             <svg class="network-globe" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="46" class="globe-bg"/>
-                <circle cx="50" cy="50" r="46" class="globe-line"/>
-                <line x1="4" y1="50" x2="96" y2="50" class="globe-line"/>
-                <line x1="15" y1="25" x2="85" y2="25" class="globe-line"/>
-                <line x1="15" y1="75" x2="85" y2="75" class="globe-line"/>
-                <line x1="50" y1="4" x2="50" y2="96" class="globe-line"/>
-                <path d="M50,4 Q23,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q77,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q3,50 50,96" class="globe-line"/>
-                <path d="M50,4 Q97,50 50,96" class="globe-line"/>
+                <circle cx="50" cy="50" r="46" class="globe-bg"/><circle cx="50" cy="50" r="46" class="globe-line"/>
+                <line x1="4" y1="50" x2="96" y2="50" class="globe-line"/><line x1="15" y1="25" x2="85" y2="25" class="globe-line"/>
+                <line x1="50" y1="4" x2="50" y2="96" class="globe-line"/><path d="M50,4 Q23,50 50,96" class="globe-line"/>
+                <path d="M50,4 Q77,50 50,96" class="globe-line"/><path d="M50,4 Q3,50 50,96" class="globe-line"/>
             </svg>
         </div>
         <h1>Hall of Fame</h1>
         <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
 
-        <!-- شريط أعلى 5 باونتي المتحرك (تم فصل التايتل لمنع القص) -->
         <div class="marquee-wrapper">
             <div class="marquee-title">🏆 أعلى 5 مطلوبين مكافأة 🏆</div>
             <div class="marquee-container">
                 <div class="marquee-track" dir="ltr">
-                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
-                    
-                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">4.6B</span></div></div>
+                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">4.2B</span></div></div>
+                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">4.0B</span></div></div>
+                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">4.0B</span></div></div>
+                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">2.5B</span></div></div>
+                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">4.6B</span></div></div>
+                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">4.2B</span></div></div>
+                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">4.0B</span></div></div>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="nav-container">
-        <button class="nav-btn active" onclick="switchSection('home-panel', 'home', event)">الشاشة الرئيسية</button>
-        <button class="nav-btn" onclick="switchSection('gorosei', 'gorosei', event)">قاعة الحكماء</button>
-        <button class="nav-btn" onclick="switchSection('yonko', 'yonko', event)">قاعة الأباطرة</button>
-        <button class="nav-btn" onclick="switchSection('admins', 'admins', event)">أعلى الإداريين</button>
+        <button class="nav-btn active" onclick="switchSection('home-panel', 'home', event)">الرئيسية</button>
+        <button class="nav-btn" onclick="switchSection('gorosei', 'gorosei', event)">الحكماء</button>
+        <button class="nav-btn" onclick="switchSection('yonko', 'yonko', event)">الأباطرة</button>
+        <button class="nav-btn" onclick="switchSection('admins', 'admins', event)">الإداريين</button>
         <button class="nav-btn" onclick="switchSection('supernova', 'supernova', event)">السوبر نوفا</button>
     </div>
 
@@ -281,24 +229,18 @@
         <div id="home-panel" class="section-panel active">
             <div class="about-card">
                 <h3>عن صحيفة الريفيري</h3>
-                <p class="definition">"صحيفة الريفيري هي الناقل الأول لأخبار الممالك والنقابات"</p>
-                <p class="novel-story">
-                    في خضم أمواج العالم الجديد المتلاطمة، حيث يُولد الأساطير وتندثر الممالك في غياهب النسيان، كان المؤسس «أشورا» يبحر بسفينته متحدياً العواصف واللوغ بوس الرابط بين الأبحر. رأى صعود أباطرة وسقوط نقابات، وشهد على معارك ملحمية غيرت مجرى التاريخ. هناك، وسط رذاذ البحر والمخاطر، أدرك أن التاريخ قد يضيع إذا لم يجد من يحميه، فأخذ عهداً مقدساً على نفسه: أن يوثق كل ما يراه بحياد وقوة، ليكون صوتاً للحقيقة في عالم تملؤه النزاعات. ومن هذا العهد الأسطوري، ولدت الصحيفة لتجمع تحت سقفها أعظم القادة والحكماء.
-                </p>
+                <p class="definition">"الناقل الأول لأخبار الممالك والنقابات"</p>
+                <p class="novel-story">وثيقة تاريخية تجمع تحت سقفها أعظم القادة والحكماء الذين غيروا مجرى التاريخ الرقمي في عالم النقابات.</p>
             </div>
-            <div class="section-header"><h2>الهيكل القيادي للصحيفة</h2><p>— المؤسسون والقادة العِظام —</p></div>
             <div class="cards-grid" id="home-box"></div>
             <div class="join-btn-container">
-                <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank" class="whatsapp-link">
-                    بوابة دخول صحيفة الريفيري 🚪
-                </a>
+                <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank" class="whatsapp-link">بوابة دخول صحيفة الريفيري 🚪</a>
             </div>
         </div>
-
-        <div id="gorosei" class="section-panel"><div class="section-header"><h2>قاعة الحكماء</h2><p>— للغوروسي —</p></div><div class="cards-grid" id="gorosei-box"></div></div>
-        <div id="yonko" class="section-panel"><div class="section-header"><h2>قاعة الأباطرة</h2><p>— لليونكو —</p></div><div class="cards-grid" id="yonko-box"></div></div>
-        <div id="admins" class="section-panel"><div class="section-header"><h2>أعلى الإداريين</h2><p>— القيادة العليا —</p></div><div class="cards-grid" id="admins-box"></div></div>
-        <div id="supernova" class="section-panel"><div class="section-header"><h2>الجيل الأسوأ</h2><p>— للسوبر نوفا —</p></div><div class="cards-grid" id="supernova-box"></div></div>
+        <div id="gorosei" class="section-panel"><div class="cards-grid" id="gorosei-box"></div></div>
+        <div id="yonko" class="section-panel"><div class="cards-grid" id="yonko-box"></div></div>
+        <div id="admins" class="section-panel"><div class="cards-grid" id="admins-box"></div></div>
+        <div id="supernova" class="section-panel"><div class="cards-grid" id="supernova-box"></div></div>
     </div>
 
     <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
@@ -311,17 +253,10 @@
             <div class="modal-details">
                 <h2 id="m-name">الاسم</h2>
                 <div class="role-badge" id="m-role">الرتبة</div>
-                <p id="m-desc">الوصف والقصة الكاملة...</p>
+                <p id="m-desc">جاري تحميل البيانات...</p>
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) { return false; }
-        }
-    </script>
 
     <script>
         const fallbackImg = "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80";
@@ -330,57 +265,48 @@
         const musicBtn = document.getElementById('music-btn');
 
         function toggleMusic() {
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicBtn.innerHTML = '🔊 إيقاف الموسيقى';
-                musicBtn.style.borderColor = 'red';
-                musicBtn.style.color = 'red';
-            } else {
-                bgMusic.pause();
-                musicBtn.innerHTML = '🔇 تشغيل موسيقى المملكة';
-                musicBtn.style.borderColor = 'var(--accent-color)';
-                musicBtn.style.color = 'var(--text-main)';
-            }
+            if (bgMusic.paused) { bgMusic.play(); musicBtn.innerHTML = '🔊 إيقاف الموسيقى'; } 
+            else { bgMusic.pause(); musicBtn.innerHTML = '🔇 موسيقى المملكة'; }
         }
 
         const database = {
             home: [
-                { name: "إيرين", role: "مؤسس الصحيفة", fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية, قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.", img: "eren.jpg" },
-                { name: "أشورا", role: "مؤسس الصحيفة", fullInfo: "قائد ومؤسس السلالة الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.", img: "ashura.jpg" },
-                { name: "مايكي", role: "قائد الصحيفة", fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.", img: "maiki.jpg" },
-                { name: "أودا", role: "نائب الصحيفة", fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.", img: "oda.jpg" },
-                { name: "ريكا", role: "نائبة الصحيفة", fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.", img: "rika.jpg" }
+                { name: "إيرين", role: "مؤسس الصحيفة", fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية.", img: "eren.jpg" },
+                { name: "أشورا", role: "مؤسس الصحيفة", fullInfo: "قائد ومؤسس السلالة وصاحب هاكي مرعب في توثيق التاريخ.", img: "ashura.jpg" },
+                { name: "مايكي", role: "قائد الصحيفة", fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة.", img: "maiki.jpg" },
+                { name: "أودا", role: "نائب الصحيفة", fullInfo: "العقل المدبر والمخطط العبقري لقصص وأخبار الريفيري.", img: "oda.jpg" },
+                { name: "ريكا", role: "نائبة الصحيفة", fullInfo: "ملكة الحماية والدعم الإداري بقوة تضمن صدارة الصحيفة.", img: "rika.jpg" }
             ],
             gorosei: [
-                { name: "سانت نوسجورو", role: "محارب العدالة المالية", fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى.", img: "gorosei-1.png.JPG" },
-                { name: "سانت ماركوس مارس", role: "محارب العدالة البيئية", fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشنر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد.", img: "gorosei-2.png.JPG" }
+                { name: "سانت نوسجورو", role: "محارب المالية", fullInfo: "يمثل القوة المالية المطلقة وحكمة الاقتصاد.", img: "gorosei-1.png.JPG" },
+                { name: "سانت ماركوس مارس", role: "محارب البيئة", fullInfo: "يحلق فوق الجميع بنظرته الثاقبة لحماية بيئة الصحيفة.", img: "gorosei-2.png.JPG" }
             ],
             yonko: [
-                { name: "أشورا ♠️", role: "🪙 4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك قوة مدمرة ونفوذاً لا حدود له في النقابات.", img: "yonko-ashura.png.JPG" },
-                { name: "أودا ♣️", role: "🪙 4,233,000,000", fullInfo: "إمبراطور البحر والمدبر الأعظم، يتميز بتخطيطه الاستراتيجي وقدرته على قلب الموازين في أي حرب.", img: "yonko-oda.png.JPG" },
-                { name: "مايكي ♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر صاحب الكاريزما القيادية، قاد أقوى الجيوش وأسس لتحالفات تركت بصمة في التاريخ.", img: "yonko-maikey.png.JPG" },
-                { name: "إيتاشي 💠♣️", role: "🪙 4,000,000,000", fullInfo: "إمبراطور البحر والعبقري الذي فضل حماية المملكة من الظل، يمتلك هاكي مرعب وقوة تكتيكية لا تقهر.", img: "yonko-itachi.png.JPG" }
+                { name: "أشورا ♠️", role: "4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك نفوذاً لا حدود له.", img: "yonko-ashura.png.JPG" },
+                { name: "أودا ♣️", role: "4,233,000,000", fullInfo: "إمبراطور البحر والمدبر الأعظم، يتميز بتخطيطه الاستراتيجي.", img: "yonko-oda.png.JPG" },
+                { name: "مايكي ♣️", role: "4,000,000,000", fullInfo: "إمبراطور البحر صاحب الكاريزما القيادية.", img: "yonko-maikey.png.JPG" },
+                { name: "إيتاشي 💠", role: "4,000,000,000", fullInfo: "العبقري الذي فضل حماية المملكة من الظل.", img: "yonko-itachi.png.JPG" }
             ],
             admins: [
-                { name: "ماركو (هيتاشي) 🛡️", role: "🪙 2,500,000,000", fullInfo: "إداري رفيع المستوى، يتولى الدفاع وصد الهجمات ببراعة منقطعة النظير.", img: "admin-marco.png.JPG" },
-                { name: "رانبو 🛡️", role: "🪙 1,486,000,000", fullInfo: "المحقق الإداري الذي لا تفوته شاردة ولا واردة، يحفظ النظام بعبقريته.", img: "admin-ranpo.png.JPG" },
-                { name: "ايرين ♣️", role: "🪙 1,327,000,000", fullInfo: "إداري هجومي يتميز بسرعة اتخاذ القرارات الحاسمة في أوقات الأزمات.", img: "admin-eren.png.JPG" },
-                { name: "لولوش ♣️🧭", role: "🪙 1,246,000,000", fullInfo: "المخطط الإداري الذي يرى ما لا يراه الآخرون، يوجه النقابة بحكمة.", img: "admin-lelouch.png.JPG" },
-                { name: "ايزن ⚜️", role: "🪙 1,179,000,000", fullInfo: "إداري مرعب يمتاز بالبرود والتخطيط بعيد المدى لحماية أهداف النقابة.", img: "admin-aizen.png.JPG" },
-                { name: "كاغويا ⛲️", role: "🪙 1,086,000,000", fullInfo: "إدارية تفرض سيطرتها بقوة وتملك نفوذاً واسعاً داخل أروقة الممالك.", img: "admin-kaguya.png.JPG" },
-                { name: "شيسوي 🔱", role: "🪙 1,000,000,000", fullInfo: "إداري وفيّ يضحي من أجل استقرار المملكة ويعمل كدرع واقٍ لها.", img: "admin-shisui.png.JPG" }
+                { name: "ماركو (هيتاشي)", role: "2,500,000,000", fullInfo: "إداري رفيع المستوى، يتولى الدفاع ببراعة.", img: "admin-marco.png.JPG" },
+                { name: "رانبو 🛡️", role: "1,486,000,000", fullInfo: "المحقق الإداري العبقري.", img: "admin-ranpo.png.JPG" },
+                { name: "ايرين ♣️", role: "1,327,000,000", fullInfo: "إداري هجومي صاحب قرارات حاسمة.", img: "admin-eren.png.JPG" },
+                { name: "لولوش ♣️", role: "1,246,000,000", fullInfo: "المخطط الإداري الذي يرى المستقبل.", img: "admin-lelouch.png.JPG" },
+                { name: "ايزن ⚜️", role: "1,179,000,000", fullInfo: "تخطيط بعيد المدى وهدوء مرعب.", img: "admin-aizen.png.JPG" },
+                { name: "كاغويا ⛲️", role: "1,086,000,000", fullInfo: "إدارية تفرض سيطرتها بقوة.", img: "admin-kaguya.png.JPG" },
+                { name: "شيسوي 🔱", role: "1,000,000,000", fullInfo: "إداري وفيّ يعمل كدرع واقٍ.", img: "admin-shisui.png.JPG" }
             ],
             supernova: [
-                { name: "ريكا 🛡️♣️", role: "🪙 990,000,000", fullInfo: "المركز الأول في السوبر نوفا، موهبة فذة صعدت بسرعة الصاروخ في سلم القيادة.", img: "supernova-rika.png.JPG" },
-                { name: "ريم ⛲️", role: "🪙 930,000,000", fullInfo: "المركز الثاني، تتسم بالمرونة العالية والقدرة على التكيف مع كافة المتغيرات.", img: "supernova-rem.png.JPG" },
-                { name: "ريزي 🛡️", role: "🪙 890,000,000", fullInfo: "المركز الثالث، قوة دفاعية هائلة تحمي الخطوط الأمامية للجيل الأسوأ.", img: "supernova-rizi.png.JPG" },
-                { name: "توكيتو ♣️", role: "🪙 850,000,000", fullInfo: "المركز الرابع، هادئ الطباع ولكنه مميت في الأوقات الحرجة.", img: "supernova-tokito.png.JPG" },
-                { name: "رون 🛕", role: "🪙 790,000,000", fullInfo: "المركز الخامس، مهندس التكتيكات الصاعد بقوة في النقابة.", img: "supernova-ron.png.JPG" },
-                { name: "ايزن ♣️", role: "🪙 730,000,000", fullInfo: "المركز السابع، يمتاز بقدرة غريبة على قراءة تحركات الخصوم.", img: "supernova-aizen.png.JPG" },
-                { name: "شارلوك 🔱", role: "🪙 680,000,000", fullInfo: "المركز الثامن، يمتلك دهاءً يمكنه من حل أعقد النزاعات.", img: "supernova-sharlock.png.JPG" },
-                { name: "ميساكي ♠️", role: "🪙 610,000,000", fullInfo: "المركز التاسع، صائدة الفرص التي لا تخطئ هدفها أبداً.", img: "supernova-misaki.png.JPG" },
-                { name: "سيرينا 🛡️", role: "🪙 580,000,000", fullInfo: "المركز العاشر، درع متين يعتمد عليه الجيل الجديد.", img: "supernova-serena.png.JPG" },
-                { name: "ماو ماو 🛡️", role: "🪙 530,000,000", fullInfo: "المركز الحادي عشر، خبيرة السموم والتحليلات الدقيقة.", img: "supernova-maomao.png.JPG" }
+                { name: "ريكا 🛡️", role: "990,000,000", fullInfo: "المركز الأول في السوبر نوفا.", img: "supernova-rika.png.JPG" },
+                { name: "ريم ⛲️", role: "930,000,000", fullInfo: "مرونة عالية وقدرة على التكيف.", img: "supernova-rem.png.JPG" },
+                { name: "ريزي 🛡️", role: "890,000,000", fullInfo: "قوة دفاعية هائلة.", img: "supernova-rizi.png.JPG" },
+                { name: "توكيتو ♣️", role: "850,000,000", fullInfo: "مميت في الأوقات الحرجة.", img: "supernova-tokito.png.JPG" },
+                { name: "رون 🛕", role: "790,000,000", fullInfo: "مهندس التكتيكات الصاعد.", img: "supernova-ron.png.JPG" },
+                { name: "ايزن ♣️", role: "730,000,000", fullInfo: "قراءة تحركات الخصوم.", img: "supernova-aizen.png.JPG" },
+                { name: "شارلوك 🔱", role: "680,000,000", fullInfo: "حل أعقد النزاعات.", img: "supernova-sharlock.png.JPG" },
+                { name: "ميساكي ♠️", role: "610,000,000", fullInfo: "صائدة الفرص.", img: "supernova-misaki.png.JPG" },
+                { name: "سيرينا 🛡️", role: "580,000,000", fullInfo: "درع متين للجيل الجديد.", img: "supernova-serena.png.JPG" },
+                { name: "ماو ماو 🛡️", role: "530,000,000", fullInfo: "خبيرة السموم والتحليلات.", img: "supernova-maomao.png.JPG" }
             ]
         };
 
@@ -388,23 +314,15 @@
             const container = document.getElementById(containerId);
             container.innerHTML = database[category].map((item, index) => `
                 <div class="character-card" onclick="openProfile('${category}', ${index})">
-                    <div class="card-img-wrapper">
-                        <img src="${item.img}" alt="${item.name}" onerror="this.src='${fallbackImg}'">
-                        <div class="card-overlay"><span>استعراض الملف</span></div>
-                    </div>
-                    <div class="card-info">
-                        <h3>${item.name}</h3>
-                        <p>${item.role}</p> 
-                    </div>
+                    <div class="card-img-wrapper"><img src="${item.img}" onerror="this.src='${fallbackImg}'"></div>
+                    <div class="card-info"><h3>${item.name}</h3><p>${item.role}</p></div>
                 </div>
             `).join('');
         }
 
         function initWebsite() {
-            renderCards('home', 'home-box');
-            renderCards('gorosei', 'gorosei-box');
-            renderCards('yonko', 'yonko-box');
-            renderCards('admins', 'admins-box');
+            renderCards('home', 'home-box'); renderCards('gorosei', 'gorosei-box');
+            renderCards('yonko', 'yonko-box'); renderCards('admins', 'admins-box');
             renderCards('supernova', 'supernova-box');
         }
 
@@ -417,38 +335,18 @@
         }
 
         function openProfile(category, index) {
-            wantedSound.currentTime = 0;
-            wantedSound.volume = 0.6;
-            wantedSound.play().catch(e => console.log("الصوت يحتاج لتفاعل مسبق"));
-
+            wantedSound.currentTime = 0; wantedSound.volume = 0.5; wantedSound.play();
             const data = database[category][index];
             const imgElement = document.getElementById('m-img');
-            
             imgElement.src = data.img;
             imgElement.onerror = function() { this.src = fallbackImg; };
-            
             document.getElementById('m-name').innerText = data.name;
             document.getElementById('m-role').innerText = data.role;
             document.getElementById('m-desc').innerText = data.fullInfo;
-            
-            const modal = document.getElementById('profile-modal');
-            modal.classList.remove('active');
-            void modal.offsetWidth;
-            modal.classList.add('active');
+            document.getElementById('profile-modal').classList.add('active');
         }
 
-        function closeModal(event) {
-            if (event.target === document.getElementById('profile-modal') || event.target.classList.contains('close-btn')) {
-                document.getElementById('profile-modal').classList.remove('active');
-            }
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                document.getElementById('profile-modal').classList.remove('active');
-            }
-        });
-
+        function closeModal() { document.getElementById('profile-modal').classList.remove('active'); }
         window.onload = initWebsite;
     </script>
 </body>
