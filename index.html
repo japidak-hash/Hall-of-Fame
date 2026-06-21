@@ -64,7 +64,6 @@
             transition: background-color 0.8s ease;
         }
 
-        /* --- الهيدر وتصميم الكوكب الشبكي المتوهج --- */
         header { text-align: center; padding: 50px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
         header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
         header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
@@ -77,7 +76,6 @@
         .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- أزرار التنقل --- */
         .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 1000px; }
         .nav-btn {
             background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
@@ -86,12 +84,10 @@
         }
         .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #04101e; border-color: var(--accent-color); box-shadow: 0 0 25px var(--glow-color); }
 
-        /* --- عناوين الشرح للأقسام --- */
         .section-header { text-align: center; margin-bottom: 45px; }
         .section-header h2 { font-size: 2.6rem; color: var(--accent-color); text-shadow: 0 0 15px var(--glow-color); margin-bottom: 10px; transition: color 0.8s; }
         .section-header p { font-size: 1.25rem; color: #e2e8f0; font-weight: 500; display: inline-block; padding: 6px 22px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
 
-        /* --- قسم الرواية والتعريف بالشاشة الرئيسية --- */
         .about-card {
             background: rgba(13, 31, 54, 0.6); border: 1px solid rgba(135, 206, 235, 0.2); border-radius: 15px;
             padding: 35px; margin-bottom: 50px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
@@ -100,7 +96,6 @@
         .about-card .definition { font-size: 1.5rem; font-weight: bold; color: #fff; margin-bottom: 25px; line-height: 1.6; }
         .about-card .novel-story { font-size: 1.15rem; color: #cbd5e1; line-height: 2.1; text-align: justify; max-width: 900px; margin: 0 auto; padding: 25px; background: rgba(0,0,0,0.2); border-right: 5px solid var(--accent-color); border-radius: 4px; }
 
-        /* --- زر الواتساب --- */
         .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
         .whatsapp-link {
             display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
@@ -109,7 +104,6 @@
         }
         .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
-        /* --- المحتوى والبطاقات --- */
         .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
@@ -139,7 +133,6 @@
         .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
         .card-info p { color: #aaa; font-size: 1rem; font-weight: bold; font-family: monospace; }
 
-        /* --- النافذة المنبثقة (الملف الشخصي الفاخر) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
             backdrop-filter: blur(10px); display: fixed; align-items: center; justify-content: center;
@@ -287,33 +280,33 @@
     <script>
         const fallbackImg = "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80";
 
-        // تم تعديل جميع الصور لتنتهي بـ png.JPG
+        // قاعدة البيانات بأسماء الصور المطابقة للمستودع تماماً
         const database = {
             home: [
                 {
                     name: "إيرين", role: "مؤسس الصحيفة", 
                     fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية, قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
-                    img: "https://i.pinimg.com/736x/8f/30/01/8f30017a6c9d2f6277b9f3d9d37537b0.jpg"
+                    img: "eren.jpg"
                 },
                 {
                     name: "أشورا", role: "مؤسس الصحيفة",
                     fullInfo: "قائد ومؤسس السلالة الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.",
-                    img: "https://i.pinimg.com/736x/21/f0/3a/21f03a62f59f635e9f80164e7c7a3791.jpg" 
+                    img: "ashura.jpg" 
                 },
                 {
                     name: "مايكي", role: "قائد الصحيفة",
                     fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.",
-                    img: "https://i.pinimg.com/736x/9f/f0/59/9ff05904d9a5b39418386f99d9b62649.jpg" 
+                    img: "maiki.jpg" 
                 },
                 {
                     name: "أودا", role: "نائب الصحيفة",
                     fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.",
-                    img: "https://i.pinimg.com/736x/b2/2b/43/b22b43b3558c484f09d311029c7b9491.jpg" 
+                    img: "oda.jpg" 
                 },
                 {
                     name: "ريكا", role: "نائبة الصحيفة",
                     fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.",
-                    img: "https://i.pinimg.com/736x/55/e3/94/55e394017772c7a52a373b88939c18d3.jpg" 
+                    img: "rika.jpg" 
                 }
             ],
             gorosei: [
