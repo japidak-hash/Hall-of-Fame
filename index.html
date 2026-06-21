@@ -58,20 +58,26 @@
         .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* --- شريط أعلى 5 أعضاء باونتي --- */
+        /* --- شريط أعلى 5 أعضاء باونتي (تم حل مشكلة القص هنا) --- */
+        .marquee-wrapper {
+            position: relative; width: 100%; max-width: 900px; margin: 40px auto 10px auto;
+        }
+
         .marquee-container {
-            width: 100%; max-width: 900px; margin: 30px auto 10px auto; overflow: hidden; position: relative;
+            width: 100%; overflow: hidden; position: relative;
             background: rgba(0, 0, 0, 0.3); border: 1px solid var(--accent-color); border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5); padding: 12px 0; transition: border-color 0.8s ease;
         }
+        
         .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; transition: background 0.8s ease; }
         .marquee-container::before { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
         .marquee-container::after { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
 
         .marquee-title {
-            position: absolute; top: -14px; right: 50%; transform: translateX(50%);
-            background: var(--bg-color); color: gold; padding: 0 15px; font-weight: bold; font-size: 0.9rem;
-            border: 1px solid var(--accent-color); border-radius: 10px; z-index: 3; transition: all 0.8s ease;
+            position: absolute; top: -16px; right: 50%; transform: translateX(50%);
+            background: var(--bg-color); color: gold; padding: 2px 20px; font-weight: bold; font-size: 1.1rem;
+            border: 1px solid var(--accent-color); border-radius: 20px; z-index: 5; transition: all 0.8s ease;
+            white-space: nowrap; box-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
         .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollTicker 20s linear infinite; }
@@ -192,30 +198,13 @@
 
         /* --- زر التحكم بالموسيقى العائم --- */
         .music-toggle-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(13, 31, 54, 0.8);
-            border: 2px solid var(--accent-color);
-            color: var(--text-main);
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px var(--glow-color);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            position: fixed; bottom: 30px; left: 30px; background: rgba(13, 31, 54, 0.8);
+            border: 2px solid var(--accent-color); color: var(--text-main); padding: 12px 20px;
+            border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; z-index: 1000;
+            backdrop-filter: blur(10px); box-shadow: 0 0 20px var(--glow-color); transition: all 0.3s ease;
+            display: flex; align-items: center; gap: 10px;
         }
-        .music-toggle-btn:hover {
-            background: var(--accent-color);
-            color: #000;
-            transform: scale(1.05);
-        }
+        .music-toggle-btn:hover { background: var(--accent-color); color: #000; transform: scale(1.05); }
 
         @media (max-width: 700px) {
             header h1 { font-size: 2.4rem; }
@@ -223,7 +212,7 @@
             .modal-details { padding: 20px; }
             .modal-details h2 { font-size: 1.7rem; }
             .section-header h2 { font-size: 2.1rem; }
-            .marquee-container { width: 95%; }
+            .marquee-wrapper { width: 95%; } /* تصحيح للشاشات الصغيرة */
             .wanted-stamp { font-size: 2rem; bottom: 15px; border-width: 3px; }
             .music-toggle-btn { bottom: 20px; left: 20px; padding: 10px 15px; font-size: 1rem; }
         }
@@ -231,9 +220,11 @@
 </head>
 <body data-theme="home">
 
+    <!-- مشغل الموسيقى المخفي -->
     <audio id="bg-music" src="theme.mp3" loop></audio>
     <audio id="wanted-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
 
+    <!-- زر التحكم بالموسيقى -->
     <button id="music-btn" class="music-toggle-btn" onclick="toggleMusic()">
         🔇 تشغيل موسيقى المملكة
     </button>
@@ -257,20 +248,23 @@
         <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
 
-        <div class="marquee-container">
-            <div class="marquee-title">🏆 أعلى 5 مكافآت بالمملكة 🏆</div>
-            <div class="marquee-track" dir="ltr">
-                <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
-                
-                <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
-                <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+        <!-- شريط أعلى 5 باونتي المتحرك (تم فصل التايتل لمنع القص) -->
+        <div class="marquee-wrapper">
+            <div class="marquee-title">🏆 أعلى 5 مطلوبين مكافأة 🏆</div>
+            <div class="marquee-container">
+                <div class="marquee-track" dir="ltr">
+                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+                    
+                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+                </div>
             </div>
         </div>
     </header>
@@ -335,7 +329,6 @@
         const bgMusic = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-btn');
 
-        // وظيفة تشغيل/إيقاف الموسيقى
         function toggleMusic() {
             if (bgMusic.paused) {
                 bgMusic.play();
