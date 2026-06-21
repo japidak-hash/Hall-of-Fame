@@ -19,71 +19,85 @@
         }
 
         body[data-theme="gorosei"] {
-            --bg-color: #121212;
-            --globe-base: #1a1a1a;
-            --accent-color: #ffffff;
-            --glow-color: rgba(255, 255, 255, 0.7);
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --bg-color: #121212; --globe-base: #1a1a1a; --accent-color: #ffffff;
+            --glow-color: rgba(255, 255, 255, 0.7); --card-bg: rgba(255, 255, 255, 0.05);
         }
 
         body[data-theme="yonko"] {
-            --bg-color: #050505;
-            --globe-base: #110303;
-            --accent-color: #ff3333;
-            --glow-color: rgba(255, 0, 0, 0.6);
-            --card-bg: rgba(20, 0, 0, 0.6);
+            --bg-color: #050505; --globe-base: #110303; --accent-color: #ff3333;
+            --glow-color: rgba(255, 0, 0, 0.6); --card-bg: rgba(20, 0, 0, 0.6);
         }
 
         body[data-theme="admins"] {
-            --bg-color: #03142e;
-            --globe-base: #072146;
-            --accent-color: #3b82f6;
-            --glow-color: rgba(59, 130, 246, 0.6);
-            --text-main: #ffffff;
-            --card-bg: rgba(7, 33, 70, 0.8);
+            --bg-color: #03142e; --globe-base: #072146; --accent-color: #3b82f6;
+            --glow-color: rgba(59, 130, 246, 0.6); --text-main: #ffffff; --card-bg: rgba(7, 33, 70, 0.8);
         }
 
         body[data-theme="supernova"] {
-            --bg-color: #0b0213;
-            --globe-base: #1c053a;
-            --accent-color: #a855f7;
-            --glow-color: rgba(168, 85, 247, 0.6);
-            --text-main: #f3e8ff;
-            --card-bg: rgba(25, 5, 50, 0.8);
+            --bg-color: #0b0213; --globe-base: #1c053a; --accent-color: #a855f7;
+            --glow-color: rgba(168, 85, 247, 0.6); --text-main: #f3e8ff; --card-bg: rgba(25, 5, 50, 0.8);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; outline: none; }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            transition: background-color 0.8s ease;
+            background-color: var(--bg-color); color: var(--text-main); min-height: 100vh;
+            display: flex; flex-direction: column; overflow-x: hidden; transition: background-color 0.8s ease;
         }
 
-        header { text-align: center; padding: 50px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
+        /* --- الهيدر وتصميم الكوكب الشبكي --- */
+        header { text-align: center; padding: 40px 20px 30px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
         header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
         header .subtitle { font-size: 1.3rem; color: #cbd5e1; font-weight: 700; margin-bottom: 10px; }
         header .founder { font-size: 0.9rem; color: #94a3b8; }
         header .founder strong { color: var(--accent-color); transition: var(--transition); }
 
-        .globe-wrapper { display: flex; justify-content: center; margin: 25px auto; width: 140px; height: 140px; position: relative; }
+        .globe-wrapper { display: flex; justify-content: center; margin: 15px auto; width: 130px; height: 130px; position: relative; }
         .network-globe { width: 100%; height: 100%; filter: drop-shadow(0 0 20px var(--glow-color)); transition: filter 0.8s ease; animation: rotateGlobe 12s linear infinite; }
         .globe-bg { fill: var(--globe-base); transition: fill 0.8s ease; }
         .globe-line { fill: none; stroke: var(--accent-color); stroke-width: 1.5; opacity: 0.8; transition: stroke 0.8s ease; }
         @keyframes rotateGlobe { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
+        /* --- شريط أعلى 5 أعضاء باونتي --- */
+        .marquee-container {
+            width: 100%; max-width: 900px; margin: 30px auto 10px auto; overflow: hidden; position: relative;
+            background: rgba(0, 0, 0, 0.3); border: 1px solid var(--accent-color); border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); padding: 12px 0; transition: border-color 0.8s ease;
+        }
+        .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; transition: background 0.8s ease; }
+        .marquee-container::before { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
+        .marquee-container::after { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
+
+        .marquee-title {
+            position: absolute; top: -14px; right: 50%; transform: translateX(50%);
+            background: var(--bg-color); color: gold; padding: 0 15px; font-weight: bold; font-size: 0.9rem;
+            border: 1px solid var(--accent-color); border-radius: 10px; z-index: 3; transition: all 0.8s ease;
+        }
+
+        .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollTicker 20s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+        @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
+
+        .m-item {
+            display: flex; align-items: center; gap: 12px; background: rgba(255, 255, 255, 0.05);
+            padding: 5px 15px 5px 5px; border-radius: 30px; border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s; cursor: pointer;
+        }
+        .m-item:hover { transform: scale(1.05); background: rgba(255, 215, 0, 0.1); border-color: gold; }
+        .m-item img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid gold; object-fit: cover; background: #000; }
+        .m-info { display: flex; flex-direction: column; text-align: right; line-height: 1.2; }
+        .m-name { color: #fff; font-weight: bold; font-size: 0.95rem; }
+        .m-bounty { color: gold; font-family: monospace; font-size: 0.9rem; font-weight: bold; }
+
+        /* --- أزرار التنقل --- */
         .nav-container { display: flex; justify-content: center; gap: 12px; margin: 30px auto; flex-wrap: wrap; padding: 0 20px; max-width: 1000px; }
         .nav-btn {
             background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 12px 25px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 6px;
-            transition: var(--transition);
+            padding: 12px 25px; font-size: 1.1rem; font-weight: 700; cursor: pointer; border-radius: 6px; transition: var(--transition);
         }
         .nav-btn:hover, .nav-btn.active { background-color: var(--accent-color); color: #04101e; border-color: var(--accent-color); box-shadow: 0 0 25px var(--glow-color); }
 
+        /* --- عناوين الشرح للأقسام --- */
         .section-header { text-align: center; margin-bottom: 45px; }
         .section-header h2 { font-size: 2.6rem; color: var(--accent-color); text-shadow: 0 0 15px var(--glow-color); margin-bottom: 10px; transition: color 0.8s; }
         .section-header p { font-size: 1.25rem; color: #e2e8f0; font-weight: 500; display: inline-block; padding: 6px 22px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); }
@@ -99,11 +113,11 @@
         .join-btn-container { text-align: center; margin: 50px 0 20px 0; }
         .whatsapp-link {
             display: inline-block; background: #1ebea5; color: #fff; padding: 15px 40px; font-size: 1.25rem;
-            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 25px rgba(30, 190, 165, 0.6);
-            transition: var(--transition);
+            font-weight: bold; text-decoration: none; border-radius: 30px; box-shadow: 0 0 25px rgba(30, 190, 165, 0.6); transition: var(--transition);
         }
         .whatsapp-link:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 0 35px rgba(30, 190, 165, 0.9); }
 
+        /* --- المحتوى والبطاقات --- */
         .main-content { flex: 1; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px 30px; }
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.7s ease-out forwards; }
@@ -133,6 +147,7 @@
         .card-info h3 { color: var(--accent-color); font-size: 1.35rem; margin-bottom: 5px; font-weight: 700; }
         .card-info p { color: #aaa; font-size: 1rem; font-weight: bold; font-family: monospace; }
 
+        /* --- النافذة المنبثقة وتأثير DEAD OR ALIVE --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
             backdrop-filter: blur(10px); display: fixed; align-items: center; justify-content: center;
@@ -147,8 +162,23 @@
         }
         .modal-overlay.active .modal-content { transform: scale(1); }
 
-        .modal-img { flex: 1; min-width: 300px; height: 500px; background: #000; }
-        .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); }
+        .modal-img { flex: 1; min-width: 300px; height: 500px; background: #000; position: relative; overflow: hidden;}
+        .modal-img img { width: 100%; height: 100%; object-fit: cover; border-left: 2px solid var(--accent-color); transition: filter 0.5s ease; }
+        .modal-overlay.active .modal-img img { filter: sepia(0.6) contrast(1.2) brightness(0.9); }
+
+        .wanted-stamp {
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%) scale(3) rotate(-10deg);
+            color: #d32f2f; border: 4px solid #d32f2f; padding: 5px 15px; font-size: 2.8rem;
+            font-family: Impact, Haettenschweiler, sans-serif; font-weight: bold; letter-spacing: 3px;
+            opacity: 0; pointer-events: none; text-shadow: 0 0 5px rgba(255,0,0,0.5);
+            box-shadow: inset 0 0 10px rgba(211, 47, 47, 0.3), 0 0 10px rgba(211, 47, 47, 0.3); white-space: nowrap;
+        }
+        .modal-overlay.active .wanted-stamp { animation: stampSmash 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: 0.1s; }
+        @keyframes stampSmash {
+            0% { transform: translateX(-50%) scale(3) rotate(-10deg); opacity: 0; }
+            50% { transform: translateX(-50%) scale(0.9) rotate(-10deg); opacity: 1; }
+            100% { transform: translateX(-50%) scale(1) rotate(-10deg); opacity: 0.85; }
+        }
 
         .modal-details { flex: 1; min-width: 300px; padding: 40px 30px; display: flex; flex-direction: column; }
         .modal-details h2 { color: var(--accent-color); font-size: 2.4rem; margin-bottom: 10px; text-shadow: 0 0 10px var(--glow-color); }
@@ -160,16 +190,53 @@
             width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; font-weight: bold; z-index: 10;
         }
 
+        /* --- زر التحكم بالموسيقى العائم --- */
+        .music-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(13, 31, 54, 0.8);
+            border: 2px solid var(--accent-color);
+            color: var(--text-main);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px var(--glow-color);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .music-toggle-btn:hover {
+            background: var(--accent-color);
+            color: #000;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 700px) {
             header h1 { font-size: 2.4rem; }
             .modal-img { height: 250px; }
             .modal-details { padding: 20px; }
             .modal-details h2 { font-size: 1.7rem; }
             .section-header h2 { font-size: 2.1rem; }
+            .marquee-container { width: 95%; }
+            .wanted-stamp { font-size: 2rem; bottom: 15px; border-width: 3px; }
+            .music-toggle-btn { bottom: 20px; left: 20px; padding: 10px 15px; font-size: 1rem; }
         }
     </style>
 </head>
 <body data-theme="home">
+
+    <audio id="bg-music" src="theme.mp3" loop></audio>
+    <audio id="wanted-sound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3" preload="auto"></audio>
+
+    <button id="music-btn" class="music-toggle-btn" onclick="toggleMusic()">
+        🔇 تشغيل موسيقى المملكة
+    </button>
 
     <header>
         <div class="globe-wrapper">
@@ -189,6 +256,23 @@
         <h1>Hall of Fame</h1>
         <div class="subtitle">المنصة الرسمية لصحيفة الريفيري</div>
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
+
+        <div class="marquee-container">
+            <div class="marquee-title">🏆 أعلى 5 مكافآت بالمملكة 🏆</div>
+            <div class="marquee-track" dir="ltr">
+                <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+                
+                <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">🪙 4,611,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">🪙 4,233,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">🪙 4,000,000,000</span></div></div>
+                <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">🪙 2,500,000,000</span></div></div>
+            </div>
+        </div>
     </header>
 
     <div class="nav-container">
@@ -200,7 +284,6 @@
     </div>
 
     <div class="main-content">
-        
         <div id="home-panel" class="section-panel active">
             <div class="about-card">
                 <h3>عن صحيفة الريفيري</h3>
@@ -209,10 +292,7 @@
                     في خضم أمواج العالم الجديد المتلاطمة، حيث يُولد الأساطير وتندثر الممالك في غياهب النسيان، كان المؤسس «أشورا» يبحر بسفينته متحدياً العواصف واللوغ بوس الرابط بين الأبحر. رأى صعود أباطرة وسقوط نقابات، وشهد على معارك ملحمية غيرت مجرى التاريخ. هناك، وسط رذاذ البحر والمخاطر، أدرك أن التاريخ قد يضيع إذا لم يجد من يحميه، فأخذ عهداً مقدساً على نفسه: أن يوثق كل ما يراه بحياد وقوة، ليكون صوتاً للحقيقة في عالم تملؤه النزاعات. ومن هذا العهد الأسطوري، ولدت الصحيفة لتجمع تحت سقفها أعظم القادة والحكماء.
                 </p>
             </div>
-            <div class="section-header">
-                <h2>الهيكل القيادي للصحيفة</h2>
-                <p>— المؤسسون والقادة العِظام —</p>
-            </div>
+            <div class="section-header"><h2>الهيكل القيادي للصحيفة</h2><p>— المؤسسون والقادة العِظام —</p></div>
             <div class="cards-grid" id="home-box"></div>
             <div class="join-btn-container">
                 <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank" class="whatsapp-link">
@@ -221,37 +301,10 @@
             </div>
         </div>
 
-        <div id="gorosei" class="section-panel">
-            <div class="section-header">
-                <h2>قاعة الحكماء</h2>
-                <p>— للغوروسي —</p>
-            </div>
-            <div class="cards-grid" id="gorosei-box"></div>
-        </div>
-
-        <div id="yonko" class="section-panel">
-            <div class="section-header">
-                <h2>قاعة الأباطرة</h2>
-                <p>— لليونكو —</p>
-            </div>
-            <div class="cards-grid" id="yonko-box"></div>
-        </div>
-
-        <div id="admins" class="section-panel">
-            <div class="section-header">
-                <h2>أعلى الإداريين</h2>
-                <p>— القيادة العليا —</p>
-            </div>
-            <div class="cards-grid" id="admins-box"></div>
-        </div>
-
-        <div id="supernova" class="section-panel">
-            <div class="section-header">
-                <h2>الجيل الأسوأ</h2>
-                <p>— للسوبر نوفا —</p>
-            </div>
-            <div class="cards-grid" id="supernova-box"></div>
-        </div>
+        <div id="gorosei" class="section-panel"><div class="section-header"><h2>قاعة الحكماء</h2><p>— للغوروسي —</p></div><div class="cards-grid" id="gorosei-box"></div></div>
+        <div id="yonko" class="section-panel"><div class="section-header"><h2>قاعة الأباطرة</h2><p>— لليونكو —</p></div><div class="cards-grid" id="yonko-box"></div></div>
+        <div id="admins" class="section-panel"><div class="section-header"><h2>أعلى الإداريين</h2><p>— القيادة العليا —</p></div><div class="cards-grid" id="admins-box"></div></div>
+        <div id="supernova" class="section-panel"><div class="section-header"><h2>الجيل الأسوأ</h2><p>— للسوبر نوفا —</p></div><div class="cards-grid" id="supernova-box"></div></div>
     </div>
 
     <div class="modal-overlay" id="profile-modal" onclick="closeModal(event)">
@@ -259,6 +312,7 @@
             <button class="close-btn" onclick="closeModal(event)">X</button>
             <div class="modal-img">
                 <img id="m-img" src="" alt="صورة الشخصية">
+                <div class="wanted-stamp">DEAD OR ALIVE</div>
             </div>
             <div class="modal-details">
                 <h2 id="m-name">الاسم</h2>
@@ -271,55 +325,42 @@
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
-                return false;
-            }
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) { return false; }
         }
     </script>
 
     <script>
         const fallbackImg = "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&w=600&q=80";
+        const wantedSound = document.getElementById('wanted-sound');
+        const bgMusic = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
 
-        // قاعدة البيانات بأسماء الصور المطابقة للمستودع تماماً
+        // وظيفة تشغيل/إيقاف الموسيقى
+        function toggleMusic() {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicBtn.innerHTML = '🔊 إيقاف الموسيقى';
+                musicBtn.style.borderColor = 'red';
+                musicBtn.style.color = 'red';
+            } else {
+                bgMusic.pause();
+                musicBtn.innerHTML = '🔇 تشغيل موسيقى المملكة';
+                musicBtn.style.borderColor = 'var(--accent-color)';
+                musicBtn.style.color = 'var(--text-main)';
+            }
+        }
+
         const database = {
             home: [
-                {
-                    name: "إيرين", role: "مؤسس الصحيفة", 
-                    fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية, قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.",
-                    img: "eren.jpg"
-                },
-                {
-                    name: "أشورا", role: "مؤسس الصحيفة",
-                    fullInfo: "قائد ومؤسس السلالة الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.",
-                    img: "ashura.jpg" 
-                },
-                {
-                    name: "مايكي", role: "قائد الصحيفة",
-                    fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.",
-                    img: "maiki.jpg" 
-                },
-                {
-                    name: "أودا", role: "نائب الصحيفة",
-                    fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.",
-                    img: "oda.jpg" 
-                },
-                {
-                    name: "ريكا", role: "نائبة الصحيفة",
-                    fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.",
-                    img: "rika.jpg" 
-                }
+                { name: "إيرين", role: "مؤسس الصحيفة", fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية, قاد التأسيس الأول ليكون ركيزة ثابتة تستند عليها المملكة والنقابات كافة.", img: "eren.jpg" },
+                { name: "أشورا", role: "مؤسس الصحيفة", fullInfo: "قائد ومؤسس السلالة الذي أبحر في قيعان ومخاطر العالم الجديد وأخذ عهداً على نفسه بجمع وتوثيق أخبار الممالك بروح المقاتل وهاكي مرعب.", img: "ashura.jpg" },
+                { name: "مايكي", role: "قائد الصحيفة", fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة والضربات القاضية. يدير شؤون النشر ويوجه الأعضاء بحكمة وقوة تفرض احترامها على الجميع.", img: "maiki.jpg" },
+                { name: "أودا", role: "نائب الصحيفة", fullInfo: "النائب الأول والمخطط العبقري لصحيفة الريفيري. يمتاز بقدرة أسطورية على صياغة السيناريوهات والتقارير الإخبارية لتبدو كفصول رواية أسطورية لا تنتهي.", img: "oda.jpg" },
+                { name: "ريكا", role: "نائبة الصحيفة", fullInfo: "نائبة القائد وصاحبة الحضور الخفي والمرعب، تحمي جدران الصحيفة وتدعم الهيكل الإداري بقوة تضمن بقاء الريفيري في الصدارة دائماً.", img: "rika.jpg" }
             ],
             gorosei: [
-                { 
-                    name: "سانت نوسجورو", role: "محارب العدالة المالية", 
-                    fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى. قليل الكلام لكن أفعاله تهز الأسواق.",
-                    img: "gorosei-1.png.JPG" 
-                },
-                { 
-                    name: "سانت ماركوس مارس", role: "محارب العدالة البيئية", 
-                    fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشنر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد والشوائب، محلقاً كطائر أسطوري يحمي سماء المنصة.",
-                    img: "gorosei-2.png.JPG" 
-                }
+                { name: "سانت نوسجورو", role: "محارب العدالة المالية", fullInfo: "يمثل سانت نوسجورو القوة المالية المطلقة في المنصة. يتميز بسيفه القاطع وحكمته الاقتصادية التي تضمن استقرار الموارد وتوجيهها بدقة عالية نحو أهداف الصحيفة الكبرى.", img: "gorosei-1.png.JPG" },
+                { name: "سانت ماركوس مارس", role: "محارب العدالة البيئية", fullInfo: "يحلق فوق الجميع بنظرته الثاقبة. يدير الشؤون البيئية والنشنر الداخلي بقبضة من حديد. يحرص على أن تكون بيئة الصحيفة خالية من الفساد.", img: "gorosei-2.png.JPG" }
             ],
             yonko: [
                 { name: "أشورا ♠️", role: "🪙 4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك قوة مدمرة ونفوذاً لا حدود له في النقابات.", img: "yonko-ashura.png.JPG" },
@@ -376,15 +417,17 @@
 
         function switchSection(sectionId, themeName, event) {
             document.body.setAttribute('data-theme', themeName);
-
             document.querySelectorAll('.section-panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-
             document.getElementById(sectionId).classList.add('active');
             event.currentTarget.classList.add('active');
         }
 
         function openProfile(category, index) {
+            wantedSound.currentTime = 0;
+            wantedSound.volume = 0.6;
+            wantedSound.play().catch(e => console.log("الصوت يحتاج لتفاعل مسبق"));
+
             const data = database[category][index];
             const imgElement = document.getElementById('m-img');
             
@@ -395,7 +438,10 @@
             document.getElementById('m-role').innerText = data.role;
             document.getElementById('m-desc').innerText = data.fullInfo;
             
-            document.getElementById('profile-modal').classList.add('active');
+            const modal = document.getElementById('profile-modal');
+            modal.classList.remove('active');
+            void modal.offsetWidth;
+            modal.classList.add('active');
         }
 
         function closeModal(event) {
