@@ -9,41 +9,18 @@
 
         /* --- نظام الثيمات الديناميكي المتغير --- */
         :root {
-            --bg-color: #04101e;
-            --globe-base: #071f3a;
-            --accent-color: #87ceeb;
-            --glow-color: rgba(135, 206, 235, 0.6);
-            --text-main: #f0f4f8;
-            --card-bg: rgba(13, 31, 54, 0.7);
+            --bg-color: #04101e; --globe-base: #071f3a; --accent-color: #87ceeb;
+            --glow-color: rgba(135, 206, 235, 0.6); --text-main: #f0f4f8; --card-bg: rgba(13, 31, 54, 0.7);
             --transition: all 0.4s ease;
         }
 
-        body[data-theme="gorosei"] {
-            --bg-color: #121212; --globe-base: #1a1a1a; --accent-color: #ffffff;
-            --glow-color: rgba(255, 255, 255, 0.7); --card-bg: rgba(255, 255, 255, 0.05);
-        }
-
-        body[data-theme="yonko"] {
-            --bg-color: #050505; --globe-base: #110303; --accent-color: #ff3333;
-            --glow-color: rgba(255, 0, 0, 0.6); --card-bg: rgba(20, 0, 0, 0.6);
-        }
-
-        body[data-theme="admins"] {
-            --bg-color: #03142e; --globe-base: #072146; --accent-color: #3b82f6;
-            --glow-color: rgba(59, 130, 246, 0.6); --text-main: #ffffff; --card-bg: rgba(7, 33, 70, 0.8);
-        }
-
-        body[data-theme="supernova"] {
-            --bg-color: #0b0213; --globe-base: #1c053a; --accent-color: #a855f7;
-            --glow-color: rgba(168, 85, 247, 0.6); --text-main: #f3e8ff; --card-bg: rgba(25, 5, 50, 0.8);
-        }
+        body[data-theme="gorosei"] { --bg-color: #121212; --globe-base: #1a1a1a; --accent-color: #ffffff; --glow-color: rgba(255, 255, 255, 0.7); --card-bg: rgba(255, 255, 255, 0.05); }
+        body[data-theme="yonko"] { --bg-color: #050505; --globe-base: #110303; --accent-color: #ff3333; --glow-color: rgba(255, 0, 0, 0.6); --card-bg: rgba(20, 0, 0, 0.6); }
+        body[data-theme="admins"] { --bg-color: #03142e; --globe-base: #072146; --accent-color: #3b82f6; --glow-color: rgba(59, 130, 246, 0.6); --text-main: #ffffff; --card-bg: rgba(7, 33, 70, 0.8); }
+        body[data-theme="supernova"] { --bg-color: #0b0213; --globe-base: #1c053a; --accent-color: #a855f7; --glow-color: rgba(168, 85, 247, 0.6); --text-main: #f3e8ff; --card-bg: rgba(25, 5, 50, 0.8); }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; outline: none; }
-
-        body {
-            background-color: var(--bg-color); color: var(--text-main); min-height: 100vh;
-            display: flex; flex-direction: column; overflow-x: hidden; transition: background-color 0.8s ease;
-        }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; transition: background-color 0.8s ease; }
 
         header { text-align: center; padding: 40px 20px 30px 20px; position: relative; border-bottom: 1px solid rgba(135, 206, 235, 0.1); }
         header h1 { color: var(--accent-color); font-size: 3.2rem; font-weight: 900; text-shadow: 0 0 20px var(--glow-color); transition: var(--transition); margin-bottom: 5px; letter-spacing: 1px; }
@@ -59,38 +36,22 @@
 
         /* --- شريط أعلى 5 أعضاء باونتي --- */
         .marquee-wrapper { position: relative; width: 100%; max-width: 900px; margin: 40px auto 10px auto; z-index: 10; }
-        .marquee-container {
-            width: 100%; overflow: hidden; position: relative;
-            background: rgba(0, 0, 0, 0.3); border: 1px solid var(--accent-color); border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5); padding: 12px 0; transition: border-color 0.8s ease;
-        }
+        .marquee-container { width: 100%; overflow: hidden; position: relative; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--accent-color); border-radius: 12px; box-shadow: 0 0 20px rgba(0,0,0,0.5); padding: 12px 0; transition: border-color 0.8s ease; }
         .marquee-container::before, .marquee-container::after { content: ""; position: absolute; top: 0; width: 60px; height: 100%; z-index: 2; }
         .marquee-container::before { right: 0; background: linear-gradient(to left, var(--bg-color), transparent); }
         .marquee-container::after { left: 0; background: linear-gradient(to right, var(--bg-color), transparent); }
-
-        .marquee-title {
-            position: absolute; top: -16px; right: 50%; transform: translateX(50%);
-            background: var(--bg-color); color: gold; padding: 2px 20px; font-weight: bold; font-size: 1rem;
-            border: 1px solid var(--accent-color); border-radius: 20px; z-index: 5; white-space: nowrap;
-        }
-
+        .marquee-title { position: absolute; top: -16px; right: 50%; transform: translateX(50%); background: var(--bg-color); color: gold; padding: 2px 20px; font-weight: bold; font-size: 1rem; border: 1px solid var(--accent-color); border-radius: 20px; z-index: 5; white-space: nowrap; box-shadow: 0 0 10px rgba(0,0,0,0.8); }
         .marquee-track { display: flex; width: max-content; gap: 20px; animation: scrollTicker 25s linear infinite; }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(50%); } }
-
-        .m-item {
-            display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05);
-            padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(255, 215, 0, 0.2);
-        }
+        .m-item { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 5px 12px; border-radius: 30px; border: 1px solid rgba(255, 215, 0, 0.2); cursor: pointer; transition: transform 0.3s;}
+        .m-item:hover { transform: scale(1.05); border-color: gold; background: rgba(255, 215, 0, 0.1); }
         .m-item img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid gold; object-fit: cover; }
         .m-name { color: #fff; font-weight: bold; font-size: 0.85rem; }
         .m-bounty { color: gold; font-family: monospace; font-size: 0.85rem; }
 
         /* --- أزرار التنقل --- */
         .nav-container { display: flex; justify-content: center; gap: 10px; margin: 20px auto; flex-wrap: wrap; padding: 0 10px; }
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color);
-            padding: 10px 20px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: var(--transition);
-        }
+        .nav-btn { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--accent-color); color: var(--accent-color); padding: 10px 20px; font-size: 1rem; font-weight: bold; cursor: pointer; border-radius: 6px; transition: var(--transition); }
         .nav-btn.active { background: var(--accent-color); color: #04101e; box-shadow: 0 0 20px var(--glow-color); }
 
         /* --- المحتوى والبطاقات --- */
@@ -98,84 +59,35 @@
         .section-panel { display: none; }
         .section-panel.active { display: block; animation: fadeInUp 0.6s ease-out forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-
-        .character-card {
-            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
-            overflow: hidden; cursor: pointer; transition: var(--transition); height: 350px;
-            display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+        .character-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; cursor: pointer; transition: var(--transition); height: 350px; display: flex; flex-direction: column; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .character-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-
         .card-img-wrapper { height: 60%; width: 100%; overflow: hidden; background: #000; }
         .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
         .card-info { padding: 15px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .card-info h3 { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 5px; }
-        .card-info p { color: #aaa; font-size: 0.9rem; font-weight: bold; }
+        .card-info h3 { color: var(--accent-color); font-size: 1.2rem; margin-bottom: 5px; font-weight: bold; }
+        .card-info p { color: #aaa; font-size: 0.9rem; font-family: monospace; font-weight: bold; }
 
         /* --- النافذة المنبثقة الأساسية --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center;
-            z-index: 2000; opacity: 0; transition: opacity 0.4s ease; padding: 10px;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 2000; opacity: 0; transition: opacity 0.4s ease; padding: 10px; }
         .modal-overlay.active { opacity: 1; display: flex; }
-
-        .modal-content {
-            background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 40px var(--glow-color);
-            border-radius: 15px; width: 100%; max-width: 850px; max-height: 90vh;
-            display: flex; flex-direction: row; overflow: hidden; transform: scale(0.9);
-            transition: transform 0.4s ease; position: relative;
-        }
+        .modal-content { background: #0d1f36; border: 2px solid var(--accent-color); box-shadow: 0 0 40px var(--glow-color); border-radius: 15px; width: 100%; max-width: 850px; max-height: 90vh; display: flex; flex-direction: row; overflow: hidden; transform: scale(0.9); transition: transform 0.4s ease; position: relative; }
         .modal-overlay.active .modal-content { transform: scale(1); }
-
-        /* تعديل لعرض صورة المطلوبين كاملة بدون قص داخل النافذة */
-        .modal-img { 
-            flex: 1; background: #000; position: relative; 
-            display: flex; align-items: center; justify-content: center;
-        }
-        .modal-img img { 
-            width: 100%; height: 100%; object-fit: contain; /* تم التغيير إلى contain لمنع القص */
-            transition: all 0.3s ease; cursor: zoom-in;
-        }
+        .modal-img { flex: 1; background: #000; position: relative; display: flex; align-items: center; justify-content: center; }
+        .modal-img img { width: 100%; height: 100%; object-fit: contain; transition: all 0.3s ease; cursor: zoom-in; }
         .modal-overlay.active .modal-img img { filter: sepia(0.3) contrast(1.1); }
-
-        .wanted-stamp {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) rotate(-10deg);
-            color: #ff3333; border: 4px solid #ff3333; padding: 5px 15px; font-size: 2rem;
-            font-family: Impact, sans-serif; font-weight: bold; letter-spacing: 2px;
-            opacity: 0.8; pointer-events: none; white-space: nowrap; background: rgba(0,0,0,0.2);
-            z-index: 5;
-        }
-
+        .wanted-stamp { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%) rotate(-10deg); color: #ff3333; border: 4px solid #ff3333; padding: 5px 15px; font-size: 2rem; font-family: Impact, sans-serif; font-weight: bold; letter-spacing: 2px; opacity: 0.8; pointer-events: none; white-space: nowrap; background: rgba(0,0,0,0.2); z-index: 5; }
         .modal-details { flex: 1.2; padding: 30px; display: flex; flex-direction: column; overflow-y: auto; }
         .modal-details h2 { color: var(--accent-color); font-size: 2rem; margin-bottom: 10px; }
-        .role-badge { display: inline-block; background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 20px; align-self: flex-start; }
+        .role-badge { display: inline-block; background: var(--accent-color); color: #000; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-bottom: 20px; align-self: flex-start; font-family: monospace; }
         .modal-details p { color: #ddd; line-height: 1.7; font-size: 1.05rem; }
-
-        .close-btn {
-            position: absolute; top: 15px; left: 15px; background: #ff3333; color: white; border: none;
-            width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 100;
-        }
+        .close-btn { position: absolute; top: 15px; left: 15px; background: #ff3333; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 100; }
 
         /* --- عارض الصور المستقل للشاشة الكاملة --- */
-        #fullscreen-viewer {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center;
-            overflow: auto; /* يسمح بالتمرير إذا كبرت الصورة */
-        }
+        #fullscreen-viewer { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.98); z-index: 9999; justify-content: center; align-items: center; overflow: auto; }
         #fullscreen-viewer.active { display: flex; }
-        #fs-image {
-            max-width: 100%; max-height: 100%; object-fit: contain;
-            cursor: zoom-out; transition: transform 0.3s;
-        }
-        .close-fs {
-            position: fixed; top: 20px; right: 20px; color: white; background: red;
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;
-            align-items: center; font-weight: bold; font-size: 1.2rem; cursor: pointer; z-index: 10000;
-        }
+        #fs-image { max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-out; transition: transform 0.3s; }
+        .close-fs { position: fixed; top: 20px; right: 20px; color: white; background: red; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.2rem; cursor: pointer; z-index: 10000; }
 
         /* --- تحسينات الجوال --- */
         @media (max-width: 768px) {
@@ -189,13 +101,15 @@
             .music-toggle-btn { bottom: 15px; left: 15px; padding: 8px 12px; font-size: 0.9rem; }
         }
 
-        /* زر الموسيقى */
-        .music-toggle-btn {
-            position: fixed; bottom: 25px; left: 25px; background: rgba(13, 31, 54, 0.9);
-            border: 2px solid var(--accent-color); color: #fff; padding: 10px 18px;
-            border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 1500;
-            box-shadow: 0 0 15px var(--glow-color);
-        }
+        .music-toggle-btn { position: fixed; bottom: 25px; left: 25px; background: rgba(13, 31, 54, 0.9); border: 2px solid var(--accent-color); color: #fff; padding: 10px 18px; border-radius: 50px; font-size: 1rem; font-weight: bold; cursor: pointer; z-index: 1500; box-shadow: 0 0 15px var(--glow-color); }
+        
+        /* شاشة التحميل الرائعة */
+        #loader { text-align: center; margin: 60px 0; display: none; }
+        .loader-text { color: var(--accent-color); font-size: 1.3rem; font-weight: bold; text-shadow: 0 0 10px var(--glow-color); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        
+        /* رسالة عدم وجود بيانات */
+        .empty-msg { text-align: center; width: 100%; color: #94a3b8; font-size: 1.2rem; padding: 40px; }
     </style>
 </head>
 <body data-theme="home">
@@ -219,18 +133,10 @@
         <div class="founder">المؤسس: <strong>اشورا</strong> | التصميم: <strong>لابوبو</strong></div>
 
         <div class="marquee-wrapper">
-            <div class="marquee-title">🏆 أعلى 5 مطلوبين مكافأة 🏆</div>
+            <div class="marquee-title">🏆 أعلى مطلوبين مكافأة 🏆</div>
             <div class="marquee-container">
-                <div class="marquee-track" dir="ltr">
-                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">4.6B</span></div></div>
-                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">4.2B</span></div></div>
-                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">4.0B</span></div></div>
-                    <div class="m-item"><img src="yonko-itachi.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">إيتاشي 💠</span><span class="m-bounty">4.0B</span></div></div>
-                    <div class="m-item"><img src="admin-marco.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">ماركو 🛡️</span><span class="m-bounty">2.5B</span></div></div>
-                    <div class="m-item"><img src="yonko-ashura.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أشورا ♠️</span><span class="m-bounty">4.6B</span></div></div>
-                    <div class="m-item"><img src="yonko-oda.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">أودا ♣️</span><span class="m-bounty">4.2B</span></div></div>
-                    <div class="m-item"><img src="yonko-maikey.png.JPG" onerror="this.src=fallbackImg"><div class="m-info"><span class="m-name">مايكي ♣️</span><span class="m-bounty">4.0B</span></div></div>
-                </div>
+                <div class="marquee-track" dir="ltr" id="marquee-track-id">
+                    </div>
             </div>
         </div>
     </header>
@@ -244,16 +150,10 @@
     </div>
 
     <div class="main-content">
+        <div id="loader"><div class="loader-text">يتم الاتصال بقاعدة بيانات الريفيري... ⏳</div></div>
+        
         <div id="home-panel" class="section-panel active">
-            <div class="about-card">
-                <h3>عن صحيفة الريفيري</h3>
-                <p class="definition">"الناقل الأول لأخبار الممالك والنقابات"</p>
-                <p class="novel-story">وثيقة تاريخية تجمع تحت سقفها أعظم القادة والحكماء الذين غيروا مجرى التاريخ الرقمي في عالم النقابات.</p>
-            </div>
             <div class="cards-grid" id="home-box"></div>
-            <div class="join-btn-container">
-                <a href="https://chat.whatsapp.com/KguZwZgEwMw2dyUtOUj3g2?mode=gi_t" target="_blank" class="whatsapp-link">بوابة دخول صحيفة الريفيري 🚪</a>
-            </div>
         </div>
         <div id="gorosei" class="section-panel"><div class="cards-grid" id="gorosei-box"></div></div>
         <div id="yonko" class="section-panel"><div class="cards-grid" id="yonko-box"></div></div>
@@ -271,7 +171,7 @@
             <div class="modal-details">
                 <h2 id="m-name">الاسم</h2>
                 <div class="role-badge" id="m-role">الرتبة</div>
-                <p id="m-desc">جاري تحميل البيانات...</p>
+                <p id="m-desc">جاري التحميل...</p>
             </div>
         </div>
     </div>
@@ -294,69 +194,34 @@
         const bgMusic = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-btn');
 
+        // ==========================================
+        // تم دمج الرابط الخاص بك هنا وتعديله لـ tsv لضمان عدم تأثره بالفواصل
+        const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTyf4DhCzviceR5MjcrvWUwOK_N3fe6lj3QPiY_2C36jOqDC9c2HIynk1U1G41NUkwj7Bb3IB3QvjHU/pub?output=tsv";
+        // ==========================================
+
+        let database = { home: [], gorosei: [], yonko: [], admins: [], supernova: [] };
+
         function toggleMusic() {
             if (bgMusic.paused) { bgMusic.play(); musicBtn.innerHTML = '🔊 إيقاف الموسيقى'; } 
             else { bgMusic.pause(); musicBtn.innerHTML = '🔇 موسيقى المملكة'; }
         }
 
-        // دالة فتح الشاشة الكاملة المستقلة
         function openFullscreen() {
             const fsViewer = document.getElementById('fullscreen-viewer');
-            const fsImg = document.getElementById('fs-image');
-            const currentImg = document.getElementById('m-img').src;
-            
-            fsImg.src = currentImg;
+            document.getElementById('fs-image').src = document.getElementById('m-img').src;
             fsViewer.classList.add('active');
         }
 
-        // دالة إغلاق الشاشة الكاملة
         function closeFullscreen() {
             document.getElementById('fullscreen-viewer').classList.remove('active');
         }
 
-        const database = {
-            home: [
-                { name: "إيرين", role: "مؤسس الصحيفة", fullInfo: "المؤسس الشريك لصحيفة الريفيري. يملك إرادة حديدية لا تنكسر وعزيمة هجومية.", img: "eren.jpg" },
-                { name: "أشورا", role: "مؤسس الصحيفة", fullInfo: "قائد ومؤسس السلالة وصاحب هاكي مرعب في توثيق التاريخ.", img: "ashura.jpg" },
-                { name: "مايكي", role: "قائد الصحيفة", fullInfo: "الزعيم والموجه العام وصاحب الكاريزما المطلقة.", img: "maiki.jpg" },
-                { name: "أودا", role: "نائب الصحيفة", fullInfo: "العقل المدبر والمخطط العبقري لقصص وأخبار الريفيري.", img: "oda.jpg" },
-                { name: "ريكا", role: "نائبة الصحيفة", fullInfo: "ملكة الحماية والدعم الإداري بقوة تضمن صدارة الصحيفة.", img: "rika.jpg" }
-            ],
-            gorosei: [
-                { name: "سانت نوسجورو", role: "محارب المالية", fullInfo: "يمثل القوة المالية المطلقة وحكمة الاقتصاد.", img: "gorosei-1.png.JPG" },
-                { name: "سانت ماركوس مارس", role: "محارب البيئة", fullInfo: "يحلق فوق الجميع بنظرته الثاقبة لحماية بيئة الصحيفة.", img: "gorosei-2.png.JPG" }
-            ],
-            yonko: [
-                { name: "أشورا ♠️", role: "4,611,000,000", fullInfo: "أحد أباطرة البحر المرعبين، يمتلك نفوذاً لا حدود له.", img: "yonko-ashura.png.JPG" },
-                { name: "أودا ♣️", role: "4,233,000,000", fullInfo: "إمبراطور البحر والمدبر الأعظم، يتميز بتخطيطه الاستراتيجي.", img: "yonko-oda.png.JPG" },
-                { name: "مايكي ♣️", role: "4,000,000,000", fullInfo: "إمبراطور البحر صاحب الكاريزما القيادية.", img: "yonko-maikey.png.JPG" },
-                { name: "إيتاشي 💠", role: "4,000,000,000", fullInfo: "العبقري الذي فضل حماية المملكة من الظل.", img: "yonko-itachi.png.JPG" }
-            ],
-            admins: [
-                { name: "ماركو (هيتاشي)", role: "2,500,000,000", fullInfo: "إداري رفيع المستوى، يتولى الدفاع ببراعة.", img: "admin-marco.png.JPG" },
-                { name: "رانبو 🛡️", role: "1,486,000,000", fullInfo: "المحقق الإداري العبقري.", img: "admin-ranpo.png.JPG" },
-                { name: "ايرين ♣️", role: "1,327,000,000", fullInfo: "إداري هجومي صاحب قرارات حاسمة.", img: "admin-eren.png.JPG" },
-                { name: "لولوش ♣️", role: "1,246,000,000", fullInfo: "المخطط الإداري الذي يرى المستقبل.", img: "admin-lelouch.png.JPG" },
-                { name: "ايزن ⚜️", role: "1,179,000,000", fullInfo: "تخطيط بعيد المدى وهدوء مرعب.", img: "admin-aizen.png.JPG" },
-                { name: "كاغويا ⛲️", role: "1,086,000,000", fullInfo: "إدارية تفرض سيطرتها بقوة.", img: "admin-kaguya.png.JPG" },
-                { name: "شيسوي 🔱", role: "1,000,000,000", fullInfo: "إداري وفيّ يعمل كدرع واقٍ.", img: "admin-shisui.png.JPG" }
-            ],
-            supernova: [
-                { name: "ريكا 🛡️", role: "990,000,000", fullInfo: "المركز الأول في السوبر نوفا.", img: "supernova-rika.png.JPG" },
-                { name: "ريم ⛲️", role: "930,000,000", fullInfo: "مرونة عالية وقدرة على التكيف.", img: "supernova-rem.png.JPG" },
-                { name: "ريزي 🛡️", role: "890,000,000", fullInfo: "قوة دفاعية هائلة.", img: "supernova-rizi.png.JPG" },
-                { name: "توكيتو ♣️", role: "850,000,000", fullInfo: "مميت في الأوقات الحرجة.", img: "supernova-tokito.png.JPG" },
-                { name: "رون 🛕", role: "790,000,000", fullInfo: "مهندس التكتيكات الصاعد.", img: "supernova-ron.png.JPG" },
-                { name: "ايزن ♣️", role: "730,000,000", fullInfo: "قراءة تحركات الخصوم.", img: "supernova-aizen.png.JPG" },
-                { name: "شارلوك 🔱", role: "680,000,000", fullInfo: "حل أعقد النزاعات.", img: "supernova-sharlock.png.JPG" },
-                { name: "ميساكي ♠️", role: "610,000,000", fullInfo: "صائدة الفرص.", img: "supernova-misaki.png.JPG" },
-                { name: "سيرينا 🛡️", role: "580,000,000", fullInfo: "درع متين للجيل الجديد.", img: "supernova-serena.png.JPG" },
-                { name: "ماو ماو 🛡️", role: "530,000,000", fullInfo: "خبيرة السموم والتحليلات.", img: "supernova-maomao.png.JPG" }
-            ]
-        };
-
         function renderCards(category, containerId) {
             const container = document.getElementById(containerId);
+            if (!database[category] || database[category].length === 0) {
+                container.innerHTML = `<div class="empty-msg">يتم تحديث بيانات هذا القسم أو أنه لا توجد بيانات حالياً.</div>`;
+                return;
+            }
             container.innerHTML = database[category].map((item, index) => `
                 <div class="character-card" onclick="openProfile('${category}', ${index})">
                     <div class="card-img-wrapper"><img src="${item.img}" onerror="this.src='${fallbackImg}'"></div>
@@ -365,10 +230,19 @@
             `).join('');
         }
 
-        function initWebsite() {
-            renderCards('home', 'home-box'); renderCards('gorosei', 'gorosei-box');
-            renderCards('yonko', 'yonko-box'); renderCards('admins', 'admins-box');
-            renderCards('supernova', 'supernova-box');
+        function buildMarquee() {
+            // سحب شخصيات لعمل شريط الأخبار
+            let marqueeChars = [...(database.yonko || []), ...(database.admins || [])].slice(0, 5);
+            if(marqueeChars.length === 0) return;
+
+            const track = document.getElementById('marquee-track-id');
+            let html = '';
+            for(let i=0; i<3; i++){
+                marqueeChars.forEach(c => {
+                    html += `<div class="m-item" onclick="alert('ملف المطلوب: ${c.name}')"><img src="${c.img}" onerror="this.src='${fallbackImg}'"><div class="m-info"><span class="m-name">${c.name}</span><span class="m-bounty">${c.role}</span></div></div>`;
+                });
+            }
+            track.innerHTML = html;
         }
 
         function switchSection(sectionId, themeName, event) {
@@ -392,20 +266,65 @@
             
             const modal = document.getElementById('profile-modal');
             modal.classList.remove('active');
-            void modal.offsetWidth; // Refresh animation
+            void modal.offsetWidth;
             modal.classList.add('active');
         }
 
         function closeModal(event) { 
-            // إذا كان الضغط على الصورة لتكبيرها لا تغلق النافذة
             if (event && event.target.tagName === 'IMG' && event.target.id === 'm-img') return; 
-            
             if (!event || event.target === document.getElementById('profile-modal') || event.target.classList.contains('close-btn')) {
                 document.getElementById('profile-modal').classList.remove('active');
             }
         }
         
-        window.onload = initWebsite;
+        async function loadDatabase() {
+            const loader = document.getElementById('loader');
+            loader.style.display = 'block';
+            
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1);
+
+                rows.forEach(row => {
+                    if(row.trim() === "") return;
+                    const cols = row.split('\t'); 
+                    if(cols.length >= 5) {
+                        const categoryInput = cols[0].replace(/\r/g, '').trim().toLowerCase();
+                        const name = cols[1].trim();
+                        const role = cols[2].trim();
+                        const fullInfo = cols[3].trim();
+                        const img = cols[4].replace(/\r/g, '').trim();
+
+                        // نظام التعرف الذكي على القسم (عربي أو إنجليزي)
+                        let catKey = 'home';
+                        if(categoryInput.includes('home') || categoryInput.includes('رئيسية')) catKey = 'home';
+                        else if(categoryInput.includes('gorosei') || categoryInput.includes('حكماء')) catKey = 'gorosei';
+                        else if(categoryInput.includes('yonko') || categoryInput.includes('اباطرة') || categoryInput.includes('أباطرة')) catKey = 'yonko';
+                        else if(categoryInput.includes('admin') || categoryInput.includes('اداري') || categoryInput.includes('إداري')) catKey = 'admins';
+                        else if(categoryInput.includes('supernova') || categoryInput.includes('سوبر')) catKey = 'supernova';
+
+                        if(database[catKey]) {
+                            database[catKey].push({ name, role, fullInfo, img });
+                        }
+                    }
+                });
+
+                loader.style.display = 'none';
+                renderCards('home', 'home-box');
+                renderCards('gorosei', 'gorosei-box');
+                renderCards('yonko', 'yonko-box');
+                renderCards('admins', 'admins-box');
+                renderCards('supernova', 'supernova-box');
+                buildMarquee();
+
+            } catch (error) {
+                console.error("حدث خطأ أثناء جلب البيانات:", error);
+                loader.innerHTML = `<div class="empty-msg">فشل الاتصال بقاعدة البيانات. يرجى التأكد من رابط جوجل شيت.</div>`;
+            }
+        }
+
+        window.onload = loadDatabase;
     </script>
 </body>
 </html>
